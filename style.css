@@ -36,7 +36,7 @@ header {
 }
 
 .logo {
-  max-width: 200px; /* Ajusta la altura máxima del logo */
+  max-width: 100px; /* Ajusta la altura máxima del logo */
   height: auto;   /* Mantiene las proporciones del logo */
 }
 
