@@ -122,10 +122,11 @@ header {
 }
 .service-image-large {
   width: 100%;
-  max-width: 350px;
+  max-width: 250px;
   height: auto;
   display: block;
   margin: 0 auto 1rem;
+  boder-radius:8px;
 }
 
 .service-item {
