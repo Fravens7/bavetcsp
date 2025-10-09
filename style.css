@@ -40,20 +40,29 @@ header {
   height: auto;   /* Mantiene las proporciones del logo */
 }
 
-/* Ajustamos el tamaño del logo */
+header {
+  background-color: white; /* Fondo blanco para todo el header */
+  color: #333; /* Color del texto del header en gris oscuro */
+  padding: 10px 0;  /* Reducción del padding para el header */
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;  /* Espaciado para que el logo no quede pegado a los bordes */
+}
+
 header img {
-  max-width: 150px;  /* Cambia esto para ajustarlo a tu preferencia */
+  max-width: 150px;  /* Ajusta el tamaño del logo */
   height: auto;
   display: block;
   margin: 0;
 }
 
-/* Aseguramos que el header tenga un tamaño adecuado */
-header {
-  background-color: #004466;
-  color: white;
-  padding: 10px 0;  /* Reducción del padding */
-  height: auto;
+/* Agregar un borde en caso que el fondo no se mezcle bien */
+.nav-container {
+  border-bottom: 2px solid #e1e1e1;  /* Borde sutil debajo del header */
 }
 
 
