@@ -128,12 +128,19 @@ header img {
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
-/* Clients Section */
+
+
+
+
+
+/* Clientes */
 .clients {
   padding: 60px 20px;
   background-color: #f7f9fc;
   text-align: center;
 }
+
+
 
 .clients h2 {
   margin-bottom: 30px;
@@ -145,20 +152,33 @@ header img {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 50px;
+  animation: moveTrain 10s infinite linear;  /* Animación del tren */
 }
 
 .client-logo {
-  width: 120px;
+  width: 180px;
   height: auto;
-  max-width: 150px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  max-width: 250px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  object-fit: contain;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .client-logo:hover {
-  transform: scale(1.05);
+  transform: translateX(20px); /* Efecto de movimiento en el eje X */
+  filter: brightness(1.2); /* Efecto de brillo al hacer hover */
 }
+
+@keyframes moveTrain {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 
 
 /* Services */
