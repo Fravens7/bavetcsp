@@ -10,14 +10,6 @@ body {
   background-color: #f7f9fc;
   color: #333;
 }
-.hero-image img {
-  width: 100%;
-  max-width: 500px; /* Ajusta este valor según lo que se vea bien */
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
 
 a {
   text-decoration: none;
