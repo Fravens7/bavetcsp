@@ -36,9 +36,8 @@ header {
 }
 
 .logo {
-  max-height: 50px; /* Ajusta la altura máxima del logo */
-  width: auto;      /* Mantiene las proporciones del logo */
-  object-fit: contain; /* Asegura que la imagen se ajuste sin distorsionarse */
+  max-width: 200px; /* Ajusta la altura máxima del logo */
+  height: auto;   /* Mantiene las proporciones del logo */
 }
 
 .nav-links {
