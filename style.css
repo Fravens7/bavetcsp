@@ -128,6 +128,15 @@ header {
   margin: 0 auto 1rem;
   boder-radius:8px;
 }
+.service-image-tall {
+  width: 100%;
+  max-width: 250px;
+  height: 200px; /* Aumenta esta si quieres más altura */
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 1rem;
+  border-radius: 8px;
+}
 
 .service-item {
   flex: 1 1 250px;
