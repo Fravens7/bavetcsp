@@ -25,8 +25,8 @@ a {
 /* Header */
 header {
   background-color: white;
-  color: white;
-  padding: 20px 0;
+  color: #333;
+  padding: 10px 0;
 }
 
 .nav-container {
@@ -73,7 +73,7 @@ header img {
 }
 
 .nav-links a {
-  color: white;
+  color: #191e32;
   font-weight: 500;
   transition: color 0.3s;
 }
