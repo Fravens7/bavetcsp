@@ -120,6 +120,13 @@ header {
   flex-wrap: wrap;
   justify-content: center;
 }
+.service-image-large {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  display: block;
+  margin: 0 auto 1rem;
+}
 
 .service-item {
   flex: 1 1 250px;
