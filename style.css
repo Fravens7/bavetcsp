@@ -268,13 +268,4 @@ footer p a:hover {
   .testimonial-grid {
     flex-direction: column;
     align-items: center;
-  }
-  .large-service-image {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  display: block;
-  margin: 0 auto 1rem;
-}
-
 }
