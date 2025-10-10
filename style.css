@@ -217,19 +217,51 @@ header img {
 .careers {
   background-color: #ffffff;
   padding: 60px 20px;
-  text-align: center;
 }
 
-.careers h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+.careers h2, .careers h3, .careers h4 {
   color: #191e32;
+  margin-bottom: 15px;
 }
 
-.careers p {
-  font-size: 1.1rem;
-  color: #555;
+.job-posting {
+  background: #f7f9fc;
+  border-left: 4px solid #0077b6;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
+
+.job-posting ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.job-posting a.btn {
+  background: #0077b6;
+  color: white;
+  padding: 10px 20px;
+  display: inline-block;
+  margin-top: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.job-posting a.btn:hover {
+  background: #005f87;
+}
+
+.why-us, .open-cv {
+  margin-top: 40px;
+}
+
+.why-us ul {
+  margin-left: 20px;
+  list-style-type: disc;
+}
+
 
 
 
