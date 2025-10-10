@@ -214,6 +214,25 @@ header img {
 }
 
 
+.careers {
+  background-color: #ffffff;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.careers h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #191e32;
+}
+
+.careers p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+
+
 
 
 /* Services */
