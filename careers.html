@@ -5,6 +5,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Careers - Bavet Call Center</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .careers-header {
+      background-color: #0077b6;
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .careers-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .careers-header p {
+      font-size: 1.2rem;
+      color: #cce7f6;
+    }
+
+    .job-listings {
+      padding: 40px 20px;
+      display: grid;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .job-card {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease;
+    }
+
+    .job-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .job-card h3 {
+      margin-bottom: 10px;
+      color: #023e8a;
+    }
+
+    .job-card p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+    }
+
+    .job-card ul {
+      margin-top: 10px;
+      margin-left: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #0077b6;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #001f54;
+    }
+
+    .why-us {
+      background-color: #f7f9fc;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .why-us h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #191e32;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .why-item {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .why-item h4 {
+      color: #0077b6;
+      margin-bottom: 10px;
+    }
+
+    .apply-section {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .apply-section p {
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 600px) {
+      .careers-header h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -22,96 +137,111 @@
     </div>
   </header>
 
-  <main class="container" style="padding: 40px 20px;">
+  <section class="careers-header">
     <h1>🌐 Careers at Bavet Call Center</h1>
-    <p>💡 Join a team that’s building the future of technology in Cambodia.</p>
+    <p>Join a team that’s building the future of technology in Cambodia.</p>
+  </section>
 
-    <h2>🔍 Open Positions</h2>
-
-    <section>
+  <main class="job-listings">
+    <!-- Job 1 -->
+    <div class="job-card">
       <h3>🖥️ IT Support Technician</h3>
       <p><strong>Location:</strong> Phnom Penh</p>
       <p><strong>Department:</strong> Technical Support</p>
       <p><strong>Type:</strong> Full-time</p>
-      <p><strong>Description:</strong> We are looking for a proactive IT Support Technician to assist end-users with hardware, software, and network troubleshooting. You’ll be the first line of support ensuring smooth daily operations.</p>
+      <p><strong>Description:</strong> We are looking for a proactive IT Support Technician to assist end-users with hardware, software, and network troubleshooting.</p>
       <h4>Key Responsibilities:</h4>
       <ul>
         <li>Provide technical assistance to staff</li>
-        <li>Troubleshoot desktops, printers, and office networks</li>
+        <li>Troubleshoot desktops, printers, and networks</li>
         <li>Maintain inventory of IT equipment</li>
       </ul>
       <h4>Requirements:</h4>
       <ul>
         <li>1+ year of experience in IT support</li>
-        <li>Basic knowledge of Windows OS and networks</li>
+        <li>Knowledge of Windows OS and networks</li>
         <li>Good communication skills</li>
       </ul>
-      <p><a href="#" class="btn">Apply Now</a></p>
-    </section>
+      <a href="#" class="btn">Apply Now</a>
+    </div>
 
-    <section>
+    <!-- Job 2 -->
+    <div class="job-card">
       <h3>☁️ Cloud Infrastructure Engineer</h3>
       <p><strong>Location:</strong> Phnom Penh</p>
       <p><strong>Department:</strong> Infrastructure & Cloud</p>
       <p><strong>Type:</strong> Full-time</p>
-      <p><strong>Description:</strong> As a Cloud Infrastructure Engineer, you’ll design, deploy, and manage scalable cloud environments. You will work closely with our DevOps and security teams to ensure high availability and security.</p>
+      <p><strong>Description:</strong> Design, deploy, and manage scalable cloud environments. Collaborate with DevOps and security teams to ensure high availability.</p>
       <h4>Key Responsibilities:</h4>
       <ul>
-        <li>Deploy and monitor virtual servers and storage</li>
-        <li>Implement disaster recovery and backup solutions</li>
-        <li>Collaborate with cloud vendors</li>
+        <li>Deploy and monitor virtual servers</li>
+        <li>Implement disaster recovery solutions</li>
+        <li>Work with cloud vendors</li>
       </ul>
       <h4>Requirements:</h4>
       <ul>
         <li>Experience with AWS, Azure or GCP</li>
-        <li>Strong Linux server administration skills</li>
+        <li>Linux server administration skills</li>
         <li>Understanding of networking and virtualization</li>
       </ul>
-      <p><a href="#" class="btn">Apply Now</a></p>
-    </section>
+      <a href="#" class="btn">Apply Now</a>
+    </div>
 
-    <section>
+    <!-- Job 3 -->
+    <div class="job-card">
       <h3>🔄 DevOps Engineer</h3>
       <p><strong>Location:</strong> Phnom Penh</p>
       <p><strong>Department:</strong> DevOps & Automation</p>
       <p><strong>Type:</strong> Full-time</p>
-      <p><strong>Description:</strong> We’re looking for a DevOps Engineer to automate our development workflows and maintain CI/CD pipelines. If you enjoy optimizing deployment processes and working with cloud tools, this is for you.</p>
+      <p><strong>Description:</strong> Automate workflows and maintain CI/CD pipelines. Optimize deployments and work with cloud tools.</p>
       <h4>Key Responsibilities:</h4>
       <ul>
         <li>Build and maintain CI/CD pipelines</li>
         <li>Automate infrastructure provisioning</li>
-        <li>Monitor and troubleshoot production environments</li>
+        <li>Troubleshoot production environments</li>
       </ul>
       <h4>Requirements:</h4>
       <ul>
-        <li>Experience with GitLab CI, Jenkins, or similar</li>
-        <li>Scripting skills (Bash, Python, etc.)</li>
+        <li>Experience with GitLab CI, Jenkins</li>
+        <li>Knowledge of Bash, Python</li>
         <li>Familiar with Docker and Kubernetes</li>
       </ul>
-      <p><a href="#" class="btn">Apply Now</a></p>
-    </section>
-
-    <section>
-      <h2>✨ Why Work With Us?</h2>
-      <ul>
-        <li>Competitive salary and benefits</li>
-        <li>Learning and development opportunities</li>
-        <li>Flexible work culture</li>
-        <li>Work on impactful projects with real-world applications</li>
-      </ul>
-    </section>
-
-    <section>
-      <p>📩 Didn’t find the right role? Send us your CV at <a href="mailto:careers@bavet.com">careers@bavet.com</a> – we’re always looking for talented individuals!</p>
-    </section>
+      <a href="#" class="btn">Apply Now</a>
+    </div>
   </main>
 
+  <section class="why-us">
+    <h2>✨ Why Work With Us?</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <h4>💰 Competitive Salary</h4>
+        <p>We offer fair, performance-based compensation.</p>
+      </div>
+      <div class="why-item">
+        <h4>🎓 Growth Opportunities</h4>
+        <p>Learn and grow with training and real projects.</p>
+      </div>
+      <div class="why-item">
+        <h4>🌴 Work-Life Balance</h4>
+        <p>Enjoy a flexible and healthy work culture.</p>
+      </div>
+      <div class="why-item">
+        <h4>🚀 Meaningful Work</h4>
+        <p>Build tools and systems used across the country.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="apply-section">
+    <p>📩 Didn’t find the right role? Send your CV to <a href="mailto:careers@bavet.com">careers@bavet.com</a> – we’re always looking for talented individuals!</p>
+  </section>
+
   <footer>
-    <div class="container" style="text-align:center; padding:20px 0;">
+    <div class="container">
       <p>&copy; 2025 Bavet Call Center. All rights reserved.</p>
       <p>Follow us: 
-        <a href="#" aria-label="Facebook">Facebook</a> | 
-        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        <a href="#">Facebook</a> | 
+        <a href="#">LinkedIn</a>
       </p>
     </div>
   </footer>
