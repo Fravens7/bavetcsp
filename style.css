@@ -494,11 +494,13 @@ header img {
 
 
 /* Clientes */
+/* Clientes */
 .clients {
   padding: 60px 20px;
   background-color: #f7f9fc;
   text-align: center;
-  overflow: hidden;  /* Asegura que no se vea el desbordamiento */
+  overflow: hidden;
+  position: relative;
 }
 
 .clients h2 {
@@ -510,7 +512,11 @@ header img {
 .client-logos {
   display: flex;
   gap: 50px;
-  animation: moveTrain 10s infinite linear; /* Animación de movimiento continuo */
+  width: calc(100% + 50px); /* Ancho suficiente para mostrar 2 logos a la vez */
+  overflow: hidden;
+  position: relative;
+  left: -50px; /* Comienza desde la mitad de la primera imagen */
+  animation: moveTrain 25s linear infinite;
 }
 
 .client-logo {
@@ -520,59 +526,55 @@ header img {
   transition: transform 0.3s ease, filter 0.3s ease;
   object-fit: contain;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;  /* Evita que los logos se encojan */
+  flex-shrink: 0;
 }
 
 .client-logo:hover {
-  transform: translateX(20px); /* Efecto de movimiento */
-  filter: brightness(1.2); /* Efecto de brillo */
+  transform: translateX(20px);
+  filter: brightness(1.2);
 }
 
-/* Animación de los logos moviéndose de un lado a otro */
-@keyframes moveTrain {
-  0% {
-    transform: translateX(0); /* Inicia en la posición original */
-  }
-  100% {
-    transform: translateX(-100%); /* Mueve los logos completamente a la izquierda */
-  }
-}
-
-/* Para asegurarnos que los logos se repiten sin saltos, aplicamos un contenedor duplicado */
-.clients .client-logos {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 50px;
-  animation: moveTrain 10s infinite linear;
-}
-
-.clients .client-logos img {
-  flex-shrink: 0;  /* Asegura que las imágenes no se compriman */
-}
-
-/* Duplicar los logos sin romper la animación (crear una fila continua) */
-.clients .client-logos {
-  display: flex;
-  gap: 50px;
-  animation: moveTrain 10s linear infinite;
-  will-change: transform;
-}
-
-.clients .client-logos img {
-  width: 180px;
-  height: auto;
-  max-width: 250px;
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-
+/* Animación mejorada del tren */
 @keyframes moveTrain {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);  /* Mueve la lista de logos completamente hacia la izquierda */
+    transform: translateX(-50%); /* Solo se mueve la mitad del ancho total */
   }
 }
+
+/* Efecto de brillo al pasar el ratón */
+.client-logo:hover {
+  transform: translateX(20px);
+  filter: brightness(1.2);
+  box-shadow: 0 0 15px rgba(0, 162, 255, 0.3);
+}
+
+/* Efecto de brillo sutil en el centro */
+.client-logo:nth-child(4),
+.client-logo:nth-child(5),
+.client-logo:nth-child(6) {
+  filter: brightness(1.1);
+  box-shadow: 0 0 8px rgba(0, 162, 255, 0.2);
+}
+
+/* Añadir un sutil efecto de parpadeo */
+.client-logo {
+  animation: subtle-pulse 4s infinite ease-in-out;
+}
+
+@keyframes subtle-pulse {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+
+
 
 
 .careers {
