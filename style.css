@@ -83,28 +83,63 @@ header img {
 
 /* Hero */
 /* Hero */
+/* Hero */
 .hero {
   background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f172a 100%);
   color: white;
   padding: 80px 20px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px; /* Altura mínima para mantener el espacio */
 }
 
 .hero-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  justify-content: flex-start; /* Cambiado a flex-start */
+  justify-content: center;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+}
+
+.shield-container {
+  position: relative;
+  width: 320px;
+  height: 370px;
+  margin-bottom: 30px; /* Espacio entre el escudo y el texto */
 }
 
 .hero-text {
-  flex: 1 1 400px;
-  text-align: left; /* Cambiado a text-align: left */
-  order: 2; /* El texto aparece después del escudo en móvil */
+  max-width: 600px;
 }
 
+.hero-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.hero .btn {
+  padding: 12px 25px;
+  background: #023e8a;
+  border-radius: 5px;
+  color: white;
+  display: inline-block;
+  transition: background 0.3s;
+}
+
+.hero .btn:hover {
+  background: #001f54;
+}
 
 
 
@@ -243,6 +278,7 @@ header img {
 }
 
 /* Orbital paths ajustados para mantener los cometas en la parte inferior */
+/* Orbital paths ajustados para orbitar alrededor del centro */
 .orbit-1 {
   animation: orbit1 30s infinite linear;
 }
@@ -263,30 +299,30 @@ header img {
   animation: orbit5 50s infinite linear;
 }
 
-/* Animaciones orbitales corregidas */
+/* Animaciones orbitales centradas */
 @keyframes orbit1 {
-  0% { transform: rotate(180deg) translateX(250px) rotate(-180deg); }
-  100% { transform: rotate(540deg) translateX(250px) rotate(-540deg); }
+  0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
 }
 
 @keyframes orbit2 {
-  0% { transform: rotate(252deg) translateX(280px) rotate(-252deg); }
-  100% { transform: rotate(612deg) translateX(280px) rotate(-612deg); }
+  0% { transform: rotate(72deg) translateX(230px) rotate(-72deg); }
+  100% { transform: rotate(432deg) translateX(230px) rotate(-432deg); }
 }
 
 @keyframes orbit3 {
-  0% { transform: rotate(324deg) translateX(310px) rotate(-324deg); }
-  100% { transform: rotate(684deg) translateX(310px) rotate(-684deg); }
+  0% { transform: rotate(144deg) translateX(260px) rotate(-144deg); }
+  100% { transform: rotate(504deg) translateX(260px) rotate(-504deg); }
 }
 
 @keyframes orbit4 {
-  0% { transform: rotate(396deg) translateX(340px) rotate(-396deg); }
-  100% { transform: rotate(756deg) translateX(340px) rotate(-756deg); }
+  0% { transform: rotate(216deg) translateX(290px) rotate(-216deg); }
+  100% { transform: rotate(576deg) translateX(290px) rotate(-576deg); }
 }
 
 @keyframes orbit5 {
-  0% { transform: rotate(468deg) translateX(370px) rotate(-468deg); }
-  100% { transform: rotate(828deg) translateX(370px) rotate(-828deg); }
+  0% { transform: rotate(288deg) translateX(320px) rotate(-288deg); }
+  100% { transform: rotate(648deg) translateX(320px) rotate(-648deg); }
 }
 
 
