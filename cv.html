@@ -77,24 +77,33 @@
     </div>
   </footer>
 
+
+  
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
+      // Buscamos todos los elementos que necesitamos al principio
       const form = document.getElementById('cv-form');
       const fileInput = document.getElementById('cv-upload');
+      const submitButton = document.querySelector('.btn-submit'); // Búsqueda más robusta
 
-      // Constantes con la información de Bytescale
+      // Constantes con la información de Bytescale y Google
       const bytescaleUrl = 'https://api.bytescale.com/v2/accounts/kW2K8bf/uploads/binary';
       const apiKey = 'public_kW2K8bf95BSuECoViJYFN3ng2pLU';
+      const googleScriptUrl = 'https://script.google.com/macros/s/AKfycby3lxCAJqcaHwbwxiiDKqM243zih9N6nftT_6F-Tu3YzlGCI5jD-g2si73-iOLD0RnpzA/exec';
 
-      // --- AQUÍ ESTÁ TU URL DE GOOGLE SCRIPT ---
-      const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbyFjzI520oOTPDTkqp4KRh67k6vnmkZaMgk3RuiQyeJgLiqqIihk-v5fQPNfscrxVSgfg/exec';
+      // --- VERIFICACIÓN DE SEGURIDAD ---
+      // Si alguno de los elementos no se encontró, mostramos un error y detenemos todo.
+      if (!form || !fileInput || !submitButton) {
+        console.error("Error: No se encontraron elementos clave del formulario. Revisa el HTML.");
+        alert("Hubo un error al cargar la página. Por favor, recarga.");
+        return;
+      }
 
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         const file = fileInput.files[0];
-        const submitButton = form.querySelector('.btn-submit'); // Seleccionamos el botón
 
         if (!file) {
           alert('Please select a PDF file.');
@@ -106,7 +115,7 @@
           return;
         }
 
-        // --- MEJORA: Cambiamos el estado del botón mientras se procesa ---
+        // --- Cambiamos el estado del botón ---
         submitButton.disabled = true;
         submitButton.textContent = 'Enviando...';
 
@@ -128,11 +137,10 @@
           const result = await response.json();
 
           if (result.fileUrl) {
-            // 2. Preparamos los datos de una forma diferente (como un formulario web)
+            // 2. Preparamos y enviamos la URL a Google Sheets
             const params = new URLSearchParams();
             params.append('cvUrl', result.fileUrl);
 
-            // 3. Enviamos los datos a Google Sheets con el nuevo formato
             const googleResponse = await fetch(googleScriptUrl, {
               method: 'POST',
               headers: {
@@ -149,7 +157,7 @@
               formContainer.classList.add('hidden');
               successContainer.classList.remove('hidden');
               
-              form.reset(); // Limpiamos el formulario por si acaso
+              form.reset();
 
             } else {
               throw new Error('Error sending data to Google Sheets.');
@@ -163,7 +171,7 @@
           console.error('Error in the process:', error);
           alert('An error occurred. Please try again.');
         } finally {
-          // Devolvemos el botón a su estado original
+          // --- Devolvemos el botón a su estado original ---
           submitButton.disabled = false;
           submitButton.textContent = 'Enviar';
         }
@@ -171,5 +179,8 @@
 
     });
   </script>
+
+
+  
 </body>
 </html>
