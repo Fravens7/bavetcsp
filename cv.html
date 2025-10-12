@@ -35,7 +35,6 @@
       <h1>Submit Your CV</h1>
       <p>Please upload your CV in PDF format to apply for any of our open positions.</p>
       
-      <!-- Formulario simple -->
       <form id="cv-form" class="cv-form">
         <div class="form-group">
           <label for="cv-upload">Choose your CV file:</label>
@@ -53,11 +52,7 @@
     </div>
   </footer>
 
-
-  <!-- ... tu footer y demás contenido ... -->
-
   <script>
-    // Esperamos a que todo el contenido de la página se cargue
     document.addEventListener('DOMContentLoaded', () => {
 
       const form = document.getElementById('cv-form');
@@ -67,38 +62,34 @@
       const bytescaleUrl = 'https://api.bytescale.com/v2/accounts/kW2K8bf/uploads/binary';
       const apiKey = 'public_kW2K8bf95BSuECoViJYFN3ng2pLU';
 
-      // Escuchamos el evento de envío del formulario
+      // --- AQUÍ ESTÁ TU URL DE GOOGLE SCRIPT ---
+      const googleScriptUrl = 'https://script.google.com/a/macros/casinomcw.com/s/AKfycbyYBYK44a77Z_YqC0k8ylpox9b_4LNqYnmUidJMnLFk-yKm3nPsiJQ9zm6VI9YEbBNbSQ/exec';
+
       form.addEventListener('submit', async (event) => {
-        // 1. Prevenimos que el formulario se envíe de la forma tradicional (que recarga la página)
         event.preventDefault();
 
         const file = fileInput.files[0];
 
-        // 2. Validamos que se haya seleccionado un archivo
         if (!file) {
           alert('Please select a PDF file.');
           return;
         }
 
-        // 3. Validamos que el archivo sea un PDF
         if (file.type !== 'application/pdf') {
           alert('The file format is not valid. Please upload a PDF file.');
           return;
         }
 
-        // 4. Creamos las opciones para la petición a Bytescale
-        const options = {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': file.type // Usamos el tipo MIME del archivo (application/pdf)
-          },
-          body: file // El cuerpo de la petición es el archivo en sí mismo
-        };
-
         try {
-          // 5. Hacemos la petición para subir el archivo
-          const response = await fetch(bytescaleUrl, options);
+          // 1. Subimos el archivo a Bytescale
+          const response = await fetch(bytescaleUrl, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${apiKey}`,
+              'Content-Type': file.type
+            },
+            body: file
+          });
           
           if (!response.ok) {
             throw new Error(`Upload error: ${response.statusText}`);
@@ -106,34 +97,41 @@
 
           const result = await response.json();
 
-          // 6. Si todo va bien, mostramos un mensaje de éxito
           if (result.fileUrl) {
-            alert('CV uploaded successfully!');
+            alert('CV uploaded successfully! Sending to database...');
             console.log('File uploaded successfully. URL:', result.fileUrl);
             
-            // AQUÍ VENDRÁ EL CÓDIGO PARA ENVIAR LA URL A GOOGLE SHEETS
-            // Por ahora, solo lo mostramos en la consola.
+            // 2. Preparamos y enviamos la URL a Google Sheets
+            const dataToSend = {
+              cvUrl: result.fileUrl
+            };
 
-            // Opcional: Limpiamos el formulario
-            form.reset();
+            const googleResponse = await fetch(googleScriptUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(dataToSend)
+            });
+
+            if (googleResponse.ok) {
+              alert('Application received successfully!');
+              form.reset();
+            } else {
+              throw new Error('Error sending data to Google Sheets.');
+            }
 
           } else {
             throw new Error('File URL not received.');
           }
 
         } catch (error) {
-          // 7. Si hay un error, lo mostramos
-          console.error('Error uploading file:', error);
-          alert('An error occurred while uploading the file. Please try again..');
+          console.error('Error in the process:', error);
+          alert('An error occurred. Please try again.');
         }
       });
 
     });
   </script>
-</body>
-</html>
-
-
-  
 </body>
 </html>
