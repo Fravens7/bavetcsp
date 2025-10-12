@@ -73,29 +73,24 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-      alert("DEBUG: El script se ha cargado.");
-
       const form = document.getElementById('cv-form');
       const fileInput = document.getElementById('cv-upload');
       const submitButton = document.querySelector('.btn-submit');
 
-      alert("DEBUG: Elementos encontrados. Form: " + !!form + ", Input: " + !!fileInput + ", Button: " + !!submitButton);
-
       const bytescaleUrl = 'https://api.bytescale.com/v2/accounts/kW2K8bf/uploads/binary';
       const apiKey = 'public_kW2K8bf95BSuECoViJYFN3ng2pLU';
-      const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbwahWaOwX4xXqtxHLPZl_giaYZgsaBcVI-75UBCMVR2wWNN6479g4HgKf5x8ljgex6WTA/exec';
+      const googleScriptUrl = 'https://script.google.com/macros/s/AKfycby3lxCAJqcaHwbwxiiDKqM243zih9N6nftT_6F-Tu3YzlGCI5jD-g2si73-iOLD0RnpzA/exec';
 
       if (!form || !fileInput || !submitButton) {
-        alert("DEBUG ERROR: No se encontraron elementos clave del formulario.");
+        console.error("Error: No se encontraron elementos clave del formulario. Revisa el HTML.");
+        alert("Hubo un error al cargar la página. Por favor, recarga.");
         return;
       }
 
       form.addEventListener('submit', async (event) => {
-        alert("DEBUG: ¡Se hizo clic en Enviar! Iniciando proceso.");
         event.preventDefault();
 
         const file = fileInput.files[0];
-        alert("DEBUG: Archivo seleccionado: " + file.name);
 
         if (!file) {
           alert('Please select a PDF file.');
@@ -107,12 +102,10 @@
           return;
         }
 
-        alert("DEBUG: Validaciones pasadas. Desactivando botón.");
         submitButton.disabled = true;
         submitButton.textContent = 'Enviando...';
 
         try {
-          alert("DEBUG: Intentando subir a Bytescale...");
           const response = await fetch(bytescaleUrl, {
             method: 'POST',
             headers: {
@@ -122,17 +115,13 @@
             body: file
           });
           
-          alert("DEBUG: Respuesta de Bytescale recibida. Status: " + response.status);
-          
           if (!response.ok) {
             throw new Error(`Upload error: ${response.statusText}`);
           }
 
           const result = await response.json();
-          alert("DEBUG: Respuesta de Bytescale es JSON. URL: " + result.fileUrl);
 
           if (result.fileUrl) {
-            alert("DEBUG: Preparando para enviar a Google Sheets.");
             const params = new URLSearchParams();
             params.append('cvUrl', result.fileUrl);
 
@@ -144,20 +133,13 @@
               body: params.toString()
             });
 
-            alert("DEBUG: Respuesta de Google Sheets recibida. Status: " + googleResponse.status);
-
             if (googleResponse.ok) {
-              alert("DEBUG: ¡ÉXITO TOTAL! Ocultando formulario y mostrando éxito.");
               const formContainer = document.getElementById('cv-form-container');
               const successContainer = document.getElementById('success-container');
               
-              if (formContainer && successContainer) {
-                formContainer.classList.add('hidden');
-                successContainer.classList.remove('hidden');
-                form.reset();
-              } else {
-                alert("DEBUG ERROR: No se encontraron los contenedores de éxito.");
-              }
+              formContainer.classList.add('hidden');
+              successContainer.classList.remove('hidden');
+              form.reset();
 
             } else {
               throw new Error('Error sending data to Google Sheets.');
@@ -168,10 +150,9 @@
           }
 
         } catch (error) {
-          alert("DEBUG ERROR: Ha ocurrido un error en el bloque try/catch. Error: " + error.message);
           console.error('Error in the process:', error);
+          alert('An error occurred. Please try again.');
         } finally {
-          alert("DEBUG: Bloque finally. Devolviendo botón a la normalidad.");
           submitButton.disabled = false;
           submitButton.textContent = 'Enviar';
         }
