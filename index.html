@@ -254,11 +254,11 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const comets = document.querySelectorAll('.comet');
+  const heroSection = document.querySelector('.hero');
   
   // Función para verificar si un cometa está en la parte inferior
   function checkCometPosition(comet) {
     const rect = comet.getBoundingClientRect();
-    const heroSection = document.querySelector('.hero');
     const heroRect = heroSection.getBoundingClientRect();
     
     // Mostrar etiqueta solo si el cometa está en la mitad inferior de la sección
