@@ -512,11 +512,12 @@ header img {
 .client-logos {
   display: flex;
   gap: 50px;
-  width: calc(100% + 50px); /* Ancho suficiente para mostrar 2 logos a la vez */
+  width: calc(100% + 50px); /* Ancho exacto para 2 logos */
   overflow: hidden;
   position: relative;
-  left: -50px; /* Comienza desde la mitad de la primera imagen */
-  animation: moveTrain 25s linear infinite;
+  left: -50px; /* Comienza desde el centro */
+  animation: moveTrain 20s linear infinite;
+  will-change: transform; /* Optimización para navegadores */
 }
 
 .client-logo {
