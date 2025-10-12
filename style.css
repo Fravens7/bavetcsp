@@ -96,13 +96,18 @@ header img {
   align-items: center;
   gap: 40px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start; /* Cambiado a flex-start */
 }
 
 .hero-text {
   flex: 1 1 400px;
-  text-align: center;
+  text-align: left; /* Cambiado a text-align: left */
+  order: 2; /* El texto aparece después del escudo en móvil */
 }
+
+
+
+
 
 .hero-text h2 {
   font-size: 2.5rem;
@@ -299,9 +304,10 @@ header img {
   position: relative;
   width: 320px;
   height: 370px;
-  margin: 0 auto;
-  z-index: 2;
+  margin-right: 40px; /* Margen derecho para separar del texto */
+  order: 1; /* El escudo aparece primero en móvil */
 }
+
 
 .shield {
   width: 100%;
@@ -808,5 +814,21 @@ footer p a:hover {
     flex-direction: column;
     align-items: center;
   }
+.hero-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .hero-text {
+    order: 2; /* Texto después del escudo */
+    margin-top: 40px;
+  }
+  
+  .shield-container {
+    order: 1; /* Escudo primero */
+    margin-right: 0;
+  }
+  
 }
 
