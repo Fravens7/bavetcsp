@@ -112,6 +112,7 @@ header img {
   width: 320px;
   height: 370px;
   margin-bottom: 30px; /* Espacio entre el escudo y el texto */
+  transform: translateX(15px); /* Pequeño ajuste a la derecha */
 }
 
 .hero-text {
