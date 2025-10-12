@@ -79,3 +79,31 @@
 .btn-submit:hover {
   background-color: #001f54;
 }
+
+/* Clase para ocultar elementos */
+.hidden {
+  display: none;
+}
+
+/* Estilos para la lista de trabajos en el mensaje de éxito */
+.job-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.job-list li {
+  background-color: #f7f9fc;
+  border: 1px solid #e0e0e0;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.job-list li:hover {
+  background-color: #e9f2ff;
+  transform: translateX(5px); /* Mueve el elemento un poco a la derecha */
+}
