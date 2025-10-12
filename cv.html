@@ -31,43 +31,36 @@
   </header>
 
   <main class="cv-main">
-    <div class="container cv-form-container">
-      <h1>Submit Your CV</h1>
-      <p>Please upload your CV in PDF format to apply for any of our open positions.</p>
-      
-      <form id="cv-form" class="cv-form">
-        <div class="form-group">
-          <label for="cv-upload">Choose your CV file:</label>
-          <input type="file" id="cv-upload" name="cv" accept=".pdf" required>
-        </div>
-
-    <!-- ... el div.cv-form-container termina aquí ... -->
-    </div>
-
-    <!-- NUEVO CONTENEDOR DE ÉXITO (OCULTO POR DEFECTO) -->
-    <div id="success-container" class="cv-form-container hidden">
-      <h2>¡Application Received!</h2>
-      <p>Thank you for your interest. We have received your CV and will be in touch soon.</p>
-      
-      <h3>Explore Other Opportunities</h3>
-      <ul class="job-list">
-        <li>🖥️ IT Support Technician</li>
-        <li>☁️ Cloud Infrastructure Engineer</li>
-        <li>🔄 DevOps Engineer</li>
-      </ul>
-      
-      <a href="careers.html" class="btn-submit">See more job offers</a>
-    </div>
-
-  </main>
-
-  <!-- ... tu footer y demás contenido ... -->
-
-
+    <div class="container">
+      <!-- CONTENEDOR DEL FORMULARIO (VISIBLE POR DEFECTO) -->
+      <div id="cv-form-container" class="cv-form-container">
+        <h1>Submit Your CV</h1>
+        <p>Please upload your CV in PDF format to apply for any of our open positions.</p>
         
+        <form id="cv-form" class="cv-form">
+          <div class="form-group">
+            <label for="cv-upload">Choose your CV file:</label>
+            <input type="file" id="cv-upload" name="cv" accept=".pdf" required>
+          </div>
+          
+          <button type="submit" class="btn-submit">Enviar</button>
+        </form>
+      </div>
+
+      <!-- CONTENEDOR DE ÉXITO (OCULTO POR DEFECTO) -->
+      <div id="success-container" class="cv-form-container hidden">
+        <h2>¡Application Received!</h2>
+        <p>Thank you for your interest. We have received your CV and will be in touch soon.</p>
         
-        <button type="submit" class="btn-submit">Enviar</button>
-      </form>
+        <h3>Explore Other Opportunities</h3>
+        <ul class="job-list">
+          <li>🖥️ IT Support Technician</li>
+          <li>☁️ Cloud Infrastructure Engineer</li>
+          <li>🔄 DevOps Engineer</li>
+        </ul>
+        
+        <a href="careers.html" class="btn-submit">See more job offers</a>
+      </div>
     </div>
   </main>
 
@@ -77,15 +70,13 @@
     </div>
   </footer>
 
-
-  
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
       // Buscamos todos los elementos que necesitamos al principio
       const form = document.getElementById('cv-form');
       const fileInput = document.getElementById('cv-upload');
-      const submitButton = document.querySelector('.btn-submit'); // Búsqueda más robusta
+      const submitButton = document.querySelector('.btn-submit');
 
       // Constantes con la información de Bytescale y Google
       const bytescaleUrl = 'https://api.bytescale.com/v2/accounts/kW2K8bf/uploads/binary';
@@ -93,7 +84,6 @@
       const googleScriptUrl = 'https://script.google.com/macros/s/AKfycby3lxCAJqcaHwbwxiiDKqM243zih9N6nftT_6F-Tu3YzlGCI5jD-g2si73-iOLD0RnpzA/exec';
 
       // --- VERIFICACIÓN DE SEGURIDAD ---
-      // Si alguno de los elementos no se encontró, mostramos un error y detenemos todo.
       if (!form || !fileInput || !submitButton) {
         console.error("Error: No se encontraron elementos clave del formulario. Revisa el HTML.");
         alert("Hubo un error al cargar la página. Por favor, recarga.");
@@ -115,12 +105,10 @@
           return;
         }
 
-        // --- Cambiamos el estado del botón ---
         submitButton.disabled = true;
         submitButton.textContent = 'Enviando...';
 
         try {
-          // 1. Subimos el archivo a Bytescale
           const response = await fetch(bytescaleUrl, {
             method: 'POST',
             headers: {
@@ -137,7 +125,6 @@
           const result = await response.json();
 
           if (result.fileUrl) {
-            // 2. Preparamos y enviamos la URL a Google Sheets
             const params = new URLSearchParams();
             params.append('cvUrl', result.fileUrl);
 
@@ -154,10 +141,15 @@
               const formContainer = document.getElementById('cv-form-container');
               const successContainer = document.getElementById('success-container');
               
-              formContainer.classList.add('hidden');
-              successContainer.classList.remove('hidden');
-              
-              form.reset();
+              // --- NUEVA VERIFICACIÓN DE SEGURIDAD ---
+              if (formContainer && successContainer) {
+                formContainer.classList.add('hidden');
+                successContainer.classList.remove('hidden');
+                form.reset();
+              } else {
+                console.error("Error: No se encontraron los contenedores para mostrar el mensaje de éxito.");
+                alert("¡Aplicación recibida! Pero hubo un error al mostrar la confirmación en la página.");
+              }
 
             } else {
               throw new Error('Error sending data to Google Sheets.');
@@ -171,7 +163,7 @@
           console.error('Error in the process:', error);
           alert('An error occurred. Please try again.');
         } finally {
-          // --- Devolvemos el botón a su estado original ---
+          // Devolvemos el botón a su estado original
           submitButton.disabled = false;
           submitButton.textContent = 'Enviar';
         }
@@ -179,8 +171,5 @@
 
     });
   </script>
-
-
-  
 </body>
 </html>
