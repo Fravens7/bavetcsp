@@ -76,13 +76,13 @@
 
         // 2. Validamos que se haya seleccionado un archivo
         if (!file) {
-          alert('Por favor, selecciona un archivo PDF.');
+          alert('Please select a PDF file.');
           return;
         }
 
         // 3. Validamos que el archivo sea un PDF
         if (file.type !== 'application/pdf') {
-          alert('El formato de archivo no es válido. Por favor, sube un archivo PDF.');
+          alert('The file format is not valid. Please upload a PDF file.');
           return;
         }
 
@@ -101,15 +101,15 @@
           const response = await fetch(bytescaleUrl, options);
           
           if (!response.ok) {
-            throw new Error(`Error en la subida: ${response.statusText}`);
+            throw new Error(`Upload error: ${response.statusText}`);
           }
 
           const result = await response.json();
 
           // 6. Si todo va bien, mostramos un mensaje de éxito
           if (result.fileUrl) {
-            alert('¡CV subido con éxito!');
-            console.log('Archivo subido correctamente. URL:', result.fileUrl);
+            alert('CV uploaded successfully!');
+            console.log('File uploaded successfully. URL:', result.fileUrl);
             
             // AQUÍ VENDRÁ EL CÓDIGO PARA ENVIAR LA URL A GOOGLE SHEETS
             // Por ahora, solo lo mostramos en la consola.
@@ -118,13 +118,13 @@
             form.reset();
 
           } else {
-            throw new Error('No se recibió la URL del archivo.');
+            throw new Error('File URL not received.');
           }
 
         } catch (error) {
           // 7. Si hay un error, lo mostramos
-          console.error('Error al subir el archivo:', error);
-          alert('Ocurrió un error al subir el archivo. Por favor, inténtalo de nuevo.');
+          console.error('Error uploading file:', error);
+          alert('An error occurred while uploading the file. Please try again..');
         }
       });
 
