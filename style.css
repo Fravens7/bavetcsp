@@ -198,6 +198,7 @@ header img {
 }
 
 /* Comets Container */
+/* Comets Container */
 .comets-container {
   position: absolute;
   top: 0;
@@ -206,6 +207,9 @@ header img {
   height: 100%;
   pointer-events: none;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
