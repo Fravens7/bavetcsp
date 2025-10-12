@@ -1,10 +1,10 @@
 .cv-main {
   padding: 60px 20px;
   text-align: center;
-  min-height: 60vh; /* Asegura que el contenido no esté pegado al footer */
+  min-height: 60vh;
 }
 
-.cv-notice {
+.cv-form-container {
   max-width: 600px;
   margin: 0 auto;
   background: white;
@@ -13,23 +13,69 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.cv-notice h1 {
+.cv-form-container h1 {
   color: #023e8a;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-.cv-notice p {
+.cv-form-container p {
   font-size: 1.1rem;
   color: #555;
   line-height: 1.6;
+  margin-bottom: 30px;
 }
 
-.cv-notice a {
-  color: #0077b6;
-  text-decoration: none;
+/* Estilos para el formulario */
+.cv-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.form-group label {
   font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
 }
 
-.cv-notice a:hover {
-  text-decoration: underline;
+.form-group input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #555;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Efecto cuando el usuario pasa el ratón sobre el campo de archivo */
+.form-group input[type="file"]:hover {
+  border-color: #0077b6;
+}
+
+.btn-submit {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 25px;
+  background-color: #0077b6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #001f54;
 }
