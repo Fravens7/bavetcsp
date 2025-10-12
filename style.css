@@ -168,6 +168,11 @@ header img {
   z-index: 1;
 }
 
+
+
+
+
+/* Individual Comet */
 /* Individual Comet */
 .comet {
   position: absolute;
@@ -219,15 +224,20 @@ header img {
   text-align: center;
   white-space: nowrap;
   text-shadow: 0 0 5px rgba(0, 162, 255, 0.8);
-  opacity: 0.8;
+  opacity: 0;
   transition: opacity 0.3s ease;
+}
+
+/* Mostrar etiquetas solo cuando el cometa está en la parte inferior */
+.comet.show-label .comet-label {
+  opacity: 0.8;
 }
 
 .comet:hover .comet-label {
   opacity: 1;
 }
 
-/* Orbital paths for comets */
+/* Orbital paths ajustados para mantener los cometas en la parte inferior */
 .orbit-1 {
   animation: orbit1 30s infinite linear;
 }
@@ -247,6 +257,42 @@ header img {
 .orbit-5 {
   animation: orbit5 50s infinite linear;
 }
+
+/* Animaciones orbitales corregidas */
+@keyframes orbit1 {
+  0% { transform: rotate(180deg) translateX(250px) rotate(-180deg); }
+  100% { transform: rotate(540deg) translateX(250px) rotate(-540deg); }
+}
+
+@keyframes orbit2 {
+  0% { transform: rotate(252deg) translateX(280px) rotate(-252deg); }
+  100% { transform: rotate(612deg) translateX(280px) rotate(-612deg); }
+}
+
+@keyframes orbit3 {
+  0% { transform: rotate(324deg) translateX(310px) rotate(-324deg); }
+  100% { transform: rotate(684deg) translateX(310px) rotate(-684deg); }
+}
+
+@keyframes orbit4 {
+  0% { transform: rotate(396deg) translateX(340px) rotate(-396deg); }
+  100% { transform: rotate(756deg) translateX(340px) rotate(-756deg); }
+}
+
+@keyframes orbit5 {
+  0% { transform: rotate(468deg) translateX(370px) rotate(-468deg); }
+  100% { transform: rotate(828deg) translateX(370px) rotate(-828deg); }
+}
+
+
+
+
+
+
+
+
+
+
 
 /* Shield Container */
 .shield-container {
