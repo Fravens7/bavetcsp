@@ -143,6 +143,18 @@ header img {
 }
 
 
+/* Estilo específico para el Airways Logo */
+.client-logo:nth-child(6) {
+  animation: moveTrain 12s infinite linear;
+  animation-delay: 0.2s;
+}
+
+/* Si eso no funciona, prueba con un selector más específico */
+.client-logos:nth-of-type(6) {
+  animation: moveTrain 12s infinite linear;
+}
+
+
 
 
 .hero-text h2 {
@@ -549,6 +561,16 @@ header img {
 .client-logo:nth-child(4) {
   filter: brightness(1.05);
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+/* Estilo específico para el Airways Logo */
+.client-logo:nth-child(6) {
+  animation: moveTrain 12s infinite linear;
+  animation-delay: 0.2s;
+}
+
+/* Si eso no funciona, prueba con un selector más específico */
+.client-logos:nth-of-type(6) {
+  animation: moveTrain 12s infinite linear;
 }
 
 /* Efecto de desvanecimiento suave */
