@@ -494,7 +494,6 @@ header img {
 
 
 /* Clientes */
-/* Clientes */
 .clients {
   padding: 60px 20px;
   background-color: #f7f9fc;
@@ -512,12 +511,11 @@ header img {
 .client-logos {
   display: flex;
   gap: 50px;
-  width: calc(100% + 50px); /* Ancho exacto para 2 logos */
+  width: calc(100% + 80px); /* Ancho para 3 logos a la vez */
   overflow: hidden;
   position: relative;
-  left: -50px; /* Comienza desde el centro */
-  animation: moveTrain 20s linear infinite;
-  will-change: transform; /* Optimización para navegadores */
+  left: -40px; /* Ajuste para 3 logos */
+  animation: moveTrain 15s linear infinite;
 }
 
 .client-logo {
@@ -541,39 +539,27 @@ header img {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%); /* Solo se mueve la mitad del ancho total */
+    transform: translateX(-40%); /* Mueve el 40% del ancho total */
   }
 }
 
-/* Efecto de brillo al pasar el ratón */
-.client-logo:hover {
-  transform: translateX(20px);
-  filter: brightness(1.2);
-  box-shadow: 0 0 15px rgba(0, 162, 255, 0.3);
+/* Efecto de brillo sutil para el logo central */
+.client-logo:nth-child(2),
+.client-logo:nth-child(3),
+.client-logo:nth-child(4) {
+  filter: brightness(1.05);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Efecto de brillo sutil en el centro */
-.client-logo:nth-child(4),
-.client-logo:nth-child(5),
-.client-logo:nth-child(6) {
-  filter: brightness(1.1);
-  box-shadow: 0 0 8px rgba(0, 162, 255, 0.2);
-}
-
-/* Añadir un sutil efecto de parpadeo */
+/* Efecto de desvanecimiento suave */
 .client-logo {
-  animation: subtle-pulse 4s infinite ease-in-out;
+  opacity: 0.95;
+  transition: opacity 0.3s ease;
 }
 
-@keyframes subtle-pulse {
-  0%, 100% {
-    opacity: 0.9;
-  }
-  50% {
-    opacity: 1;
-  }
+.client-logo:hover {
+  opacity: 1;
 }
-
 
 
 
