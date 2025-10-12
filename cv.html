@@ -142,9 +142,15 @@
             });
 
             if (googleResponse.ok) {
-              // --- ÉXITO: Mostramos el mensaje final y reseteamos ---
-              alert('Application received successfully!');
-              form.reset();
+              // --- ÉXITO: Ocultamos el formulario y mostramos el mensaje de éxito ---
+              const formContainer = document.getElementById('cv-form-container');
+              const successContainer = document.getElementById('success-container');
+              
+              formContainer.classList.add('hidden');
+              successContainer.classList.remove('hidden');
+              
+              form.reset(); // Limpiamos el formulario por si acaso
+
             } else {
               throw new Error('Error sending data to Google Sheets.');
             }
@@ -157,7 +163,7 @@
           console.error('Error in the process:', error);
           alert('An error occurred. Please try again.');
         } finally {
-          // --- MEJORA: Devolvemos el botón a su estado original, haya éxito o error ---
+          // Devolvemos el botón a su estado original
           submitButton.disabled = false;
           submitButton.textContent = 'Enviar';
         }
