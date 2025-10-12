@@ -1,0 +1,35 @@
+.cv-main {
+  padding: 60px 20px;
+  text-align: center;
+  min-height: 60vh; /* Asegura que el contenido no esté pegado al footer */
+}
+
+.cv-notice {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.cv-notice h1 {
+  color: #023e8a;
+  margin-bottom: 20px;
+}
+
+.cv-notice p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.cv-notice a {
+  color: #0077b6;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.cv-notice a:hover {
+  text-decoration: underline;
+}
