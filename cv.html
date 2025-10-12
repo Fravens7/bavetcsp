@@ -69,6 +69,7 @@
         event.preventDefault();
 
         const file = fileInput.files[0];
+        const submitButton = form.querySelector('.btn-submit'); // Seleccionamos el botón
 
         if (!file) {
           alert('Please select a PDF file.');
@@ -80,8 +81,12 @@
           return;
         }
 
+        // --- MEJORA: Cambiamos el estado del botón mientras se procesa ---
+        submitButton.disabled = true;
+        submitButton.textContent = 'Enviando...';
+
         try {
-          // 1. Subimos el archivo a Bytescale (esta parte no cambia)
+          // 1. Subimos el archivo a Bytescale
           const response = await fetch(bytescaleUrl, {
             method: 'POST',
             headers: {
@@ -98,9 +103,6 @@
           const result = await response.json();
 
           if (result.fileUrl) {
-            alert('CV uploaded successfully! Sending to database...');
-            console.log('File uploaded successfully. URL:', result.fileUrl);
-            
             // 2. Preparamos los datos de una forma diferente (como un formulario web)
             const params = new URLSearchParams();
             params.append('cvUrl', result.fileUrl);
@@ -115,6 +117,7 @@
             });
 
             if (googleResponse.ok) {
+              // --- ÉXITO: Mostramos el mensaje final y reseteamos ---
               alert('Application received successfully!');
               form.reset();
             } else {
@@ -128,6 +131,10 @@
         } catch (error) {
           console.error('Error in the process:', error);
           alert('An error occurred. Please try again.');
+        } finally {
+          // --- MEJORA: Devolvemos el botón a su estado original, haya éxito o error ---
+          submitButton.disabled = false;
+          submitButton.textContent = 'Enviar';
         }
       });
 
