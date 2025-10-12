@@ -7,6 +7,45 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+<!-- Comets Container -->
+<div class="comets-container">
+  <!-- Comet 1: Cybersecurity -->
+  <div class="comet orbit-1">
+    <div class="comet-body"></div>
+    <div class="comet-tail"></div>
+    <div class="comet-label">Cybersecurity</div>
+  </div>
+  
+  <!-- Comet 2: Cloud Services -->
+  <div class="comet orbit-2">
+    <div class="comet-body"></div>
+    <div class="comet-tail"></div>
+    <div class="comet-label">Cloud Services</div>
+  </div>
+  
+  <!-- Comet 3: Databases -->
+  <div class="comet orbit-3">
+    <div class="comet-body"></div>
+    <div class="comet-tail"></div>
+    <div class="comet-label">Databases</div>
+  </div>
+  
+  <!-- Comet 4: Automations -->
+  <div class="comet orbit-4">
+    <div class="comet-body"></div>
+    <div class="comet-tail"></div>
+    <div class="comet-label">Automations</div>
+  </div>
+  
+  <!-- Comet 5: Artificial Intelligence -->
+  <div class="comet orbit-5">
+    <div class="comet-body"></div>
+    <div class="comet-tail"></div>
+    <div class="comet-label">Artificial Intelligence</div>
+  </div>
+</div>
+  
   <header>
     <div class="container nav-container">
       <!-- Logo actualizado -->
@@ -26,18 +65,67 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="container hero-content">
-      <div class="hero-text">
-        <h2>Professional Customer Support, 24/7</h2>
-        <p>We help businesses build strong customer relationships with top-quality service.</p>
-        <a href="#contact" class="btn">Contact Us</a>
-      </div>
-      <div class="hero-image">
-        <img src="assets/images/callcentermain.png" alt="CSmain" style="max-width: 500px; width: 100%; height: auto; display: block; margin: 0 auto;" />
-      </div>
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h2>Professional Customer Support, 24/7</h2>
+      <p>We help businesses build strong customer relationships with top-quality service.</p>
+      <a href="#contact" class="btn">Contact Us</a>
     </div>
-  </section>
+    <div class="shield-container">
+      <svg class="shield" viewBox="0 0 320 370" xmlns="http://www.w3.org/2000/svg">
+        <!-- Define gradients -->
+        <defs>
+          <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#003366;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#005599;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#0077cc;stop-opacity:1" />
+          </linearGradient>
+          <radialGradient id="coreGradient">
+            <stop offset="0%" style="stop-color:#00ffcc;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#00a2ff;stop-opacity:0.3" />
+          </radialGradient>
+        </defs>
+
+        <!-- Shield background -->
+        <path class="shield-bg" d="M160 40 L290 90 L290 210 Q290 260 160 330 Q30 260 30 210 L30 90 Z" />
+
+        <!-- Circuit patterns -->
+        <path class="circuit-line" d="M160 70 L160 300" />
+        <path class="circuit-line" d="M80 90 L240 90" />
+        <path class="circuit-line" d="M90 160 L230 160" />
+        <path class="circuit-line" d="M100 230 L220 230" />
+        <path class="circuit-line" d="M80 90 L80 130" />
+        <path class="circuit-line" d="M240 90 L240 130" />
+        <path class="circuit-line" d="M90 160 L90 200" />
+        <path class="circuit-line" d="M230 160 L230 200" />
+        <path class="circuit-line" d="M100 230 L100 270" />
+        <path class="circuit-line" d="M220 230 L220 270" />
+
+        <!-- Circuit nodes -->
+        <circle class="circuit-node" cx="160" cy="70" r="3" />
+        <circle class="circuit-node" cx="80" cy="90" r="3" />
+        <circle class="circuit-node" cx="240" cy="90" r="3" />
+        <circle class="circuit-node" cx="90" cy="160" r="3" />
+        <circle class="circuit-node" cx="230" cy="160" r="3" />
+        <circle class="circuit-node" cx="100" cy="230" r="3" />
+        <circle class="circuit-node" cx="220" cy="230" r="3" />
+        <circle class="circuit-node" cx="160" cy="300" r="3" />
+
+        <!-- Central core element -->
+        <circle class="core-circle" cx="160" cy="180" r="25" fill="url(#coreGradient)" />
+        <circle class="core-circle" cx="160" cy="180" r="20" fill="none" />
+        <circle class="core-circle" cx="160" cy="180" r="15" fill="none" />
+        <circle class="core-dot" cx="160" cy="180" r="5" />
+
+        <!-- NTS Initials -->
+        <text class="nts-initials" x="160" y="190">NTS</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+  
 
   <section id="services" class="services">
     <div class="container">
