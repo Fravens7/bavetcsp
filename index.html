@@ -250,6 +250,38 @@
       </p>
     </div>
   </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const comets = document.querySelectorAll('.comet');
+  
+  // Función para verificar si un cometa está en la parte inferior
+  function checkCometPosition(comet) {
+    const rect = comet.getBoundingClientRect();
+    const heroSection = document.querySelector('.hero');
+    const heroRect = heroSection.getBoundingClientRect();
+    
+    // Mostrar etiqueta solo si el cometa está en la mitad inferior de la sección
+    if (rect.top > heroRect.top + heroRect.height / 2) {
+      comet.classList.add('show-label');
+    } else {
+      comet.classList.remove('show-label');
+    }
+  }
+  
+  // Verificar posición de cada cometa
+  comets.forEach(checkCometPosition);
+  
+  // Actualizar posiciones durante la animación
+  setInterval(() => {
+    comets.forEach(checkCometPosition);
+  }, 100);
+});
+</script>
+
+
+
+  
 </body>
 </html>
 
