@@ -52,5 +52,88 @@
       <p>&copy; 2025 Bavet Call Center. All rights reserved.</p>
     </div>
   </footer>
+
+
+  <!-- ... tu footer y demás contenido ... -->
+
+  <script>
+    // Esperamos a que todo el contenido de la página se cargue
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const form = document.getElementById('cv-form');
+      const fileInput = document.getElementById('cv-upload');
+
+      // Constantes con la información de Bytescale
+      const bytescaleUrl = 'https://api.bytescale.com/v2/accounts/kW2K8bf/uploads/binary';
+      const apiKey = 'public_kW2K8bf95BSuECoViJYFN3ng2pLU';
+
+      // Escuchamos el evento de envío del formulario
+      form.addEventListener('submit', async (event) => {
+        // 1. Prevenimos que el formulario se envíe de la forma tradicional (que recarga la página)
+        event.preventDefault();
+
+        const file = fileInput.files[0];
+
+        // 2. Validamos que se haya seleccionado un archivo
+        if (!file) {
+          alert('Por favor, selecciona un archivo PDF.');
+          return;
+        }
+
+        // 3. Validamos que el archivo sea un PDF
+        if (file.type !== 'application/pdf') {
+          alert('El formato de archivo no es válido. Por favor, sube un archivo PDF.');
+          return;
+        }
+
+        // 4. Creamos las opciones para la petición a Bytescale
+        const options = {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': file.type // Usamos el tipo MIME del archivo (application/pdf)
+          },
+          body: file // El cuerpo de la petición es el archivo en sí mismo
+        };
+
+        try {
+          // 5. Hacemos la petición para subir el archivo
+          const response = await fetch(bytescaleUrl, options);
+          
+          if (!response.ok) {
+            throw new Error(`Error en la subida: ${response.statusText}`);
+          }
+
+          const result = await response.json();
+
+          // 6. Si todo va bien, mostramos un mensaje de éxito
+          if (result.fileUrl) {
+            alert('¡CV subido con éxito!');
+            console.log('Archivo subido correctamente. URL:', result.fileUrl);
+            
+            // AQUÍ VENDRÁ EL CÓDIGO PARA ENVIAR LA URL A GOOGLE SHEETS
+            // Por ahora, solo lo mostramos en la consola.
+
+            // Opcional: Limpiamos el formulario
+            form.reset();
+
+          } else {
+            throw new Error('No se recibió la URL del archivo.');
+          }
+
+        } catch (error) {
+          // 7. Si hay un error, lo mostramos
+          console.error('Error al subir el archivo:', error);
+          alert('Ocurrió un error al subir el archivo. Por favor, inténtalo de nuevo.');
+        }
+      });
+
+    });
+  </script>
+</body>
+</html>
+
+
+  
 </body>
 </html>
