@@ -32,18 +32,52 @@
         Our firewall services are structured in clear phases to meet your business’s security needs — from initial setup to advanced configurations and ongoing maintenance. Whether you require a basic installation or a fully managed security environment, we offer flexible options tailored to your environment.
       </p>
       
-      <!-- Sección 1: Basic Installation -->
+      <!-- Sección 1: Basic Installation (ACTUALIZADA) -->
       <div class="service-collapsible">
         <h3 class="collapsible-trigger">🔹 1. Basic Installation <span class="icon">+</span></h3>
         <div class="collapsible-content">
-          <h4>Scope:</h4>
-          <ul>
-            <li>Deployment of firewall hardware or software.</li>
-            <li>Network interface setup and IP address configuration.</li>
-            <li>Secure administrator access (Web UI / CLI).</li>
-            <li>Initial connectivity verification.</li>
-          </ul>
-          <p><strong>💡 Ideal for:</strong> clients who want a functioning firewall but prefer to handle configurations internally.</p>
+          <h4>✅ Detailed Scope:</h4>
+          <ol>
+            <li>
+              <strong>Unboxing and Physical Setup</strong>
+              <ul>
+                <li>Rack or desktop placement (depending on model).</li>
+                <li>Power and network cabling.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Initial Access Setup</strong>
+              <ul>
+                <li>Console or web GUI access via default IP (e.g. 192.168.1.99).</li>
+                <li>Password reset for admin user.</li>
+                <li>Enable HTTPS access and disable insecure protocols (e.g., Telnet).</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Network Interface Configuration</strong>
+              <ul>
+                <li>Set static IPs on internal/external interfaces.</li>
+                <li>Name interfaces appropriately (e.g., WAN1, LAN1).</li>
+                <li>Assign management access to trusted interfaces only.</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Time & Licensing</strong>
+              <ul>
+                <li>Set correct system time, timezone, and NTP.</li>
+                <li>Register device on Fortinet support portal (if required).</li>
+                <li>Apply FortiGuard license (if available).</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Connectivity Test</strong>
+              <ul>
+                <li>Verify LAN-to-WAN communication (e.g., ping 8.8.8.8).</li>
+                <li>Confirm admin GUI access from trusted host.</li>
+              </ul>
+            </li>
+          </ol>
+          <p><strong>💡 Useful for:</strong> clients who need help getting the firewall online, but will handle rule setup and segmentation themselves.</p>
         </div>
       </div>
       
@@ -162,17 +196,13 @@
   </footer>
 
   <!-- ================================================================= -->
-  <!-- = SCRIPT ACTUALIZADO PARA MÚLTIPLES DESPLEGABLES                = -->
+  <!-- = SCRIPT PARA LA FUNCIONALIDAD DESPLEGABLE                      = -->
   <!-- ================================================================= -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // Encuentra TODOS los elementos que activan el despliegue
       const triggers = document.querySelectorAll('.collapsible-trigger');
-      
-      // Itera sobre cada uno de ellos y añade el evento 'click'
       triggers.forEach(trigger => {
         trigger.addEventListener('click', function() {
-          // 'this' se refiere al 'trigger' específico que fue clickeado
           this.parentElement.classList.toggle('active');
         });
       });
