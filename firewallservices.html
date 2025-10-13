@@ -27,12 +27,25 @@
 
   <main class="services-section" role="main" aria-labelledby="services-title">
     <section class="firewall-services-detail">
-      <h2>🔐 Firewall</h2>
+      
+      <!-- NUEVA ESTRUCTURA: Título y Proveedores en la misma línea -->
+      <div class="service-header">
+        <h2 id="services-title">🔐 Firewall</h2>
+        <div class="supported-vendors">
+          <p class="vendors-label">Supported Firewall Vendors</p>
+          <div class="vendor-logos">
+            <img src="assets/images/cisco_logo.jpg" alt="Cisco Logo">
+            <img src="assets/images/sophos_logo.jpg" alt="Sophos Logo">
+            <img src="assets/images/fortinet_logo.png" alt="Fortinet Logo">
+          </div>
+        </div>
+      </div>
+
       <p>
         Our firewall services are structured in clear phases to meet your business’s security needs — from initial setup to advanced configurations and ongoing maintenance. Whether you require a basic installation or a fully managed security environment, we offer flexible options tailored to your environment.
       </p>
       
-      <!-- Sección 1: Basic Installation (ACTUALIZADA) -->
+      <!-- Sección 1: Basic Installation (sin cambios) -->
       <div class="service-collapsible">
         <h3 class="collapsible-trigger">🔹 1. Basic Installation <span class="icon">+</span></h3>
         <div class="collapsible-content">
@@ -81,6 +94,7 @@
         </div>
       </div>
       
+      <!-- ... (el resto de las secciones desplegables y la tabla de precios permanecen igual) ... -->
       <!-- Sección 2: Initial Configuration -->
       <div class="service-collapsible">
         <h3 class="collapsible-trigger">🔹 2. Initial Configuration <span class="icon">+</span></h3>
@@ -195,12 +209,6 @@
     </div>
   </footer>
 
-
-  
-
-  <!-- ================================================================= -->
-  <!-- = SCRIPT PARA LA FUNCIONALIDAD DESPLEGABLE                      = -->
-  <!-- ================================================================= -->
   <!-- ================================================================= -->
   <!-- = SCRIPT MEJORADO PARA CONTROLAR LA ALTURA AUTOMÁTICAMENTE     = -->
   <!-- ================================================================= -->
@@ -213,21 +221,16 @@
           const collapsible = this.parentElement;
           const content = collapsible.querySelector('.collapsible-content');
           
-          // Alternamos la clase 'active'
           collapsible.classList.toggle('active');
           
-          // Si se está abriendo, calculamos y establecemos la altura
           if (collapsible.classList.contains('active')) {
-            // 'scrollHeight' es la altura total del contenido, aunque esté oculto
             content.style.maxHeight = content.scrollHeight + "px";
           } else {
-            // Si se está cerrando, volvemos a poner la altura en 0
             content.style.maxHeight = null;
           }
         });
       });
 
-      // Opcional: Recalcular la altura si la ventana se redimensiona
       window.addEventListener('resize', () => {
         const openCollapsibles = document.querySelectorAll('.service-collapsible.active');
         openCollapsibles.forEach(collapsible => {
@@ -237,9 +240,5 @@
       });
     });
   </script>
-
-
-
-  
 </body>
 </html>
