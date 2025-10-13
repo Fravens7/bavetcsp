@@ -48,12 +48,24 @@
       <div class="service-collapsible">
         <h3 class="collapsible-trigger">🔹 1. Basic Installation <span class="icon">+</span></h3>
         <div class="collapsible-content">
-          <!-- Se ha reemplazado la lista detallada por un párrafo y un botón -->
-          <p>
-            <strong>Unboxing and Physical Setup</strong>
-            <button class="see-more-btn" data-gallery="basic-installation">See more</button>
-          </p>
-          <p><strong>💡 Useful for:</strong> clients who need help getting the firewall online, but will handle rule setup and segmentation themselves.</p>
+          
+          <!-- NUEVA ESTRUCTURA: Título clicable y detalles visibles -->
+          <h4><a href="unboxing-details.html">Unboxing and Physical Setup</a></h4>
+          <!-- TODO: Crear el archivo unboxing-details.html con más detalles sobre este proceso. -->
+          <ul>
+            <li>Rack or desktop placement (depending on model).</li>
+            <li>Power and network cabling.</li>
+          </ul>
+
+          <!-- El resto del contenido detallado se puede añadir aquí más adelante -->
+          <!--
+          <h4><a href="initial-access-details.html">Initial Access Setup</a></h4>
+          <ul>
+            <li>Console or web GUI access via default IP (e.g. 192.168.1.99).</li>
+            <li>Password reset for admin user.</li>
+            <li>Enable HTTPS access and disable insecure protocols (e.g., Telnet).</li>
+          </ul>
+          -->
         </div>
       </div>
       
@@ -173,10 +185,9 @@
   </footer>
 
   <!-- ================================================================= -->
-  <!-- = NUEVAS VENTANAS MODALES (GALERÍA Y ZOOM)                     = -->
+  <!-- = VENTANAS MODALES (COMENTADAS PARA USO FUTURO)                 = -->
   <!-- ================================================================= -->
-
-  <!-- Modal para la Galería de Imágenes -->
+  <!--
   <div id="image-modal" class="modal">
     <span class="modal-close">&times;</span>
     <button class="modal-prev">&#10094;</button>
@@ -184,14 +195,14 @@
     <button class="modal-next">&#10095;</button>
   </div>
 
-  <!-- Modal para el Zoom de Imagen -->
   <div id="zoom-modal" class="modal">
     <span class="zoom-modal-close">&times;</span>
     <img class="zoom-modal-content" id="zoom-image">
   </div>
+  -->
 
   <!-- ================================================================= -->
-  <!-- = SCRIPT PARA LA FUNCIONALIDAD DESPLEGABLE Y MODAL             = -->
+  <!-- = SCRIPT (CON GALERÍA COMENTADA PARA USO FUTURO)                 = -->
   <!-- ================================================================= -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -218,14 +229,14 @@
         });
       });
 
-      // --- LÓGICA PARA LA GALERÍA DE IMÁGENES ---
+      /*
+      // --- LÓGICA PARA LA GALERÍA DE IMÁGENES (COMENTADA) ---
       const imageModal = document.getElementById('image-modal');
       const modalImage = document.getElementById('modal-image');
       const modalClose = document.querySelector('.modal-close');
       const modalPrev = document.querySelector('.modal-prev');
       const modalNext = document.querySelector('.modal-next');
       
-      // Definimos las galerías de imágenes
       const galleries = {
         'basic-installation': [
           'assets/images/sophos_inst.jpg',
@@ -237,10 +248,9 @@
       let currentGallery = [];
       let currentImageIndex = 0;
 
-      // Evento para el botón "See more"
       document.querySelectorAll('.see-more-btn').forEach(button => {
         button.addEventListener('click', (e) => {
-          e.stopPropagation(); // Evita que se propague el clic
+          e.stopPropagation();
           const galleryName = button.getAttribute('data-gallery');
           currentGallery = galleries[galleryName] || [];
           currentImageIndex = 0;
@@ -278,7 +288,7 @@
         }
       });
 
-      // --- LÓGICA PARA EL ZOOM DE IMAGEN (BONUS) ---
+      // --- LÓGICA PARA EL ZOOM DE IMAGEN (COMENTADA) ---
       const zoomModal = document.getElementById('zoom-modal');
       const zoomImage = document.getElementById('zoom-image');
       const zoomClose = document.querySelector('.zoom-modal-close');
@@ -298,6 +308,7 @@
           closeZoomModal();
         }
       });
+      */
     });
   </script>
 </body>
