@@ -195,18 +195,51 @@
     </div>
   </footer>
 
+
+  
+
   <!-- ================================================================= -->
   <!-- = SCRIPT PARA LA FUNCIONALIDAD DESPLEGABLE                      = -->
+  <!-- ================================================================= -->
+  <!-- ================================================================= -->
+  <!-- = SCRIPT MEJORADO PARA CONTROLAR LA ALTURA AUTOMÁTICAMENTE     = -->
   <!-- ================================================================= -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const triggers = document.querySelectorAll('.collapsible-trigger');
+      
       triggers.forEach(trigger => {
         trigger.addEventListener('click', function() {
-          this.parentElement.classList.toggle('active');
+          const collapsible = this.parentElement;
+          const content = collapsible.querySelector('.collapsible-content');
+          
+          // Alternamos la clase 'active'
+          collapsible.classList.toggle('active');
+          
+          // Si se está abriendo, calculamos y establecemos la altura
+          if (collapsible.classList.contains('active')) {
+            // 'scrollHeight' es la altura total del contenido, aunque esté oculto
+            content.style.maxHeight = content.scrollHeight + "px";
+          } else {
+            // Si se está cerrando, volvemos a poner la altura en 0
+            content.style.maxHeight = null;
+          }
+        });
+      });
+
+      // Opcional: Recalcular la altura si la ventana se redimensiona
+      window.addEventListener('resize', () => {
+        const openCollapsibles = document.querySelectorAll('.service-collapsible.active');
+        openCollapsibles.forEach(collapsible => {
+          const content = collapsible.querySelector('.collapsible-content');
+          content.style.maxHeight = content.scrollHeight + "px";
         });
       });
     });
   </script>
+
+
+
+  
 </body>
 </html>
