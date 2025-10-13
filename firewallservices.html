@@ -26,7 +26,8 @@
     </div>
   </header>
 
-  <main class="services-section" role="main" aria-labelledby="services-title">
+  <main class="services-section" role="main">
+    <!-- SECCIÓN 1: FIREWALL -->
     <section class="firewall-services-detail">
       
       <div class="service-header">
@@ -89,6 +90,7 @@
         </div>
       </div>
       
+      <!-- ... (el resto de las secciones de Firewall permanecen igual) ... -->
       <!-- Sección 2: Initial Configuration -->
       <div class="service-collapsible">
         <h3 class="collapsible-trigger">🔹 2. Initial Configuration <span class="icon">+</span></h3>
@@ -141,6 +143,47 @@
       </div>
     </section>
 
+    <!-- ================================================================= -->
+    <!-- = NUEVA SECCIÓN: SECURE ENDPOINT EDR                           = -->
+    <!-- ================================================================= -->
+    <section class="edr-services-detail">
+      <div class="service-header">
+        <h2 id="edr-title">🛡️ Secure Endpoint EDR</h2>
+        <div class="supported-vendors">
+          <div class="vendor-logos">
+            <img src="assets/images/cisco_logo.jpg" alt="Cisco Logo">
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Cisco Secure Endpoint is Cisco’s EDR solution designed to detect, prevent, and respond to threats on endpoints like laptops, servers, and workstations.
+      </p>
+      
+      <!-- Subsección 1: Manage EDR -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 1. Manage EDR <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <ul>
+            <li>24/7 threat monitoring and alerting.</li>
+            <li>Device isolation, file deletion, and attack remediation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Subsección 2: Deployment Service -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 2. Deployment Service <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <ul>
+            <li>Integration with existing Cisco tools (like Umbrella, SecureX, Firepower).</li>
+            <li>Policy tuning and baseline security settings.</li>
+            <li>Staff training and onboarding support.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer>
@@ -150,7 +193,7 @@
   </footer>
 
   <!-- ================================================================= -->
-  <!-- = SCRIPT (SIN CAMBIOS)                                          = -->
+  <!-- = SCRIPT (SIN CAMBIOS, FUNCIONARÁ AUTOMÁTICAMENTE)             = -->
   <!-- ================================================================= -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
