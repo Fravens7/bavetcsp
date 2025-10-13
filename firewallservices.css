@@ -131,6 +131,10 @@ body {
   transform: translateY(-2px);
 }
 
+
+
+
+
 /* --- ESTILOS PARA LA SECCIÓN DESPLEGABLE (COLLAPSIBLE) --- */
 
 .service-collapsible {
@@ -140,13 +144,22 @@ body {
   overflow: hidden; /* Asegura que el contenido no se salga del borde redondeado */
 }
 
+/* --- ESTILOS PARA LA SECCIÓN DESPLEGABLE (COLLAPSIBLE) --- */
+
+.service-collapsible {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
 .service-collapsible .collapsible-trigger {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  margin: 0; /* Quita el margen del h3 */
+  margin: 0;
   background-color: #f8f9fa;
   border-radius: 8px;
   transition: background-color 0.3s ease;
@@ -168,14 +181,14 @@ body {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.4s ease-out;
-  padding: 0 20px; /* Padding horizontal */
+  padding: 0 20px;
 }
 
 /* Cuando la sección está activa (abierta) */
+/* ¡OJO! Ya no usamos una altura fija aquí. El JavaScript la controlará. */
 .service-collapsible.active .collapsible-content {
-  /* Ajusta este valor si el contenido es muy largo */
-  max-height: 500px; 
-  padding: 0 20px 20px 20px; /* Añade padding inferior */
+  max-height: none; /* El JavaScript pondrá una altura real aquí */
+  padding: 0 20px 20px 20px;
   transition: max-height 0.4s ease-in;
 }
 
@@ -183,6 +196,12 @@ body {
 .service-collapsible.active .collapsible-trigger .icon {
   transform: rotate(45deg);
 }
+
+/* --- ESTILOS ADICIONALES PARA LAS NUEVAS LISTAS DETALLADAS (Sin cambios) --- */
+/* ... (el resto de tu CSS para las listas ol y ul permanece igual) ... */
+
+
+
 
 /* --- ESTILOS ADICIONALES PARA LAS NUEVAS LISTAS DETALLADAS --- */
 
