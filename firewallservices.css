@@ -261,6 +261,9 @@ body {
   top: -2px;
 }
 
+
+
+
 /* --- ESTILOS PARA LA CABECERA CON TÍTULO Y PROVEEDORES --- */
 
 .service-header {
@@ -268,12 +271,12 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  flex-wrap: wrap; /* Permite que se adapte en pantallas pequeñas */
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .service-header h2 {
-  margin-bottom: 0; /* Quita el margen inferior que tenía antes */
+  margin-bottom: 0;
 }
 
 .supported-vendors {
@@ -284,12 +287,13 @@ body {
 }
 
 .vendors-label {
-  font-size: 0.8em;
+  /* CAMBIO 1: Reduce el tamaño de la letra */
+  font-size: 0.7em; /* Antes era 0.8em */
   color: #6c757d;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin: 0;
-  white-space: nowrap; /* Evita que el texto se parta en dos líneas */
+  white-space: nowrap;
 }
 
 .vendor-logos {
@@ -299,20 +303,20 @@ body {
 }
 
 .vendor-logos img {
-  max-height: 30px; /* Ajusta el tamaño de los logos */
+  /* CAMBIO 2: Aumenta el tamaño de los logos */
+  max-height: 40px; /* Antes era 30px */
   width: auto;
-  opacity: 0.7; /* Los hace un poco sutiles para que no opaquen */
-  filter: grayscale(100%); /* Los pone en escala de grises para un look más profesional */
+  opacity: 0.7;
+  filter: grayscale(100%);
   transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
-/* Efecto sutil al pasar el ratón (opcional, pero queda bien) */
 .vendor-logos img:hover {
   opacity: 1;
   filter: grayscale(0%);
 }
 
-/* --- Diseño Responsivo para Móviles --- */
+/* --- Diseño Responsivo para Móviles (sin cambios) --- */
 @media (max-width: 768px) {
   .service-header {
     flex-direction: column;
