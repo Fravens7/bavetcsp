@@ -22,7 +22,7 @@ body {
 
 /* --- Títulos --- */
 .firewall-services-detail h2, .pricing-section h2 {
-  color: #0d6efd; /* Azul moderno y vibrante */
+  color: #232b4e; /* <<< NUEVO COLOR PRINCIPAL */
   border-bottom: 2px solid #e9ecef;
   padding-bottom: 15px;
   margin-bottom: 30px;
@@ -33,7 +33,7 @@ body {
 .firewall-services-detail h3 {
   color: #495057;
   margin-top: 40px;
-  border-left: 4px solid #0d6efd;
+  border-left: 4px solid #232b4e; /* <<< NUEVO COLOR PRINCIPAL */
   padding-left: 15px;
 }
 
@@ -46,7 +46,7 @@ body {
 
 /* --- Lista de puntos (Alcance) --- */
 .firewall-services-detail ul {
-  list-style-type: none; /* Quitamos las viñetas por defecto */
+  list-style-type: none;
   padding-left: 0;
 }
 
@@ -66,7 +66,7 @@ body {
 
 /* --- Párrafo "Ideal para" --- */
 .firewall-services-detail p strong {
-  color: #0d6efd;
+  color: #232b4e; /* <<< NUEVO COLOR PRINCIPAL */
 }
 
 /* --- ESTILOS PARA LA TABLA DE PRECIOS --- */
@@ -84,14 +84,14 @@ body {
 }
 
 .pricing-table thead th {
-  background-color: #0d6efd;
+  background-color: #232b4e; /* <<< NUEVO COLOR PRINCIPAL */
   color: #ffffff;
   font-weight: 600;
-  border-bottom: 2px solid #0a58ca;
+  border-bottom: 2px solid #1a2040; /* <<< Versión más oscura para el borde */
 }
 
 .pricing-table tbody tr:nth-child(even) {
-  background-color: #f8f9fa; /* Filas alternas para mejor lectura */
+  background-color: #f8f9fa;
 }
 
 .pricing-table tbody tr:hover {
@@ -103,8 +103,8 @@ body {
 .cta-block {
   margin-top: 40px;
   padding: 25px;
-  background-color: #f0f6ff; /* Fondo azul muy suave */
-  border-left: 5px solid #0d6efd;
+  background-color: #eef2f7; /* <<< Nuevo fondo suave que combina con el nuevo azul */
+  border-left: 5px solid #232b4e; /* <<< NUEVO COLOR PRINCIPAL */
   border-radius: 8px;
   text-align: center;
 }
@@ -117,7 +117,7 @@ body {
 
 .cta-button {
   display: inline-block;
-  background-color: #0d6efd;
+  background-color: #232b4e; /* <<< NUEVO COLOR PRINCIPAL */
   color: #ffffff;
   padding: 12px 25px;
   border-radius: 6px;
@@ -127,6 +127,6 @@ body {
 }
 
 .cta-button:hover {
-  background-color: #0a58ca;
+  background-color: #1a2040; /* <<< Versión más oscura para el hover */
   transform: translateY(-2px);
 }
