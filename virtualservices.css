@@ -1,7 +1,6 @@
-
 /* --- General Body & Section Styling for a Tech Look --- */
 body {
-  background-color: #f8f9fa; /* Fondo gris muy claro */
+  background-color: #f8f9fa;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: #343a40;
 }
@@ -11,7 +10,8 @@ body {
 }
 
 /* --- Contenedor principal de los detalles del servicio --- */
-.firewall-services-detail, .pricing-section {
+/* CAMBIO: Se usa la nueva clase y se elimina .pricing-section */
+.virtual-services-detail {
   max-width: 900px;
   margin: 40px auto;
   padding: 40px;
@@ -22,8 +22,9 @@ body {
 }
 
 /* --- Títulos --- */
-.firewall-services-detail h2, .pricing-section h2 {
-  color: #232b4e; /* <<< NUEVO COLOR PRINCIPAL */
+/* CAMBIO: Se usa la nueva clase */
+.virtual-services-detail h2 {
+  color: #232b4e;
   border-bottom: 2px solid #e9ecef;
   padding-bottom: 15px;
   margin-bottom: 30px;
@@ -31,14 +32,14 @@ body {
   font-weight: 600;
 }
 
-.firewall-services-detail h3 {
+.virtual-services-detail h3 {
   color: #495057;
   margin-top: 40px;
-  border-left: 4px solid #232b4e; /* <<< NUEVO COLOR PRINCIPAL */
+  border-left: 4px solid #232b4e;
   padding-left: 15px;
 }
 
-.firewall-services-detail h4 {
+.virtual-services-detail h4 {
   font-size: 1.1em;
   color: #6c757d;
   margin-top: 20px;
@@ -46,18 +47,19 @@ body {
 }
 
 /* --- Lista de puntos (Alcance) --- */
-.firewall-services-detail ul {
+/* CAMBIO: Selectores más generales para que funcionen en cualquier sección */
+.services-section ul {
   list-style-type: none;
   padding-left: 0;
 }
 
-.firewall-services-detail li {
-  margin-bottom: 12px;
+.services-section li {
+  margin-bottom: 8px; /* Espaciado reducido */
   padding-left: 25px;
   position: relative;
 }
 
-.firewall-services-detail li::before {
+.services-section li::before {
   content: '✅';
   position: absolute;
   left: 0;
@@ -65,88 +67,7 @@ body {
   font-size: 0.9em;
 }
 
-/* --- Párrafo "Ideal para" --- */
-.firewall-services-detail p strong {
-  color: #232b4e; /* <<< NUEVO COLOR PRINCIPAL */
-}
-
-/* --- ESTILOS PARA LA TABLA DE PRECIOS --- */
-.pricing-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  font-size: 0.95em;
-}
-
-.pricing-table th, .pricing-table td {
-  padding: 15px;
-  text-align: left;
-  border-bottom: 1px solid #dee2e6;
-}
-
-.pricing-table thead th {
-  background-color: #232b4e; /* <<< NUEVO COLOR PRINCIPAL */
-  color: #ffffff;
-  font-weight: 600;
-  border-bottom: 2px solid #1a2040; /* <<< Versión más oscura para el borde */
-}
-
-.pricing-table tbody tr:nth-child(even) {
-  background-color: #f8f9fa;
-}
-
-.pricing-table tbody tr:hover {
-  background-color: #e9ecef;
-  transition: background-color 0.2s ease-in-out;
-}
-
-/* --- ESTILOS PARA EL BLOQUE DE LLAMADA A LA ACCIÓN (CTA) --- */
-.cta-block {
-  margin-top: 40px;
-  padding: 25px;
-  background-color: #eef2f7; /* <<< Nuevo fondo suave que combina con el nuevo azul */
-  border-left: 5px solid #232b4e; /* <<< NUEVO COLOR PRINCIPAL */
-  border-radius: 8px;
-  text-align: center;
-}
-
-.cta-block p {
-  margin-bottom: 20px;
-  font-size: 1.1em;
-  color: #495057;
-}
-
-.cta-button {
-  display: inline-block;
-  background-color: #232b4e; /* <<< NUEVO COLOR PRINCIPAL */
-  color: #ffffff;
-  padding: 12px 25px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.cta-button:hover {
-  background-color: #1a2040; /* <<< Versión más oscura para el hover */
-  transform: translateY(-2px);
-}
-
-
-
-
-
 /* --- ESTILOS PARA LA SECCIÓN DESPLEGABLE (COLLAPSIBLE) --- */
-
-.service-collapsible {
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  overflow: hidden; /* Asegura que el contenido no se salga del borde redondeado */
-}
-
-/* --- ESTILOS PARA LA SECCIÓN DESPLEGABLE (COLLAPSIBLE) --- */
-
 .service-collapsible {
   border: 1px solid #e9ecef;
   border-radius: 8px;
@@ -177,7 +98,6 @@ body {
   transition: transform 0.3s ease;
 }
 
-/* El contenido que se mostrará/ocultará */
 .service-collapsible .collapsible-content {
   max-height: 0;
   overflow: hidden;
@@ -185,88 +105,17 @@ body {
   padding: 0 20px;
 }
 
-/* Cuando la sección está activa (abierta) */
-/* ¡OJO! Ya no usamos una altura fija aquí. El JavaScript la controlará. */
 .service-collapsible.active .collapsible-content {
-  max-height: none; /* El JavaScript pondrá una altura real aquí */
+  max-height: none;
   padding: 0 20px 20px 20px;
   transition: max-height 0.4s ease-in;
 }
 
-/* Gira el ícono + cuando está abierto */
 .service-collapsible.active .collapsible-trigger .icon {
   transform: rotate(45deg);
 }
 
-/* --- ESTILOS ADICIONALES PARA LAS NUEVAS LISTAS DETALLADAS (Sin cambios) --- */
-/* ... (el resto de tu CSS para las listas ol y ul permanece igual) ... */
-
-
-
-
-/* --- ESTILOS ADICIONALES PARA LAS NUEVAS LISTAS DETALLADAS --- */
-
-/* Estilo para la lista principal numerada (ol) */
-.firewall-services-detail ol {
-  list-style: none; /* Quitamos la numeración por defecto */
-  padding-left: 0;
-  counter-reset: item; /* Inicia un contador personalizado */
-  margin-top: 20px;
-}
-
-.firewall-services-detail ol > li {
-  counter-increment: item; /* Incrementa el contador en cada elemento */
-  margin-bottom: 20px;
-  padding-left: 40px; /* Espacio para el número personalizado */
-  position: relative;
-}
-
-/* Crea el número personalizado antes de cada elemento */
-.firewall-services-detail ol > li::before {
-  content: counter(item);
-  position: absolute;
-  left: 0;
-  top: 0;
-  background-color: #232b4e;
-  color: #ffffff;
-  font-weight: bold;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9em;
-}
-
-/* Estilo para el título en negrita dentro de cada li */
-.firewall-services-detail ol > li strong {
-  display: block;
-  color: #232b4e;
-  font-size: 1.1em;
-  margin-bottom: 8px;
-}
-
-/* Estilo para la sub-lista (ul) dentro de la lista principal (ol) */
-.firewall-services-detail ol > li > ul {
-  padding-left: 20px;
-  margin-top: 5px;
-}
-
-/* Quita el checkmark de las sub-listas para no confundir */
-.firewall-services-detail ol > li > ul li::before {
-  content: '▪'; /* Usa un punto simple */
-  color: #6c757d;
-  font-size: 1.2em;
-  left: -15px;
-  top: -2px;
-}
-
-
-
-
 /* --- ESTILOS PARA LA CABECERA CON TÍTULO Y PROVEEDORES --- */
-
 .service-header {
   display: flex;
   justify-content: space-between;
@@ -287,7 +136,6 @@ body {
   text-align: right;
 }
 
-
 .vendor-logos {
   display: flex;
   align-items: center;
@@ -295,8 +143,7 @@ body {
 }
 
 .vendor-logos img {
-  /* CAMBIO 2: Aumenta el tamaño de los logos */
-  max-height: 40px; /* Antes era 30px */
+  max-height: 40px;
   width: auto;
   opacity: 0.7;
   filter: grayscale(100%);
@@ -308,7 +155,18 @@ body {
   filter: grayscale(0%);
 }
 
-/* --- Diseño Responsivo para Móviles (sin cambios) --- */
+/* --- ESTILOS PARA EL ENLACE DENTRO DE LA SECCIÓN --- */
+.services-section h4 a {
+  color: #232b4e;
+  text-decoration: none;
+  transition: text-decoration 0.2s ease;
+}
+
+.services-section h4 a:hover {
+  text-decoration: underline;
+}
+
+/* --- Diseño Responsivo para Móviles --- */
 @media (max-width: 768px) {
   .service-header {
     flex-direction: column;
@@ -323,42 +181,15 @@ body {
   }
 }
 
-
-/* --- ESTILOS PARA EL BOTÓN "See more" --- */
-.see-more-btn {
-  background: none;
-  border: 1px solid #232b4e;
-  color: #232b4e;
-  padding: 4px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.8em;
-  margin-left: 10px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.see-more-btn:hover {
-  background-color: #232b4e;
-  color: #ffffff;
-}
-
-/* --- ESTILOS PARA EL NUEVO ENLACE DENTRO DE LA SECCIÓN --- */
-.collapsible-content h4 a {
-  color: #232b4e;
-  text-decoration: none;
-  transition: text-decoration 0.2s ease;
-}
-
-.collapsible-content h4 a:hover {
-  text-decoration: underline;
-}
-
 /*
-// --- ESTILOS PARA EL BOTÓN Y MODALES (COMENTADOS PARA USO FUTURO) ---
-.see-more-btn { ... }
-.modal { ... }
-.modal-content, .zoom-modal-content { ... }
-.modal-prev, .modal-next { ... }
-.modal-close, .zoom-modal-close { ... }
+// --- ESTILOS PARA LA TABLA DE PRECIOS (COMENTADOS O ELIMINADOS) ---
+.pricing-table { ... }
+.pricing-table th, .pricing-table td { ... }
+.pricing-table thead th { ... }
+.pricing-table tbody tr:nth-child(even) { ... }
+.pricing-table tbody tr:hover { ... }
+
+// --- ESTILOS PARA EL BLOQUE DE LLAMADA A LA ACCIÓN (CTA) (COMENTADOS O ELIMINADOS) ---
+.cta-block { ... }
+.cta-button { ... }
 */
-}
