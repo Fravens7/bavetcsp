@@ -300,6 +300,32 @@ body {
 }
 
 /* --- ESPACIADO ENTRE SECCIONES DE SERVICIOS --- */
+/* --- Contenedor principal de los detalles del servicio --- */
+/* CAMBIO: Añadimos .edr-services-detail al selector */
+.firewall-services-detail, .pricing-section, .edr-services-detail {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: #ffffff; /* Este es el fondo blanco que faltaba */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07); /* Esta es la sombra sutil */
+  line-height: 1.7;
+}
+
+/* --- Títulos --- */
+/* CAMBIO: Añadimos .edr-services-detail h2 al selector para consistencia */
+.firewall-services-detail h2, .pricing-section h2, .edr-services-detail h2 {
+  color: #232b4e;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  font-size: 2em;
+  font-weight: 600;
+}
+
+/* ... (el resto de tu CSS permanece igual) ... */
+
+/* --- ESPACIADO ENTRE SECCIONES DE SERVICIOS --- */
 .edr-services-detail {
-  margin-top: 60px; /* Añade espacio entre la sección de Firewall y EDR */
+  margin-top: 60px;
 }
