@@ -578,16 +578,23 @@ header img {
   animation: moveTrain 12s infinite linear;
 }
 
-/* Efecto de desvanecimiento suave */
+/* Estilo para cada logo */
 .client-logo {
-  opacity: 0.95;
-  transition: opacity 0.3s ease;
+  height: 60px;
+  width: auto;
+  margin: 0 40px;
+  flex-shrink: 0;
+  
+  /* --- FILTRO MEJORADO Y FORZADO --- */
+  filter: grayscale(100%) opacity(0.7) !important; /* El !important asegura que se aplique siempre */
+  transition: all 0.3s ease;
 }
 
+/* Efecto cuando el usuario pasa el ratón sobre un logo */
 .client-logo:hover {
-  opacity: 1;
+  filter: grayscale(0%) opacity(1) !important; /* También forzamos el estado hover */
+  transform: scale(1.1);
 }
-
 
 
 
