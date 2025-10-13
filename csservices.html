@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Machine Services - Bavet Call Center</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="csservices.css" />
+</head>
+<body>
+  <header>
+    <!-- ... (sin cambios) ... -->
+    <div class="container nav-container">
+      <a href="index.html">
+        <img src="assets/images/neuronlogo.jpg" alt="Bavet Call Center Logo" />
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="services.html" class="active">Solutions</a></li>
+          <li><a href="index.html#clients">Clients</a></li>
+          <li><a href="careers.html">Work with Us</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="services-section" role="main" aria-labelledby="services-title">
+    <!-- SECCIÓN 1: VIRTUAL MACHINE -->
+    <section class="virtual-services-detail">
+      
+      <div class="service-header">
+        <h2 id="services-title">🖥️ Virtual Machine</h2>
+        <div class="supported-vendors">
+          <div class="vendor-logos">
+            <img src="assets/images/gcp_logo.png" alt="GCP Logo">
+            <img src="assets/images/azure_logo.png" alt="Azure Logo">
+            <img src="assets/images/alibaba_logo.png" alt="Alibaba Logo">
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Our VM management services ensure that your virtual infrastructure runs securely, efficiently, and is aligned with your business operations. From initial optimization to long-term performance tuning and cost control, we help you get the most from your cloud investment.
+      </p>
+
+      <!-- Sección 1: Initial Hardening & Optimization -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 1. Initial Hardening & Optimization <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4><a href="monitoring-agents-details.html">Installation of monitoring agents</a></h4>
+          <!-- TODO: Crear el archivo monitoring-agents-details.html -->
+          <ul>
+            <li>Cloud Monitoring Agent.</li>
+            <li>Cloud Logging Agent.</li>
+            <li>Ops Agent.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sección 2: Access Control & Identity Integration -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 2. Access Control & Identity Integration <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4><a href="iam-integration-details.html">Integration with IAM; roles, RBAC</a></h4>
+          <!-- TODO: Crear el archivo iam-integration-details.html -->
+          <ul>
+            <li>Viewing monitoring dashboards.</li>
+            <li>Creating or modifying alert policies.</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Sección 3: Backup & Snapshot Strategy -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 3. Backup & Snapshot Strategy <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4><a href="backup-strategy-details.html">Backup process</a></h4>
+          <!-- TODO: Crear el archivo backup-strategy-details.html -->
+          <ul>
+            <li>Backups Scope, Frequency, AMIs.</li>
+            <li>Dialy EC2 & RDS.</li>
+            <li>S3 Versioning & Replication.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- = NUEVA SECCIÓN: SECURE ENDPOINT EDR                           = -->
+    <!-- ================================================================= -->
+    <section class="edr-services-detail">
+      <div class="service-header">
+        <h2 id="edr-title">🛢️ Managed Databases</h2>
+        <div class="supported-vendors">
+          <div class="vendor-logos">
+            <img src="assets/images/gcp_logo.png" alt="GCP Logo">
+            <img src="assets/images/azure_logo.png" alt="Azure Logo">
+            <img src="assets/images/amazon_logo.png" alt="Amazon Logo">
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Our managed database services are designed to simplify and secure your cloud data infrastructure. Whether you're migrating from on-premises, optimizing performance, or ensuring high availability, we offer end-to-end support tailored to your operational needs.
+      </p>
+      
+      <!-- Subsección 1: Manage EDR -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 1. Cloud Database Migration <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <ul>
+            <li>Export & import data.</li>
+            <li>Migration planning (downtime windows, compatibility, backup validation).</li>
+            <li>Test connectivity with apps and validate data integrity.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Subsección 2: Deployment Service -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 2. Performance & Cost Optimization <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <ul>
+            <li>Analyze slow queries (EXPLAIN, logs, APM tools).</li>
+            <li>Enable monitoring dashboards and alerts.</li>           
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 3. Backup <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <ul>
+            <li>Set up automated snapshots (daily/hourly as needed).</li>
+            <li>Configure multi-zone replication.</li> 
+            <li>Create and test point-in-time recovery PITR.</li>
+          </ul>
+        </div>
+      </div>
+
+      
+      
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Bavet Call Center. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const triggers = document.querySelectorAll('.collapsible-trigger');
+      triggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+          const collapsible = this.parentElement;
+          const content = collapsible.querySelector('.collapsible-content');
+          collapsible.classList.toggle('active');
+          if (collapsible.classList.contains('active')) {
+            content.style.maxHeight = content.scrollHeight + "px";
+          } else {
+            content.style.maxHeight = null;
+          }
+        });
+      });
+
+      window.addEventListener('resize', () => {
+        const openCollapsibles = document.querySelectorAll('.service-collapsible.active');
+        openCollapsibles.forEach(collapsible => {
+          const content = collapsible.querySelector('.collapsible-content');
+          content.style.maxHeight = content.scrollHeight + "px";
+        });
+      });
+    });
+  </script>
+</body>
+</html>
