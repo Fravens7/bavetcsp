@@ -286,15 +286,6 @@ body {
   text-align: right;
 }
 
-.vendors-label {
-  /* CAMBIO 1: Reduce el tamaño de la letra */
-  font-size: 0.7em; /* Antes era 0.8em */
-  color: #6c757d;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0;
-  white-space: nowrap;
-}
 
 .vendor-logos {
   display: flex;
