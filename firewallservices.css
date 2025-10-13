@@ -183,3 +183,61 @@ body {
 .service-collapsible.active .collapsible-trigger .icon {
   transform: rotate(45deg);
 }
+
+/* --- ESTILOS ADICIONALES PARA LAS NUEVAS LISTAS DETALLADAS --- */
+
+/* Estilo para la lista principal numerada (ol) */
+.firewall-services-detail ol {
+  list-style: none; /* Quitamos la numeración por defecto */
+  padding-left: 0;
+  counter-reset: item; /* Inicia un contador personalizado */
+  margin-top: 20px;
+}
+
+.firewall-services-detail ol > li {
+  counter-increment: item; /* Incrementa el contador en cada elemento */
+  margin-bottom: 20px;
+  padding-left: 40px; /* Espacio para el número personalizado */
+  position: relative;
+}
+
+/* Crea el número personalizado antes de cada elemento */
+.firewall-services-detail ol > li::before {
+  content: counter(item);
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #232b4e;
+  color: #ffffff;
+  font-weight: bold;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9em;
+}
+
+/* Estilo para el título en negrita dentro de cada li */
+.firewall-services-detail ol > li strong {
+  display: block;
+  color: #232b4e;
+  font-size: 1.1em;
+  margin-bottom: 8px;
+}
+
+/* Estilo para la sub-lista (ul) dentro de la lista principal (ol) */
+.firewall-services-detail ol > li > ul {
+  padding-left: 20px;
+  margin-top: 5px;
+}
+
+/* Quita el checkmark de las sub-listas para no confundir */
+.firewall-services-detail ol > li > ul li::before {
+  content: '▪'; /* Usa un punto simple */
+  color: #6c757d;
+  font-size: 1.2em;
+  left: -15px;
+  top: -2px;
+}
