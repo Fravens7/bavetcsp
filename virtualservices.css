@@ -11,7 +11,8 @@ body {
 
 /* --- Contenedor principal de los detalles del servicio --- */
 /* CAMBIO: Se usa la nueva clase y se elimina .pricing-section */
-.virtual-services-detail {
+/* --- Contenedor principal de los detalles del servicio --- */
+.virtual-services-detail, .edr-services-detail {
   max-width: 900px;
   margin: 40px auto;
   padding: 40px;
@@ -23,7 +24,8 @@ body {
 
 /* --- Títulos --- */
 /* CAMBIO: Se usa la nueva clase */
-.virtual-services-detail h2 {
+/* --- Títulos --- */
+.virtual-services-detail h2, .edr-services-detail h2 {
   color: #232b4e;
   border-bottom: 2px solid #e9ecef;
   padding-bottom: 15px;
@@ -166,6 +168,10 @@ body {
   text-decoration: underline;
 }
 
+.edr-services-detail {
+  margin-top: 60px; /* Añade espacio entre la sección de VM y EDR */
+}
+
 /* --- Diseño Responsivo para Móviles --- */
 @media (max-width: 768px) {
   .service-header {
@@ -179,7 +185,10 @@ body {
     width: 100%;
     margin-top: 10px;
   }
+
+  
 }
+/* --- ESPACIADO ENTRE SECCIONES DE SERVICIOS --- */
 
 /*
 // --- ESTILOS PARA LA TABLA DE PRECIOS (COMENTADOS O ELIMINADOS) ---
