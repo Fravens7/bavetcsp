@@ -1,43 +1,132 @@
+/* --- General Body & Section Styling for a Tech Look --- */
+body {
+  background-color: #f8f9fa; /* Fondo gris muy claro */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #343a40;
+}
+
+.services-section {
+  padding: 40px 20px;
+}
+
 /* --- Contenedor principal de los detalles del servicio --- */
-.firewall-services-detail {
-  max-width: 800px; /* Limita el ancho para una mejor lectura en pantallas grandes */
-  margin: 40px auto; /* Centra la sección y añade espacio arriba y abajo */
-  padding: 20px;
-  line-height: 1.6; /* Aumenta el espacio entre líneas para mayor legibilidad */
-  color: #333; /* Un color de texto suave en lugar de negro puro */
+.firewall-services-detail, .pricing-section {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+  line-height: 1.7;
 }
 
 /* --- Títulos --- */
-.firewall-services-detail h2 {
-  color: #0056b3; /* Un color azul para que destaque */
-  border-bottom: 2px solid #e0e0e0; /* Una línea sutil debajo del título */
-  padding-bottom: 10px;
-  margin-bottom: 25px;
+.firewall-services-detail h2, .pricing-section h2 {
+  color: #0d6efd; /* Azul moderno y vibrante */
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  font-size: 2em;
+  font-weight: 600;
 }
 
 .firewall-services-detail h3 {
-  color: #007bff; /* Un azul un poco más claro para el subtítulo */
-  margin-top: 30px; /* Espacio antes de cada subtítulo */
+  color: #495057;
+  margin-top: 40px;
+  border-left: 4px solid #0d6efd;
+  padding-left: 15px;
 }
 
 .firewall-services-detail h4 {
   font-size: 1.1em;
-  color: #555;
+  color: #6c757d;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
 /* --- Lista de puntos (Alcance) --- */
 .firewall-services-detail ul {
-  list-style-type: '✅ '; /* Usa un emoji como viñeta */
-  padding-left: 25px;
+  list-style-type: none; /* Quitamos las viñetas por defecto */
+  padding-left: 0;
 }
 
 .firewall-services-detail li {
-  margin-bottom: 8px; /* Espacio entre cada punto de la lista */
+  margin-bottom: 12px;
+  padding-left: 25px;
+  position: relative;
+}
+
+.firewall-services-detail li::before {
+  content: '✅';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 0.9em;
 }
 
 /* --- Párrafo "Ideal para" --- */
 .firewall-services-detail p strong {
-  color: #007bff; /* Resalta la etiqueta "Ideal para" con el mismo color azul */
+  color: #0d6efd;
+}
+
+/* --- ESTILOS PARA LA TABLA DE PRECIOS --- */
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 0.95em;
+}
+
+.pricing-table th, .pricing-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.pricing-table thead th {
+  background-color: #0d6efd;
+  color: #ffffff;
+  font-weight: 600;
+  border-bottom: 2px solid #0a58ca;
+}
+
+.pricing-table tbody tr:nth-child(even) {
+  background-color: #f8f9fa; /* Filas alternas para mejor lectura */
+}
+
+.pricing-table tbody tr:hover {
+  background-color: #e9ecef;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* --- ESTILOS PARA EL BLOQUE DE LLAMADA A LA ACCIÓN (CTA) --- */
+.cta-block {
+  margin-top: 40px;
+  padding: 25px;
+  background-color: #f0f6ff; /* Fondo azul muy suave */
+  border-left: 5px solid #0d6efd;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.cta-block p {
+  margin-bottom: 20px;
+  font-size: 1.1em;
+  color: #495057;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #0d6efd;
+  color: #ffffff;
+  padding: 12px 25px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: #0a58ca;
+  transform: translateY(-2px);
 }
