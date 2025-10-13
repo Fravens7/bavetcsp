@@ -298,3 +298,8 @@ body {
     margin-top: 10px;
   }
 }
+
+/* --- ESPACIADO ENTRE SECCIONES DE SERVICIOS --- */
+.edr-services-detail {
+  margin-top: 60px; /* Añade espacio entre la sección de Firewall y EDR */
+}
