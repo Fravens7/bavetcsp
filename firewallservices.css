@@ -51,75 +51,23 @@ body {
 }
 
 .firewall-services-detail li {
-  margin-bottom: 8px; /* Espaciado reducido que te gustó */
+  margin-bottom: 8px;
   padding-left: 25px;
   position: relative;
 }
 
 .firewall-services-detail li::before {
-  content: '✅'; /* <<< CAMBIO DE VUELTA A LA MARCA DE VERIFICACIÓN */
+  content: '✅';
   position: absolute;
   left: 0;
   top: 2px;
   font-size: 0.9em;
 }
 
-/* --- ESTILOS ADICIONALES PARA LAS NUEVAS LISTAS DETALLADAS --- */
-.firewall-services-detail ol {
-  list-style: none;
-  padding-left: 0;
-  counter-reset: item;
-  margin-top: 20px;
-}
-
-.firewall-services-detail ol > li {
-  counter-increment: item;
-  margin-bottom: 20px;
-  padding-left: 40px;
-  position: relative;
-}
-
-.firewall-services-detail ol > li::before {
-  content: counter(item);
-  position: absolute;
-  left: 0;
-  top: 0;
-  background-color: #232b4e;
-  color: #ffffff;
-  font-weight: bold;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9em;
-}
-
-.firewall-services-detail ol > li strong {
-  display: block;
+/* --- Párrafo "Ideal para" (sin cambios, por si se usa en otro lugar) --- */
+.firewall-services-detail p strong {
   color: #232b4e;
-  font-size: 1.1em;
-  margin-bottom: 8px;
 }
-
-.firewall-services-detail ol > li > ul {
-  padding-left: 20px;
-  margin-top: 5px;
-}
-
-.firewall-services-detail ol > li > ul li::before {
-  content: '✅'; /* <<< TAMBIÉN CAMBIADO AQUÍ PARA CONSISTENCIA */
-  color: #232b4e; /* Le damos el color principal para que destaque un poco más */
-  font-size: 0.8em; /* Un poco más pequeño para la sub-lista */
-  left: -15px;
-  top: -2px;
-}
-
-/* ... (el resto de tu CSS permanece igual) ... */
-
-
-
 
 /* --- ESTILOS PARA LA SECCIÓN DESPLEGABLE (COLLAPSIBLE) --- */
 .service-collapsible {
@@ -214,9 +162,9 @@ body {
 }
 
 .firewall-services-detail ol > li > ul li::before {
-  content: '—'; /* <<< CAMBIO: Punto "▪" reemplazado por un guion para consistencia */
-  color: #6c757d;
-  font-size: 1.1em;
+  content: '✅';
+  color: #232b4e;
+  font-size: 0.8em;
   left: -15px;
   top: -2px;
 }
@@ -272,7 +220,8 @@ body {
   text-decoration: underline;
 }
 
-/* --- ESTILOS PARA LA TABLA DE PRECIOS --- */
+/*
+// --- ESTILOS PARA LA TABLA DE PRECIOS (COMENTADOS) ---
 .pricing-table {
   width: 100%;
   border-collapse: collapse;
@@ -302,7 +251,7 @@ body {
   transition: background-color 0.2s ease-in-out;
 }
 
-/* --- ESTILOS PARA EL BLOQUE DE LLAMADA A LA ACCIÓN (CTA) --- */
+// --- ESTILOS PARA EL BLOQUE DE LLAMADA A LA ACCIÓN (CTA) (COMENTADO) ---
 .cta-block {
   margin-top: 40px;
   padding: 25px;
@@ -333,6 +282,7 @@ body {
   background-color: #1a2040;
   transform: translateY(-2px);
 }
+*/
 
 /* --- Diseño Responsivo para Móviles --- */
 @media (max-width: 768px) {
