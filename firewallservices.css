@@ -341,54 +341,23 @@ body {
   color: #ffffff;
 }
 
-/* --- ESTILOS PARA LAS VENTANAS MODALES (GALERÍA Y ZOOM) --- */
-.modal {
-  display: none; /* Oculto por defecto */
-  position: fixed;
-  z-index: 1000; /* Se asegura de que esté por encima de todo */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  justify-content: center;
-  align-items: center;
+/* --- ESTILOS PARA EL NUEVO ENLACE DENTRO DE LA SECCIÓN --- */
+.collapsible-content h4 a {
+  color: #232b4e;
+  text-decoration: none;
+  transition: text-decoration 0.2s ease;
 }
 
-.modal-content, .zoom-modal-content {
-  max-width: 90%;
-  max-height: 80%;
-  object-fit: contain;
-  cursor: pointer;
+.collapsible-content h4 a:hover {
+  text-decoration: underline;
 }
 
-.modal-prev, .modal-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #ffffff;
-  font-size: 2em;
-  font-weight: bold;
-  padding: 16px;
-  cursor: pointer;
-  background-color: rgba(0,0,0,0.5);
-  border: none;
-  user-select: none;
-}
-
-.modal-prev { left: 20px; }
-.modal-next { right: 20px; }
-
-.modal-close, .zoom-modal-close {
-  position: absolute;
-  top: 20px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 3em;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.modal-close:hover, .modal-prev:hover, .modal-next:hover, .zoom-modal-close:hover {
-  color: #bbb;
+/*
+// --- ESTILOS PARA EL BOTÓN Y MODALES (COMENTADOS PARA USO FUTURO) ---
+.see-more-btn { ... }
+.modal { ... }
+.modal-content, .zoom-modal-content { ... }
+.modal-prev, .modal-next { ... }
+.modal-close, .zoom-modal-close { ... }
+*/
 }
