@@ -130,3 +130,56 @@ body {
   background-color: #1a2040; /* <<< Versión más oscura para el hover */
   transform: translateY(-2px);
 }
+
+/* --- ESTILOS PARA LA SECCIÓN DESPLEGABLE (COLLAPSIBLE) --- */
+
+.service-collapsible {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  overflow: hidden; /* Asegura que el contenido no se salga del borde redondeado */
+}
+
+.service-collapsible .collapsible-trigger {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  margin: 0; /* Quita el margen del h3 */
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.service-collapsible .collapsible-trigger:hover {
+  background-color: #e9ecef;
+}
+
+.service-collapsible .collapsible-trigger .icon {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #232b4e;
+  transition: transform 0.3s ease;
+}
+
+/* El contenido que se mostrará/ocultará */
+.service-collapsible .collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+  padding: 0 20px; /* Padding horizontal */
+}
+
+/* Cuando la sección está activa (abierta) */
+.service-collapsible.active .collapsible-content {
+  /* Ajusta este valor si el contenido es muy largo */
+  max-height: 500px; 
+  padding: 0 20px 20px 20px; /* Añade padding inferior */
+  transition: max-height 0.4s ease-in;
+}
+
+/* Gira el ícono + cuando está abierto */
+.service-collapsible.active .collapsible-trigger .icon {
+  transform: rotate(45deg);
+}
