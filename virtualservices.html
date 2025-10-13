@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Firewall Services - Bavet Call Center</title>
+  <title>Virtual Machine Services - Bavet Call Center</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="virtualservices.css" />
 </head>
@@ -27,7 +27,8 @@
   </header>
 
   <main class="services-section" role="main" aria-labelledby="services-title">
-    <section class="firewall-services-detail">
+    <!-- SECCIÓN 1: VIRTUAL MACHINE -->
+    <section class="virtual-services-detail">
       
       <div class="service-header">
         <h2 id="services-title">🖥️ Virtual Machine</h2>
@@ -44,101 +45,86 @@
         Our VM management services ensure that your virtual infrastructure runs securely, efficiently, and is aligned with your business operations. From initial optimization to long-term performance tuning and cost control, we help you get the most from your cloud investment.
       </p>
 
-      
-      <!-- Sección 1: Basic Installation (MODIFICADA) -->
+      <!-- Sección 1: Initial Hardening & Optimization -->
       <div class="service-collapsible">
         <h3 class="collapsible-trigger">🔹 1. Initial Hardening & Optimization <span class="icon">+</span></h3>
         <div class="collapsible-content">
-          
-          <!-- NUEVA ESTRUCTURA: Título clicable y detalles visibles -->
-          <h4><a href="unboxing-details.html">Installation of monitoring agents</a></h4>
-          <!-- TODO: Crear el archivo unboxing-details.html con más detalles sobre este proceso. -->
+          <h4><a href="monitoring-agents-details.html">Installation of monitoring agents</a></h4>
+          <!-- TODO: Crear el archivo monitoring-agents-details.html -->
           <ul>
             <li>Cloud Monitoring Agent.</li>
             <li>Cloud Logging Agent.</li>
             <li>Ops Agent.</li>
           </ul>
-
         </div>
       </div>
 
-      
-
+      <!-- Sección 2: Access Control & Identity Integration -->
       <div class="service-collapsible">
         <h3 class="collapsible-trigger">🔹 2. Access Control & Identity Integration <span class="icon">+</span></h3>
         <div class="collapsible-content">
-      <h4><a href="unboxing-details.html">Integration with IAM; roles, RBAC</a></h4>
-
-      <ul>
+          <h4><a href="iam-integration-details.html">Integration with IAM; roles, RBAC</a></h4>
+          <!-- TODO: Crear el archivo iam-integration-details.html -->
+          <ul>
             <li>Viewing monitoring dashboards.</li>
             <li>Creating or modifying alert policies.</li>
-      </ul>
-   </div>
- </div>   
+          </ul>
+        </div>
+      </div>
       
+      <!-- Sección 3: Backup & Snapshot Strategy -->
       <div class="service-collapsible">
         <h3 class="collapsible-trigger">🔹 3. Backup & Snapshot Strategy <span class="icon">+</span></h3>
         <div class="collapsible-content">
-      <h4><a href="unboxing-details.html">Backup process</a></h4>
-
-      <ul>
+          <h4><a href="backup-strategy-details.html">Backup process</a></h4>
+          <!-- TODO: Crear el archivo backup-strategy-details.html -->
+          <ul>
             <li>Backups Scope, Frequency, AMIs.</li>
             <li>Dialy EC2 & RDS.</li>
             <li>S3 Versioning & Replication.</li>
-      </ul>
-   </div>
- </div>  
-
-
-      
-
-
-      
+          </ul>
+        </div>
+      </div>
     </section>
 
-    <!-- SECCIÓN DE PRECIOS (sin cambios) -->
-    <section class="pricing-section">
-      <h2>📦 Service Packages – Sample Pricing</h2>
-      <table class="pricing-table">
-        <thead>
-          <tr>
-            <th>Service</th>
-            <th>Description</th>
-            <th>Starting Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Basic Installation</td>
-            <td>Setup and admin access</td>
-            <td>$100+</td>
-          </tr>
-          <tr>
-            <td>Initial Configuration</td>
-            <td>Zones, policies, NAT</td>
-            <td>$150+</td>
-          </tr>
-          <tr>
-            <td>Advanced Configuration</td>
-            <td>VPN, segmentation, filtering</td>
-            <td>$300+</td>
-          </tr>
-          <tr>
-            <td>Support & Maintenance</td>
-            <td>Monthly service & updates</td>
-            <td>$75/mo</td>
-          </tr>
-          <tr>
-            <td>Firewall Audit</td>
-            <td>Review + optimization</td>
-            <td>$200+</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- ================================================================= -->
+    <!-- = NUEVA SECCIÓN: SECURE ENDPOINT EDR                           = -->
+    <!-- ================================================================= -->
+    <section class="edr-services-detail">
+      <div class="service-header">
+        <h2 id="edr-title">🛡️ Secure Endpoint EDR</h2>
+        <div class="supported-vendors">
+          <div class="vendor-logos">
+            <img src="assets/images/cisco_logo.jpg" alt="Cisco Logo">
+          </div>
+        </div>
+      </div>
 
-      <div class="cta-block">
-        <p>✅ Custom quotes available based on device type, environment complexity, and business needs.</p>
-        <a href="#contact" class="cta-button">Get Your Custom Quote</a>
+      <p>
+        Cisco Secure Endpoint is Cisco’s EDR solution designed to detect, prevent, and respond to threats on endpoints like laptops, servers, and workstations.
+      </p>
+      
+      <!-- Subsección 1: Manage EDR -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 1. Manage EDR <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <ul>
+            <li>24/7 threat monitoring and alerting.</li>
+            <li>Device isolation, file deletion, and attack remediation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Subsección 2: Deployment Service -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 2. Deployment Service <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <ul>
+            <li>Integration with existing Cisco tools (like Umbrella, SecureX, Firepower).</li>
+            <li>Policy tuning and baseline security settings.</li>
+            <li>Staff training and onboarding support.</li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -150,10 +136,8 @@
     </div>
   </footer>
 
-
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // --- LÓGICA PARA SECCIONES DESPLEGABLES ---
       const triggers = document.querySelectorAll('.collapsible-trigger');
       triggers.forEach(trigger => {
         trigger.addEventListener('click', function() {
@@ -175,7 +159,6 @@
           content.style.maxHeight = content.scrollHeight + "px";
         });
       });
-
     });
   </script>
 </body>
