@@ -27,13 +27,12 @@
 
   <main class="services-section" role="main" aria-labelledby="services-title">
     <section class="firewall-services-detail">
-      <!-- CAMBIO 1: Título actualizado -->
       <h2>🔐 Firewall</h2>
       <p>
         Our firewall services are structured in clear phases to meet your business’s security needs — from initial setup to advanced configurations and ongoing maintenance. Whether you require a basic installation or a fully managed security environment, we offer flexible options tailored to your environment.
       </p>
       
-      <!-- CAMBIO 2: Estructura interactiva para "Basic Installation" -->
+      <!-- Sección 1: Basic Installation -->
       <div class="service-collapsible">
         <h3 class="collapsible-trigger">🔹 1. Basic Installation <span class="icon">+</span></h3>
         <div class="collapsible-content">
@@ -48,45 +47,64 @@
         </div>
       </div>
       
-      <!-- Las otras secciones permanecen igual por ahora -->
-      <h3>🔹 2. Initial Configuration</h3>
-      <h4>Scope:</h4>
-      <ul>
-        <li>Definition of basic zones (LAN, WAN, DMZ).</li>
-        <li>Default security policies (inbound/outbound).</li>
-        <li>Basic NAT/PAT rules.</li>
-        <li>Admin access restrictions and login hardening.</li>
-      </ul>
-      <p><strong>💡 A great starting point for:</strong> secure day-to-day operations.</p>
+      <!-- Sección 2: Initial Configuration -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 2. Initial Configuration <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4>Scope:</h4>
+          <ul>
+            <li>Definition of basic zones (LAN, WAN, DMZ).</li>
+            <li>Default security policies (inbound/outbound).</li>
+            <li>Basic NAT/PAT rules.</li>
+            <li>Admin access restrictions and login hardening.</li>
+          </ul>
+          <p><strong>💡 A great starting point for:</strong> secure day-to-day operations.</p>
+        </div>
+      </div>
 
-      <h3>🔹 3. Advanced Configuration</h3>
-      <h4>Scope:</h4>
-      <ul>
-        <li>Custom firewall rules (ports, IPs, protocols).</li>
-        <li>Network segmentation (VLANs, DMZ, multi-LAN setups).</li>
-        <li>VPN setup (site-to-site or remote access).</li>
-        <li>Application filtering, URL filtering, or IPS/IDS (if supported).</li>
-      </ul>
-      <p><strong>💡 Best for:</strong> businesses with compliance needs or complex network topologies.</p>
+      <!-- Sección 3: Advanced Configuration -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 3. Advanced Configuration <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4>Scope:</h4>
+          <ul>
+            <li>Custom firewall rules (ports, IPs, protocols).</li>
+            <li>Network segmentation (VLANs, DMZ, multi-LAN setups).</li>
+            <li>VPN setup (site-to-site or remote access).</li>
+            <li>Application filtering, URL filtering, or IPS/IDS (if supported).</li>
+          </ul>
+          <p><strong>💡 Best for:</strong> businesses with compliance needs or complex network topologies.</p>
+        </div>
+      </div>
 
-      <h3>🔹 4. Ongoing Support & Maintenance</h3>
-      <h4>Scope:</h4>
-      <ul>
-        <li>Regular firewall updates and security patches.</li>
-        <li>Monthly rule reviews and traffic analysis.</li>
-        <li>On-demand configuration changes.</li>
-        <li>Incident response support (as per SLA).</li>
-      </ul>
-      <p><strong>💡 Ideal for:</strong> companies without a dedicated IT/security team.</p>
+      <!-- Sección 4: Ongoing Support & Maintenance -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 4. Ongoing Support & Maintenance <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4>Scope:</h4>
+          <ul>
+            <li>Regular firewall updates and security patches.</li>
+            <li>Monthly rule reviews and traffic analysis.</li>
+            <li>On-demand configuration changes.</li>
+            <li>Incident response support (as per SLA).</li>
+          </ul>
+          <p><strong>💡 Ideal for:</strong> companies without a dedicated IT/security team.</p>
+        </div>
+      </div>
 
-      <h3>🔹 5. Firewall Audit & Optimization</h3>
-      <h4>Scope:</h4>
-      <ul>
-        <li>Full analysis of current firewall configurations.</li>
-        <li>Identification of vulnerabilities, misconfigurations, or redundant rules.</li>
-        <li>Detailed recommendations or full implementation of improvements.</li>
-      </ul>
-      <p><strong>💡 Perfect for:</strong> enhancing existing security setups or meeting compliance requirements.</p>
+      <!-- Sección 5: Firewall Audit & Optimization -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 5. Firewall Audit & Optimization <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4>Scope:</h4>
+          <ul>
+            <li>Full analysis of current firewall configurations.</li>
+            <li>Identification of vulnerabilities, misconfigurations, or redundant rules.</li>
+            <li>Detailed recommendations or full implementation of improvements.</li>
+          </ul>
+          <p><strong>💡 Perfect for:</strong> enhancing existing security setups or meeting compliance requirements.</p>
+        </div>
+      </div>
     </section>
 
     <!-- SECCIÓN DE PRECIOS (sin cambios) -->
@@ -144,19 +162,20 @@
   </footer>
 
   <!-- ================================================================= -->
-  <!-- = SCRIPT PARA LA FUNCIONALIDAD DESPLEGABLE                      = -->
+  <!-- = SCRIPT ACTUALIZADO PARA MÚLTIPLES DESPLEGABLES                = -->
   <!-- ================================================================= -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // Encuentra el elemento que activa el despliegue
-      const trigger = document.querySelector('.collapsible-trigger');
+      // Encuentra TODOS los elementos que activan el despliegue
+      const triggers = document.querySelectorAll('.collapsible-trigger');
       
-      if (trigger) {
+      // Itera sobre cada uno de ellos y añade el evento 'click'
+      triggers.forEach(trigger => {
         trigger.addEventListener('click', function() {
-          // Alterna la clase 'active' en el contenedor padre
+          // 'this' se refiere al 'trigger' específico que fue clickeado
           this.parentElement.classList.toggle('active');
         });
-      }
+      });
     });
   </script>
 </body>
