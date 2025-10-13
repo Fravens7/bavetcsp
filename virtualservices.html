@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firewall Services - Bavet Call Center</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="firewallservices.css" />
+</head>
+<body>
+  <header>
+    <!-- ... (sin cambios) ... -->
+    <div class="container nav-container">
+      <a href="index.html">
+        <img src="assets/images/neuronlogo.jpg" alt="Bavet Call Center Logo" />
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="services.html" class="active">Solutions</a></li>
+          <li><a href="index.html#clients">Clients</a></li>
+          <li><a href="careers.html">Work with Us</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="services-section" role="main" aria-labelledby="services-title">
+    <section class="firewall-services-detail">
+      
+      <div class="service-header">
+        <h2 id="services-title">🔐 Firewall</h2>
+        <div class="supported-vendors">
+          <div class="vendor-logos">
+            <img src="assets/images/cisco_logo.jpg" alt="Cisco Logo">
+            <img src="assets/images/sophos_logo.jpg" alt="Sophos Logo">
+            <img src="assets/images/fortinet_logo.png" alt="Fortinet Logo">
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Our firewall services are structured in clear phases to meet your business’s security needs — from initial setup to advanced configurations and ongoing maintenance. Whether you require a basic installation or a fully managed security environment, we offer flexible options tailored to your environment.
+      </p>
+      
+      <!-- Sección 1: Basic Installation (MODIFICADA) -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 1. Basic Installation <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          
+          <!-- NUEVA ESTRUCTURA: Título clicable y detalles visibles -->
+          <h4><a href="unboxing-details.html">Unboxing and Physical Setup</a></h4>
+          <!-- TODO: Crear el archivo unboxing-details.html con más detalles sobre este proceso. -->
+          <ul>
+            <li>Rack or desktop placement (depending on model).</li>
+            <li>Power and network cabling.</li>
+          </ul>
+
+        </div>
+      </div>
+      
+      <!-- ... (el resto de las secciones desplegables y la tabla de precios permanecen igual) ... -->
+      <!-- Sección 2: Initial Configuration -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 2. Initial Configuration <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4>Scope:</h4>
+          <ul>
+            <li>Definition of basic zones (LAN, WAN, DMZ).</li>
+            <li>Default security policies (inbound/outbound).</li>
+            <li>Basic NAT/PAT rules.</li>
+            <li>Admin access restrictions and login hardening.</li>
+          </ul>
+          <p><strong>💡 A great starting point for:</strong> secure day-to-day operations.</p>
+        </div>
+      </div>
+
+      <!-- Sección 3: Advanced Configuration -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 3. Advanced Configuration <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4>Scope:</h4>
+          <ul>
+            <li>Custom firewall rules (ports, IPs, protocols).</li>
+            <li>Network segmentation (VLANs, DMZ, multi-LAN setups).</li>
+            <li>VPN setup (site-to-site or remote access).</li>
+            <li>Application filtering, URL filtering, or IPS/IDS (if supported).</li>
+          </ul>
+          <p><strong>💡 Best for:</strong> businesses with compliance needs or complex network topologies.</p>
+        </div>
+      </div>
+
+      <!-- Sección 4: Ongoing Support & Maintenance -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 4. Ongoing Support & Maintenance <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4>Scope:</h4>
+          <ul>
+            <li>Regular firewall updates and security patches.</li>
+            <li>Monthly rule reviews and traffic analysis.</li>
+            <li>On-demand configuration changes.</li>
+            <li>Incident response support (as per SLA).</li>
+          </ul>
+          <p><strong>💡 Ideal for:</strong> companies without a dedicated IT/security team.</p>
+        </div>
+      </div>
+
+      <!-- Sección 5: Firewall Audit & Optimization -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 5. Firewall Audit & Optimization <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4>Scope:</h4>
+          <ul>
+            <li>Full analysis of current firewall configurations.</li>
+            <li>Identification of vulnerabilities, misconfigurations, or redundant rules.</li>
+            <li>Detailed recommendations or full implementation of improvements.</li>
+          </ul>
+          <p><strong>💡 Perfect for:</strong> enhancing existing security setups or meeting compliance requirements.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE PRECIOS (sin cambios) -->
+    <section class="pricing-section">
+      <h2>📦 Service Packages – Sample Pricing</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Description</th>
+            <th>Starting Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Basic Installation</td>
+            <td>Setup and admin access</td>
+            <td>$100+</td>
+          </tr>
+          <tr>
+            <td>Initial Configuration</td>
+            <td>Zones, policies, NAT</td>
+            <td>$150+</td>
+          </tr>
+          <tr>
+            <td>Advanced Configuration</td>
+            <td>VPN, segmentation, filtering</td>
+            <td>$300+</td>
+          </tr>
+          <tr>
+            <td>Support & Maintenance</td>
+            <td>Monthly service & updates</td>
+            <td>$75/mo</td>
+          </tr>
+          <tr>
+            <td>Firewall Audit</td>
+            <td>Review + optimization</td>
+            <td>$200+</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="cta-block">
+        <p>✅ Custom quotes available based on device type, environment complexity, and business needs.</p>
+        <a href="#contact" class="cta-button">Get Your Custom Quote</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Bavet Call Center. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // --- LÓGICA PARA SECCIONES DESPLEGABLES ---
+      const triggers = document.querySelectorAll('.collapsible-trigger');
+      triggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+          const collapsible = this.parentElement;
+          const content = collapsible.querySelector('.collapsible-content');
+          collapsible.classList.toggle('active');
+          if (collapsible.classList.contains('active')) {
+            content.style.maxHeight = content.scrollHeight + "px";
+          } else {
+            content.style.maxHeight = null;
+          }
+        });
+      });
+
+      window.addEventListener('resize', () => {
+        const openCollapsibles = document.querySelectorAll('.service-collapsible.active');
+        openCollapsibles.forEach(collapsible => {
+          const content = collapsible.querySelector('.collapsible-content');
+          content.style.maxHeight = content.scrollHeight + "px";
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>
