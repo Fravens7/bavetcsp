@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Cambia el texto del botón
         if (details.classList.contains('open')) {
-          button.textContent = 'Ver menos';
+          button.textContent = 'See less';
         } else {
-          button.textContent = 'Ver más información';
+          button.textContent = 'See More';
         }
       }
     });
