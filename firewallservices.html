@@ -27,21 +27,28 @@
 
   <main class="services-section" role="main" aria-labelledby="services-title">
     <section class="firewall-services-detail">
-      <h2>🔐 Firewall Services Overview</h2>
+      <!-- CAMBIO 1: Título actualizado -->
+      <h2>🔐 Firewall</h2>
       <p>
         Our firewall services are structured in clear phases to meet your business’s security needs — from initial setup to advanced configurations and ongoing maintenance. Whether you require a basic installation or a fully managed security environment, we offer flexible options tailored to your environment.
       </p>
       
-      <h3>🔹 1. Basic Installation</h3>
-      <h4>Scope:</h4>
-      <ul>
-        <li>Deployment of firewall hardware or software.</li>
-        <li>Network interface setup and IP address configuration.</li>
-        <li>Secure administrator access (Web UI / CLI).</li>
-        <li>Initial connectivity verification.</li>
-      </ul>
-      <p><strong>💡 Ideal for:</strong> clients who want a functioning firewall but prefer to handle configurations internally.</p>
+      <!-- CAMBIO 2: Estructura interactiva para "Basic Installation" -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 1. Basic Installation <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4>Scope:</h4>
+          <ul>
+            <li>Deployment of firewall hardware or software.</li>
+            <li>Network interface setup and IP address configuration.</li>
+            <li>Secure administrator access (Web UI / CLI).</li>
+            <li>Initial connectivity verification.</li>
+          </ul>
+          <p><strong>💡 Ideal for:</strong> clients who want a functioning firewall but prefer to handle configurations internally.</p>
+        </div>
+      </div>
       
+      <!-- Las otras secciones permanecen igual por ahora -->
       <h3>🔹 2. Initial Configuration</h3>
       <h4>Scope:</h4>
       <ul>
@@ -82,7 +89,7 @@
       <p><strong>💡 Perfect for:</strong> enhancing existing security setups or meeting compliance requirements.</p>
     </section>
 
-    <!-- NUEVA SECCIÓN: TABLA DE PRECIOS -->
+    <!-- SECCIÓN DE PRECIOS (sin cambios) -->
     <section class="pricing-section">
       <h2>📦 Service Packages – Sample Pricing</h2>
       <table class="pricing-table">
@@ -135,5 +142,22 @@
       <p>&copy; 2025 Bavet Call Center. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- ================================================================= -->
+  <!-- = SCRIPT PARA LA FUNCIONALIDAD DESPLEGABLE                      = -->
+  <!-- ================================================================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Encuentra el elemento que activa el despliegue
+      const trigger = document.querySelector('.collapsible-trigger');
+      
+      if (trigger) {
+        trigger.addEventListener('click', function() {
+          // Alterna la clase 'active' en el contenedor padre
+          this.parentElement.classList.toggle('active');
+        });
+      }
+    });
+  </script>
 </body>
 </html>
