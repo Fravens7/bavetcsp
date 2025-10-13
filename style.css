@@ -524,7 +524,7 @@ header img {
 .client-logos {
   display: flex;
   /* No necesitamos width ni left. El ancho será el natural de todos los logos juntos. */
-  animation: scroll 30s linear infinite; /* Animación suave y continua */
+  animation: scroll 40s linear infinite; /* Animación suave y continua */
 }
 
 /* Estilo para cada logo */
