@@ -504,56 +504,61 @@ header img {
 
 
 
+/* --- SECCIÓN CLIENTES (MEJORADA) --- */
 
-/* Clientes */
 .clients {
   padding: 60px 20px;
   background-color: #f7f9fc;
   text-align: center;
-  overflow: hidden;
+  overflow: hidden; /* ¡MUY IMPORTANTE! Esto oculta todo lo que se sale del área visible. */
   position: relative;
 }
 
 .clients h2 {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   font-size: 2rem;
   color: #191e32;
 }
 
+/* El contenedor que se moverá */
 .client-logos {
   display: flex;
-  gap: 50px;
-  width: calc(100% + 80px); /* Ancho para 3 logos a la vez */
-  overflow: hidden;
-  position: relative;
-  left: -40px; /* Ajuste para 3 logos */
-  animation: moveTrain 15s linear infinite;
+  /* No necesitamos width ni left. El ancho será el natural de todos los logos juntos. */
+  animation: scroll 30s linear infinite; /* Animación suave y continua */
 }
 
+/* Estilo para cada logo */
 .client-logo {
-  width: 180px;
-  max-width: 250px;
-  height: auto;
-  transition: transform 0.3s ease, filter 0.3s ease;
-  object-fit: contain;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
+  height: 60px; /* Altura fija para que todos los logos queden alineados */
+  width: auto; /* El ancho se ajusta para mantener la proporción */
+  margin: 0 40px; /* Espacio entre logos */
+  flex-shrink: 0; /* Evita que los logos se encojan si el contenedor es pequeño */
+  filter: grayscale(100%); /* Toque profesional: logos en blanco y negro */
+  opacity: 0.7;
+  transition: all 0.3s ease; /* Transición suave para el efecto hover */
 }
 
+/* Efecto cuando el usuario pasa el ratón sobre un logo */
 .client-logo:hover {
-  transform: translateX(20px);
-  filter: brightness(1.2);
+  filter: grayscale(0%); /* El logo vuelve a tener color */
+  opacity: 1;
+  transform: scale(1.1); /* El logo crece un poco */
 }
 
-/* Animación mejorada del tren */
-@keyframes moveTrain {
+/* La animación clave: mueve el contenedor de 0 a -50% de su ancho total */
+@keyframes scroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-40%); /* Mueve el 40% del ancho total */
+    transform: translateX(-50%);
   }
 }
+
+
+
+
+
 
 /* Efecto de brillo sutil para el logo central */
 .client-logo:nth-child(2),
