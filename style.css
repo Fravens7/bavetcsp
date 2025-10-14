@@ -932,6 +932,7 @@ header img {
   background-color: #f0f8ff;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: relative; /* <-- ¡AÑADE ESTA LÍNEA! */
 }
 
 #map-container:active {
