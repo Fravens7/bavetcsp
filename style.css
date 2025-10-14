@@ -1023,6 +1023,139 @@ path.inactive {
 
 
 
+/* --- ESTILOS MEJORADOS PARA EL PANEL DE INFORMACIÓN --- */
+
+.info-panel {
+  background-color: #f8f9fa; /* Un gris muy claro para el fondo */
+  color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.office-card {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.office-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.office-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f1f3f5;
+  padding-bottom: 10px;
+}
+
+.office-header h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #003366; /* Azul corporativo */
+  font-weight: 600;
+}
+
+.office-tag {
+  font-size: 0.75em;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+  color: white;
+  text-transform: uppercase;
+}
+
+.office-tag.headquarters {
+  background-color: #0077cc; /* Azul brillante */
+}
+
+.office-tag.operations {
+  background-color: #28a745; /* Verde para operaciones */
+}
+
+.office-address {
+  font-style: normal;
+  margin-bottom: 15px;
+  color: #495057;
+  line-height: 1.5;
+}
+
+.office-contact {
+  margin-bottom: 15px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.contact-item .icon {
+  margin-right: 10px;
+  font-size: 1.1em;
+}
+
+.contact-item a {
+  color: #0077cc;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+.office-description {
+  margin: 0;
+  font-size: 0.9em;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.office-divider {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  margin: 25px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
