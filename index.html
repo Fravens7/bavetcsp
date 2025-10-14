@@ -470,15 +470,14 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+
+  // --- LÓGICA DE LAS COMETAS ---
   const comets = document.querySelectorAll('.comet');
   const heroSection = document.querySelector('.hero');
   
-  // Función para verificar si un cometa está en la parte inferior
   function checkCometPosition(comet) {
     const rect = comet.getBoundingClientRect();
     const heroRect = heroSection.getBoundingClientRect();
-    
-    // Mostrar etiqueta solo si el cometa está en la mitad inferior de la sección
     if (rect.top > heroRect.top + heroRect.height / 2) {
       comet.classList.add('show-label');
     } else {
@@ -486,17 +485,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   
-  // Verificar posición de cada cometa
   comets.forEach(checkCometPosition);
-  
-  // Actualizar posiciones durante la animación
-  setInterval(() => {
-    comets.forEach(checkCometPosition);
-  }, 100);
-});
+  setInterval(() => { comets.forEach(checkCometPosition); }, 100);
 
 
-document.addEventListener('DOMContentLoaded', () => {
+  // --- LÓGICA DEL MAPA (TODO UNIFICADO Y MEJORADO) ---
   const vietnamPath = document.getElementById('vietnam');
   const cambodiaPath = document.getElementById('cambodia');
   const chinaPath = document.getElementById('china');
@@ -514,49 +507,44 @@ document.addEventListener('DOMContentLoaded', () => {
     chinaInfoPanel.classList.remove('visible');
   }
 
-  // Click en Vietnam
-  vietnamPath.addEventListener('click', () => {
-    if (vietnamInfoPanel.classList.contains('visible')) {
-      vietnamInfoPanel.classList.remove('visible');
-    } else {
-      closeAllPanels();
-      vietnamInfoPanel.classList.add('visible');
-    }
+  // --- LÓGICA DE CLICK PARA LOS PAÍSES (Vietnam, Camboya, China) ---
+  const countryData = [
+    { path: vietnamPath, panel: vietnamInfoPanel },
+    { path: cambodiaPath, panel: cambodiaInfoPanel },
+    { path: chinaPath, panel: chinaInfoPanel }
+  ];
+
+  countryData.forEach(({ path, panel }) => {
+    path.addEventListener('click', () => {
+      if (panel.classList.contains('visible')) {
+        panel.classList.remove('visible');
+      } else {
+        closeAllPanels();
+        panel.classList.add('visible');
+      }
+    });
   });
 
-  // Click en Camboya
-  cambodiaPath.addEventListener('click', () => {
-    if (cambodiaInfoPanel.classList.contains('visible')) {
-      cambodiaInfoPanel.classList.remove('visible');
-    } else {
-      closeAllPanels();
-      cambodiaInfoPanel.classList.add('visible');
-    }
+  // --- LÓGICA DE HOVER PARA LAS ETIQUETAS ---
+  countryData.forEach(({ path, panel }) => {
+    path.addEventListener('mouseenter', () => {
+      panel.classList.add('visible');
+    });
+    path.addEventListener('mouseleave', () => {
+      panel.classList.remove('visible');
+    });
   });
 
-  // Click en China
-  chinaPath.addEventListener('click', () => {
-    if (chinaInfoPanel.classList.contains('visible')) {
-      chinaInfoPanel.classList.remove('visible');
-    } else {
-      closeAllPanels();
-      chinaInfoPanel.classList.add('visible');
-    }
-  });
-
-  // Variables para drag
+  // --- LÓGICA DE ARRASTRE Y ZOOM (sin cambios) ---
   let isDragging = false;
   let dragStartX = 0;
   let dragStartY = 0;
   let translateX = 0;
   let translateY = 0;
-  
-  // Variables para zoom
   let scale = 1;
   const scaleMin = 0.5;
   const scaleMax = 5;
 
-  // Manejo del arrastre
   mapContainer.addEventListener('mousedown', (e) => {
     if (e.target.closest('path.interactive')) return;
     isDragging = true;
@@ -577,7 +565,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTransform();
   });
 
-  // Manejo del zoom con rueda del mouse
   mapContainer.addEventListener('wheel', (e) => {
     e.preventDefault();
     const rect = map.getBoundingClientRect();
@@ -598,14 +585,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   mapContainer.style.cursor = 'grab';
 });
-
-
-
-
-  
-
-
-  
 </script>
 
 
