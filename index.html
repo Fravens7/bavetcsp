@@ -427,11 +427,11 @@
 
 <div id="china-info-panel" class="info-panel">
   
-  <!-- Tarjeta para la Sede Central -->
+  <!-- Card for the Headquarters -->
   <div class="office-card">
     <div class="office-header">
       <h3>Hong Kong Headquarters</h3>
-      <span class="office-tag headquarters">Sede Central</span>
+      <span class="office-tag headquarters">Headquarters</span>
     </div>
     <address class="office-address">
       12/F, Central Business Tower<br>
@@ -448,17 +448,17 @@
         <a href="mailto:contact@neurontech.hk">contact@neurontech.hk</a>
       </p>
     </div>
-    <p class="office-description">Equipos ejecutivos, de I+D y estrategia.</p>
+    <p class="office-description">Executive, R&D, and Strategy teams.</p>
   </div>
 
-  <!-- Divisor entre oficinas -->
+  <!-- Divider between offices -->
   <hr class="office-divider">
 
-  <!-- Tarjeta para la Oficina de Operaciones -->
+  <!-- Card for the Operations Office -->
   <div class="office-card">
     <div class="office-header">
       <h3>Kowloon Operations Office</h3>
-      <span class="office-tag operations">Hub de Operaciones</span>
+      <span class="office-tag operations">Operations Hub</span>
     </div>
     <address class="office-address">
       Unit 1803, 18/F, Kowloon Tech Tower 3<br>
@@ -475,7 +475,7 @@
         <a href="mailto:ops@neurontech.hk">ops@neurontech.hk</a>
       </p>
     </div>
-    <p class="office-description">Soporte, logística e ingeniería.</p>
+    <p class="office-description">Support, logistics, and engineering.</p>
   </div>
 
 </div>
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
     chinaInfoPanel.classList.remove('visible');
   }
 
-  // --- LÓGICA DE CLICK PARA LOS PAÍSES (Vietnam, Camboya, China) ---
+  // --- LÓGICA DE CLIC PARA LOS PAÍSES (Vietnam, Camboya, China) ---
   const countryData = [
     { path: vietnamPath, panel: vietnamInfoPanel },
     { path: cambodiaPath, panel: cambodiaInfoPanel },
@@ -561,44 +561,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- LÓGICA DE HOVER PARA LAS ETIQUETAS ---
-  countryData.forEach(({ path, panel }) => {
-    path.addEventListener('mouseenter', () => {
-      panel.classList.add('visible');
-    });
-    path.addEventListener('mouseleave', () => {
-      panel.classList.remove('visible');
-    });
-  });
-
-  // --- LÓGICA DE ARRASTRE Y ZOOM (sin cambios) ---
-  // --- LÓGICA DE ARRASTRE Y ZOOM (MODIFICADO) ---
-  // --- LÓGICA DE ARRASTRE Y ZOOM (sin cambios) ---
-  // --- LÓGICA DE ARRASTRE Y ZOOM (CON ZOOM INICIAL) ---
+  // --- LÓGICA DE ARRASTRE Y ZOOM ---
   let isDragging = false;
   let dragStartX = 0;
   let dragStartY = 0;
   
   // --- Valores iniciales para centrar y hacer zoom ---
-  // Queríamos ver el área "viewBox='680 100 180 180'".
-  // 1. Movemos el mapa a esa posición: translateX = -680, translateY = -100.
-  // 2. Hacemos zoom para que el área de 180px de ancho llene el contenedor de 800px.
-  //    Escala = 800 / 180 ≈ 4.5. Usamos 4.5.
-  let translateX = -3169;
-  let translateY = -605;
-  let scale = 2.8;
+  let translateX = -600; // Último valor ajustado
+  let translateY = -100; // Último valor ajustado
+  let scale = 3.2;       // Último valor ajustado
   
   const scaleMin = 0.5;
-  const scaleMax = 10; // Aumentamos el zoom máximo para poder alejar más
+  const scaleMax = 10;
 
   // --- Aplicamos la transformación inicial al cargar la página ---
   updateTransform();
-
-
-
-
-
-  
 
   mapContainer.addEventListener('mousedown', (e) => {
     if (e.target.closest('path.interactive')) return;
