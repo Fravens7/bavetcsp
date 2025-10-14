@@ -538,14 +538,23 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --- LÓGICA DE ARRASTRE Y ZOOM (sin cambios) ---
+  // --- LÓGICA DE ARRASTRE Y ZOOM (MODIFICADO) ---
   let isDragging = false;
   let dragStartX = 0;
   let dragStartY = 0;
-  let translateX = 0;
-  let translateY = 0;
-  let scale = 1;
+  
+  // --- NUEVO: Estado inicial para replicar la vista original ---
+  // El viewBox original era "680 100 180 180". Lo movemos a esa posición
+  // y hacemos zoom para que ocupe el mismo espacio.
+  let translateX = -680; 
+  let translateY = -100;
+  let scale = 5.5; // Aproximadamente 1000 / 180 para hacer zoom
+  
   const scaleMin = 0.5;
-  const scaleMax = 5;
+  const scaleMax = 10; // Aumenté el max para que puedas hacer más zoom out
+
+  // --- NUEVO: Aplicar el estado inicial al cargar la página ---
+  updateTransform();
 
   mapContainer.addEventListener('mousedown', (e) => {
     if (e.target.closest('path.interactive')) return;
