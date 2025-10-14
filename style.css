@@ -926,13 +926,13 @@ header img {
   max-width: 800px;
   height: 500px;
   border: 1px solid #ccc;
-  overflow: hidden;
+  overflow: auto; /* <-- LA SOLUCIÓN */
   cursor: grab;
   margin: 20px auto;
   background-color: #f0f8ff;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  position: relative; /* <-- ¡AÑADE ESTA LÍNEA! */
+  position: relative;
 }
 
 #map-container:active {
