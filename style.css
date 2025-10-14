@@ -1125,6 +1125,23 @@ path.inactive {
   margin: 25px 0;
 }
 
+/* --- COLORES PARA LAS NUEVAS ETIQUETAS DE OFICINA --- */
+
+.office-tag.main {
+  background-color: #dc3545; /* Rojo para la oficina principal */
+}
+
+.office-tag.hub {
+  background-color: #6f42c1; /* Púrpura para un hub */
+}
+
+.office-tag.tech {
+  background-color: #fd7e14; /* Naranja para un tech hub */
+}
+
+.office-tag.regional {
+  background-color: #20c997; /* Turquesa para una oficina regional */
+}
 
 
 
