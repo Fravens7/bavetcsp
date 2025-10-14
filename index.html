@@ -507,115 +507,138 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- LÓGICA DE LAS COMETAS ---
-  const comets = document.querySelectorAll('.comet');
-  const heroSection = document.querySelector('.hero');
-  
-  function checkCometPosition(comet) {
-    const rect = comet.getBoundingClientRect();
-    const heroRect = heroSection.getBoundingClientRect();
-    if (rect.top > heroRect.top + heroRect.height / 2) {
-      comet.classList.add('show-label');
-    } else {
-      comet.classList.remove('show-label');
-    }
-  }
-  
-  comets.forEach(checkCometPosition);
-  setInterval(() => { comets.forEach(checkCometPosition); }, 100);
+// --- LÓGICA DE LAS COMETAS ---
+const comets = document.querySelectorAll('.comet');
+const heroSection = document.querySelector('.hero');
+
+function checkCometPosition(comet) {
+const rect = comet.getBoundingClientRect();
+const heroRect = heroSection.getBoundingClientRect();
+if (rect.top > heroRect.top + heroRect.height / 2) {
+comet.classList.add('show-label');
+} else {
+comet.classList.remove('show-label');
+}
+}
+
+comets.forEach(checkCometPosition);
+setInterval(() => { comets.forEach(checkCometPosition); }, 100);
 
 
-  // --- LÓGICA DEL MAPA (TODO UNIFICADO Y MEJORADO) ---
-  const vietnamPath = document.getElementById('vietnam');
-  const cambodiaPath = document.getElementById('cambodia');
-  const chinaPath = document.getElementById('china');
-  const mapContainer = document.getElementById('map-container');
-  const map = document.getElementById('map');
+// --- LÓGICA DEL MAPA (TODO UNIFICADO Y MEJORADO) ---
+const vietnamPath = document.getElementById('vietnam');
+const cambodiaPath = document.getElementById('cambodia');
+const chinaPath = document.getElementById('china');
+const mapContainer = document.getElementById('map-container');
+const map = document.getElementById('map');
 
-  const vietnamInfoPanel = document.getElementById('vietnam-info-panel');
-  const cambodiaInfoPanel = document.getElementById('cambodia-info-panel');
-  const chinaInfoPanel = document.getElementById('china-info-panel');
+const vietnamInfoPanel = document.getElementById('vietnam-info-panel');
+const cambodiaInfoPanel = document.getElementById('cambodia-info-panel');
+const chinaInfoPanel = document.getElementById('china-info-panel');
 
-  // Función para cerrar todos los paneles
-  function closeAllPanels() {
-    vietnamInfoPanel.classList.remove('visible');
-    cambodiaInfoPanel.classList.remove('visible');
-    chinaInfoPanel.classList.remove('visible');
-  }
+// Función para cerrar todos los paneles
+function closeAllPanels() {
+vietnamInfoPanel.classList.remove('visible');
+cambodiaInfoPanel.classList.remove('visible');
+chinaInfoPanel.classList.remove('visible');
+}
 
-  // --- LÓGICA DE CLIC PARA LOS PAÍSES (Vietnam, Camboya, China) ---
-  const countryData = [
-    { path: vietnamPath, panel: vietnamInfoPanel },
-    { path: cambodiaPath, panel: cambodiaInfoPanel },
-    { path: chinaPath, panel: chinaInfoPanel }
-  ];
+// --- LÓGICA DE CLICK PARA LOS PAÍSES (Vietnam, Camboya, China) ---
+const countryData = [
+{ path: vietnamPath, panel: vietnamInfoPanel },
+{ path: cambodiaPath, panel: cambodiaInfoPanel },
+{ path: chinaPath, panel: chinaInfoPanel }
+];
 
-  countryData.forEach(({ path, panel }) => {
-    path.addEventListener('click', () => {
-      if (panel.classList.contains('visible')) {
-        panel.classList.remove('visible');
-      } else {
-        closeAllPanels();
-        panel.classList.add('visible');
-      }
-    });
-  });
+countryData.forEach(({ path, panel }) => {
+path.addEventListener('click', () => {
+if (panel.classList.contains('visible')) {
+panel.classList.remove('visible');
+} else {
+closeAllPanels();
+panel.classList.add('visible');
+}
+});
+});
 
-  // --- LÓGICA DE ARRASTRE Y ZOOM ---
-  let isDragging = false;
-  let dragStartX = 0;
-  let dragStartY = 0;
-  
-  // --- Valores iniciales para centrar y hacer zoom ---
-  let translateX = -600; // Último valor ajustado
-  let translateY = -100; // Último valor ajustado
-  let scale = 3.2;       // Último valor ajustado
-  
-  const scaleMin = 0.5;
-  const scaleMax = 10;
+// --- LÓGICA DE HOVER PARA LAS ETIQUETAS ---
+countryData.forEach(({ path, panel }) => {
+path.addEventListener('mouseenter', () => {
+panel.classList.add('visible');
+});
+path.addEventListener('mouseleave', () => {
+panel.classList.remove('visible');
+});
+});
 
-  // --- Aplicamos la transformación inicial al cargar la página ---
-  updateTransform();
+// --- LÓGICA DE ARRASTRE Y ZOOM (sin cambios) ---
+// --- LÓGICA DE ARRASTRE Y ZOOM (MODIFICADO) ---
+// --- LÓGICA DE ARRASTRE Y ZOOM (sin cambios) ---
+// --- LÓGICA DE ARRASTRE Y ZOOM (CON ZOOM INICIAL) ---
+let isDragging = false;
+let dragStartX = 0;
+let dragStartY = 0;
 
-  mapContainer.addEventListener('mousedown', (e) => {
-    if (e.target.closest('path.interactive')) return;
-    isDragging = true;
-    dragStartX = e.clientX - translateX;
-    dragStartY = e.clientY - translateY;
-    mapContainer.style.cursor = 'grabbing';
-  });
+// --- Valores iniciales para centrar y hacer zoom ---
+// Queríamos ver el área "viewBox='680 100 180 180'".
+// 1. Movemos el mapa a esa posición: translateX = -680, translateY = -100.
+// 2. Hacemos zoom para que el área de 180px de ancho llene el contenedor de 800px.
+// Escala = 800 / 180 ≈ 4.5. Usamos 4.5.
+let translateX = -3169;
+let translateY = -605;
+let scale = 2.8;
 
-  window.addEventListener('mouseup', () => {
-    isDragging = false;
-    mapContainer.style.cursor = 'grab';
-  });
+const scaleMin = 0.5;
+const scaleMax = 10; // Aumentamos el zoom máximo para poder alejar más
 
-  window.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    translateX = e.clientX - dragStartX;
-    translateY = e.clientY - dragStartY;
-    updateTransform();
-  });
+// --- Aplicamos la transformación inicial al cargar la página ---
+updateTransform();
 
-  mapContainer.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    const rect = map.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left;
-    const offsetY = e.clientY - rect.top;
-    const zoomAmount = e.deltaY * -0.001;
-    let newScale = scale + zoomAmount;
-    newScale = Math.min(Math.max(newScale, scaleMin), scaleMax);
-    translateX -= (offsetX / scale) * (newScale - scale);
-    translateY -= (offsetY / scale) * (newScale - scale);
-    scale = newScale;
-    updateTransform();
-  }, { passive: false });
 
-  function updateTransform() {
-    map.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-  }
 
-  mapContainer.style.cursor = 'grab';
+
+
+
+
+mapContainer.addEventListener('mousedown', (e) => {
+if (e.target.closest('path.interactive')) return;
+isDragging = true;
+dragStartX = e.clientX - translateX;
+dragStartY = e.clientY - translateY;
+mapContainer.style.cursor = 'grabbing';
+});
+
+window.addEventListener('mouseup', () => {
+isDragging = false;
+mapContainer.style.cursor = 'grab';
+});
+
+window.addEventListener('mousemove', (e) => {
+if (!isDragging) return;
+translateX = e.clientX - dragStartX;
+translateY = e.clientY - dragStartY;
+updateTransform();
+});
+
+mapContainer.addEventListener('wheel', (e) => {
+e.preventDefault();
+const rect = map.getBoundingClientRect();
+const offsetX = e.clientX - rect.left;
+const offsetY = e.clientY - rect.top;
+const zoomAmount = e.deltaY * -0.001;
+let newScale = scale + zoomAmount;
+newScale = Math.min(Math.max(newScale, scaleMin), scaleMax);
+translateX -= (offsetX / scale) * (newScale - scale);
+translateY -= (offsetY / scale) * (newScale - scale);
+scale = newScale;
+updateTransform();
+}, { passive: false });
+
+function updateTransform() {
+map.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+}
+
+mapContainer.style.cursor = 'grab';
 });
 </script>
 
