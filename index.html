@@ -405,7 +405,110 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const vietnamPath = document.getElementById('vietnam');
+  const cambodiaPath = document.getElementById('cambodia');
+  const chinaPath = document.getElementById('china');
+  const mapContainer = document.getElementById('map-container');
+  const map = document.getElementById('map');
 
+  const vietnamInfoPanel = document.getElementById('vietnam-info-panel');
+  const cambodiaInfoPanel = document.getElementById('cambodia-info-panel');
+  const chinaInfoPanel = document.getElementById('china-info-panel');
+
+  // Función para cerrar todos los paneles
+  function closeAllPanels() {
+    vietnamInfoPanel.classList.remove('visible');
+    cambodiaInfoPanel.classList.remove('visible');
+    chinaInfoPanel.classList.remove('visible');
+  }
+
+  // Click en Vietnam
+  vietnamPath.addEventListener('click', () => {
+    if (vietnamInfoPanel.classList.contains('visible')) {
+      vietnamInfoPanel.classList.remove('visible');
+    } else {
+      closeAllPanels();
+      vietnamInfoPanel.classList.add('visible');
+    }
+  });
+
+  // Click en Camboya
+  cambodiaPath.addEventListener('click', () => {
+    if (cambodiaInfoPanel.classList.contains('visible')) {
+      cambodiaInfoPanel.classList.remove('visible');
+    } else {
+      closeAllPanels();
+      cambodiaInfoPanel.classList.add('visible');
+    }
+  });
+
+  // Click en China
+  chinaPath.addEventListener('click', () => {
+    if (chinaInfoPanel.classList.contains('visible')) {
+      chinaInfoPanel.classList.remove('visible');
+    } else {
+      closeAllPanels();
+      chinaInfoPanel.classList.add('visible');
+    }
+  });
+
+  // Variables para drag
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let translateX = 0;
+  let translateY = 0;
+  
+  // Variables para zoom
+  let scale = 1;
+  const scaleMin = 0.5;
+  const scaleMax = 5;
+
+  // Manejo del arrastre
+  mapContainer.addEventListener('mousedown', (e) => {
+    if (e.target.closest('path.interactive')) return;
+    isDragging = true;
+    dragStartX = e.clientX - translateX;
+    dragStartY = e.clientY - translateY;
+    mapContainer.style.cursor = 'grabbing';
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    mapContainer.style.cursor = 'grab';
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    translateX = e.clientX - dragStartX;
+    translateY = e.clientY - dragStartY;
+    updateTransform();
+  });
+
+  // Manejo del zoom con rueda del mouse
+  mapContainer.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const rect = map.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const offsetY = e.clientY - rect.top;
+    const zoomAmount = e.deltaY * -0.001;
+    let newScale = scale + zoomAmount;
+    newScale = Math.min(Math.max(newScale, scaleMin), scaleMax);
+    translateX -= (offsetX / scale) * (newScale - scale);
+    translateY -= (offsetY / scale) * (newScale - scale);
+    scale = newScale;
+    updateTransform();
+  }, { passive: false });
+
+  function updateTransform() {
+    map.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  }
+
+  mapContainer.style.cursor = 'grab';
+});
+</script>
 
   
 </body>
