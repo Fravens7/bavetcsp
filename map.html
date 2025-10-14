@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mapa arrastrable con zoom</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+    }
+
+    #map-container {
+      width: 500px;
+      height: 500px;
+      border: 1px solid #ccc;
+      overflow: hidden;
+      cursor: grab;
+      position: relative;
+    }
+
+    #map-container:active {
+      cursor: grabbing;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      user-select: none;
+      transform-origin: 0 0;
+      transition: transform 0.1s ease-out;
+    }
+
+    path.interactive {
+      fill: #2c3e50;
+      stroke: #ffde59;
+      stroke-width: 0.5;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    path.interactive:hover {
+      fill: #e74c3c;
+    }
+
+    path.inactive {
+      fill: #cccccc;
+      stroke: #888888;
+      stroke-width: 0.5;
+      pointer-events: none;
+    }
+
+    .pin {
+      fill: #8b0000;
+      stroke: white;
+      stroke-width: 0.6;
+    }
+
+    .pin-circle {
+      fill: white;
+    }
+
+    text.country-label {
+      font-size: 6px;
+      fill: #222;
+      font-weight: bold;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    text.country-label.visible {
+      opacity: 1;
+    }
+    
+    #china-info-panel {
+  position: absolute;
+  top: 0;
+  right: -400px;
+  width: 350px;
+  height: 100%;
+  background-color: #ffffff;
+  border-left: 2px solid #ccc;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  transition: right 0.5s ease;
+  z-index: 10;
+  font-family: sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#china-info-panel.visible {
+  right: 0;
+}
+
+#china-info-panel h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+    
+    .info-panel {
+  position: absolute;
+  top: 0;
+  right: -320px; /* empieza fuera de la vista */
+  width: 300px;
+  padding: 20px;
+  background: white;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  height: 100%;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.4em;
+}
+
+.info-panel.visible {
+  right: 0; /* se desliza a la vista */
+}
+
+    
+  </style>
+</head>
+<body>
+
+<div id="map-container">
+  <svg id="map" viewBox="680 100 180 180" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Vietnam -->
+    <path id="vietnam" class="interactive" d="M757.936,222.065L760.242,220.992L763.038,220.799L761.868,219.185L766.346,217.135L766.674,213.943L766.056,212.166L766.541,209.503L765.87,207.621L763.854,205.768L762.175,203.421L759.961,200.273L756.77,198.68L757.534,197.722L759.236,197.024L758.204,194.701L754.924,194.68L753.728,192.26L752.171,190.156L753.601,189.506L755.725,189.52L758.315,189.212L760.586,187.793L761.87,188.792L764.305,189.278L763.884,190.813L765.153,191.895L767.834,192.587L764.278,194.866L762.058,197.383L761.473,199.231L763.51,202.039L766.001,205.52L768.419,207.165L770.037,209.304L771.258,214.234L770.898,218.921L768.676,220.675L765.625,222.39L763.452,224.611L760.131,227.091L759.163,225.383L759.912,223.578Z" />
+
+    <!-- Camboya -->
+    <path id="cambodia" class="interactive" d="M753.276,217.536L752.645,214.319L754.35,212.104L757.795,211.595L760.292,211.978L762.49,213.022L763.695,211.185L766.056,212.166L766.674,213.943L766.346,217.135L761.868,219.185L763.038,220.799L760.242,220.992L757.936,222.065L755.706,221.676L754.623,220.288Z" />
+
+
+<!-- China -->
+<path id="china" class="interactive" d="M771.631,201.523L769.446,200.697L769.369,198.406L770.682,197.199L773.592,196.452L775.124,196.516L775.719,197.532L774.549,198.704L773.932,200.243ZM693.804,137.184L693.592,135.665L695.419,134.972L693.021,130.344L698.298,129.28L699.662,128.687L701.584,123.918L706.869,124.794L708.35,123.59L708.478,120.919L710.69,120.67L712.718,118.896L713.76,118.677L714.46,120.536L716.699,121.949L720.499,122.949L722.337,125.095L721.311,128.207L722.269,129.363L725.435,129.818L729.023,130.19L732.241,131.85L733.888,132.146L735.101,134.601L736.665,136.183L739.601,136.121L745.1,136.719L748.643,136.348L751.273,136.745L755.213,138.363L758.436,138.361L759.616,139.189L762.717,137.759L767.021,136.834L771.014,136.733L774.126,135.795L776.038,134.369L777.902,133.473L777.471,132.594L776.621,131.57L778.019,129.853L779.518,130.094L782.256,130.634L784.91,129.219L788.972,128.187L790.924,126.427L792.799,125.669L796.669,125.315L798.771,125.616L799.062,124.669L796.648,122.807L794.511,121.955L792.463,122.938L789.835,122.523L788.327,122.861L787.641,121.772L789.523,119.111L790.82,117.102L794.018,118.108L797.772,116.425L797.748,115.252L800.153,112.427L801.634,111.573L801.601,110.102L800.139,109.469L802.34,108.144L805.65,107.663L809.182,107.591L813.169,108.385L815.508,109.365L817.154,112.052L818.153,113.199L819.081,114.834L820.066,117.444L824.702,118.295L827.858,120.189L828.936,122.692L832.984,122.695L835.293,121.644L839.696,120.859L838.296,123.256L837.261,124.231L836.348,127.149L834.557,129.741L831.324,129.269L829.037,130.21L829.739,132.491L829.356,135.639L827.995,135.711L828.011,137.064L826.291,135.491L825.232,136.984L821.118,138.132L821.534,139.537L819.231,139.44L817.966,138.605L816.136,140.494L813.2,141.926L811.031,143.635L807.306,144.409L805.345,145.654L802.477,146.381L803.892,145.147L803.335,144.109L805.444,142.319L804.037,140.923L801.715,141.863L798.707,143.716L797.066,145.436L794.454,145.564L793.095,146.807L794.499,148.608L796.679,149.045L796.768,150.241L798.876,151.019L801.861,149.117L804.226,150.154L805.949,150.225L806.381,151.621L802.609,152.365L801.364,153.803L798.774,155.139L797.406,157.004L800.274,158.468L801.32,161.088L802.941,163.529L804.751,165.575L804.707,167.554L803.035,168.282L803.673,169.702L805.241,170.529L804.831,172.699L804.155,174.81L802.666,175.049L800.721,177.933L798.563,181.429L796.09,184.608L792.426,187.067L788.721,189.309L785.719,189.615L784.091,190.798L783.169,189.934L781.662,191.257L777.94,192.592L775.121,193L774.211,195.814L772.735,195.97L772.037,194.036L772.668,193.006L769.093,192.153L767.834,192.587L765.153,191.895L763.884,190.813L764.305,189.278L761.87,188.792L760.586,187.793L758.315,189.212L755.725,189.52L753.601,189.506L752.171,190.156L750.79,190.547L751.193,193.594L749.773,193.521L749.533,192.895L749.453,191.794L747.499,192.569L746.346,192.079L744.367,191.079L745.143,188.866L743.456,188.35L742.821,185.898L740.009,186.34L740.328,183.18L742.852,180.955L742.959,178.758L742.88,176.719L741.718,176.084L740.827,174.516L739.269,174.714L736.397,174.316L737.297,173.197L736.048,171.541L734.148,172.663L731.914,172.008L728.843,173.704L726.419,175.686L724.27,176.019L723.104,175.303L721.697,175.238L719.793,174.621L718.354,175.297L716.592,177.277L716.368,175.18L714.744,175.74L711.638,175.479L708.624,174.869L706.462,173.699L704.392,173.174L703.498,171.894L702.001,171.512L699.312,169.776L697.176,168.957L696.072,169.594L692.369,167.732L689.752,166.045L689.005,163.109L690.917,163.467L691.004,162.106L689.945,160.743L690.214,158.57L687.351,155.448L682.97,154.37L682.181,152.323L680.213,151.081L679.739,150.317L679.339,148.799L679.432,147.763L677.814,147.156L676.939,147.425L676.264,144.959L677.022,144.35L676.655,143.727L679.198,142.468L681.038,141.947L683.858,142.304L684.866,140.603L688.283,140.287L689.232,139.229L693.43,137.786Z" />
+
+    <!-- Tailandia -->
+    <path class="inactive" d="M760.292,211.978L757.795,211.595L754.35,212.104L752.645,214.319L753.276,217.536L750.884,216.313L748.605,216.363L748.996,214.27L746.65,214.286L746.44,217.215L745.002,221.106L744.135,223.459L744.318,225.388L746.054,225.471L747.135,227.903L747.613,230.208L749.1,231.734L750.713,232.044L752.094,233.426L751.223,234.521L749.464,234.839L749.255,233.471L747.081,232.304L746.618,232.779L745.566,231.757L745.11,230.438L743.694,228.934L742.404,227.67L741.967,229.236L741.461,227.756L741.752,226.094L742.536,223.54L743.827,220.802L745.29,218.319L744.249,215.889L744.29,214.652L743.986,213.165L742.209,211.048L741.573,209.712L742.493,209.22L743.468,206.904L742.377,205.146L740.687,203.201L739.399,200.863L740.523,200.379L741.738,197.499L743.618,197.38L745.173,196.225L746.699,195.609L747.852,196.431L748.005,198.032L749.805,198.154L749.149,200.961L749.212,203.349L752.02,201.759L752.818,202.229L754.378,202.152L754.915,201.225L756.929,201.408L758.955,203.571L759.121,206.201L761.278,208.522L761.159,210.777Z" />
+
+    <!-- Myanmar -->
+    <path class="inactive" d="M746.699,195.609L745.173,196.225L743.618,197.38L741.738,197.499L740.523,200.379L739.399,200.863L740.687,203.201L742.377,205.146L743.468,206.904L742.493,209.22L741.573,209.712L742.209,211.048L743.986,213.165L744.29,214.652L744.249,215.889L745.29,218.319L743.827,220.802L742.536,223.54L742.28,221.562L743.098,219.522L742.203,217.945L742.419,215.043L741.338,213.663L740.47,210.475L739.988,207.11L738.836,204.904L737.081,206.24L734.054,208.138L732.56,207.901L730.909,207.277L731.827,203.975L731.272,201.481L729.183,198.41L729.509,197.449L727.951,197.108L726.06,194.935L725.886,192.792L726.816,193.195L726.87,191.284L728.185,190.652L727.903,189.521L728.505,188.614L728.609,185.857L730.691,186.464L731.878,184.268L732.013,182.97L733.483,180.735L733.402,179.211L736.851,177.37L738.755,177.852L738.536,176.213L739.47,175.724L739.269,174.714L740.827,174.516L741.718,176.084L742.88,176.719L742.959,178.758L742.852,180.955L740.328,183.18L740.009,186.34L742.821,185.898L743.456,188.35L745.143,188.866L744.367,191.079L746.346,192.079L747.499,192.569L749.453,191.794L749.533,192.895L747.266,194.628Z" />
+
+    <!-- Laos -->
+    <path class="inactive" d="M766.056,212.166L763.695,211.185L762.49,213.022L760.292,211.978L761.159,210.777L761.278,208.522L759.121,206.201L758.955,203.571L756.929,201.408L754.915,201.225L754.378,202.152L752.818,202.229L752.02,201.759L749.212,203.349L749.149,200.961L749.805,198.154L748.005,198.032L747.852,196.431L746.699,195.609L747.266,194.628L749.533,192.895L749.773,193.521L751.193,193.594L750.79,190.547L752.171,190.156L753.728,192.26L754.924,194.68L758.204,194.701L759.236,197.024L757.534,197.722L756.77,198.68L759.961,200.273L762.175,203.421L763.854,205.768L765.87,207.621L766.541,209.503Z" />
+
+    <!-- Malasia -->
+    <path class="inactive" d="M746.618,232.779L747.081,232.304L749.255,233.471L749.464,234.839L751.223,234.521L752.094,233.426L752.706,233.675L754.279,235.283L755.397,237.067L755.55,238.861L755.266,240.072L755.525,240.988L755.72,242.565L756.658,243.299L757.706,245.655L757.655,246.555L755.766,246.733L753.245,244.76L750.094,242.645L749.782,241.288L748.242,239.507L747.874,237.3L746.914,235.848L747.205,233.909ZM794.025,238.978L791.716,238.529L788.654,238.528L787.731,241.557L786.705,242.484L785.339,246.189L783.167,246.757L780.647,246.01L779.369,246.244L777.817,247.591L776.116,247.399L774.398,247.94L772.576,246.435L772.132,244.655L774.084,245.568L776.142,245.07L776.678,242.815L777.815,242.312L781.009,241.736L782.919,239.628L784.228,237.944L785.441,239.324L786.001,238.417L787.274,238.501L787.429,236.8L787.549,235.488L789.6,233.635L790.944,231.553L792.021,231.544L793.39,232.892L793.511,234.05L795.266,234.793L797.488,235.594L797.299,236.638L795.511,236.77L795.987,238.071Z" />
+
+
+
+    <!-- Pins -->
+    <g id="pin-vietnam" transform="translate(760,198) scale(0.4)">
+      <path class="pin" d="M0,0 C0,-6 5,-8 5,-12 A5,5 0 1,0 -5,-12 C-5,-8 0,-6 0,0 Z"></path>
+      <circle class="pin-circle" cx="0" cy="-12" r="1.5" />
+    </g>
+    <g id="pin-cambodia" transform="translate(757,218) scale(0.4)">
+      <path class="pin" d="M0,0 C0,-6 5,-8 5,-12 A5,5 0 1,0 -5,-12 C-5,-8 0,-6 0,0 Z"></path>
+      <circle class="pin-circle" cx="0" cy="-12" r="1.5" />
+    </g>
+
+    
+    <g id="pin-china" transform="translate(784,189) scale(0.4)">
+  <path class="pin" d="M0,0 C0,-6 5,-8 5,-12 A5,5 0 1,0 -5,-12 C-5,-8 0,-6 0,0 Z"></path>
+  <circle class="pin-circle" cx="0" cy="-12" r="1.5" />
+</g>
+
+    
+    
+    <!-- Etiquetas -->
+    <text id="label-vietnam" class="country-label" x="763" y="198">Vietnam</text>
+    <text id="label-cambodia" class="country-label" x="755" y="230">Cambodia</text>
+
+    <text id="label-china" class="country-label" x="777" y="197">China</text>
+
+  </svg>
+</div>
+
+  <!-- Panel informativo para China -->
+<div id="china-info-panel">
+  <div class="panel-content">
+    <h3>🧠 Neuron Tech – Central Office</h3>
+    <p>
+      12/F, Central Business Tower<br>
+      99 Queen’s Road Central, Central, Hong Kong<br>
+      📞 +852 3123 4567<br>
+      ✉️ contact@neurontech.hk
+    </p>
+    <p><strong>Headquarters – Executive, R&D, and Strategy teams.</strong></p>
+
+    <h3>🧠 Neuron Tech – Kowloon Office</h3>
+    <p>
+      Unit 1803, 18/F, Kowloon Tech Tower 3<br>
+      33 Wang Chiu Road, Kowloon Bay, Hong Kong<br>
+      📞 +852 2789 1234<br>
+      ✉️ ops@neurontech.hk
+    </p>
+    <p><strong>Operations hub – Support, logistics, and engineering.</strong></p>
+  </div>
+</div>
+
+  
+ <div id="vietnam-info-panel" class="info-panel">
+  <h3>🧠 Neuron Tech – Vietnam Office</h3>
+  <p>9/F, Saigon Tech Tower<br>
+  22 Nguyen Du, District 1, Ho Chi Minh City<br>
+  📞 +84 28 3821 4567<br>
+  ✉️ vietnam@neurontech.vn</p>
+  <p><em>Engineering and local partnerships.</em></p>
+</div>
+
+<!-- Panel de información para Camboya -->
+<div id="cambodia-info-panel" class="info-panel">
+  <h3>🧠 Neuron Tech – Cambodia Office</h3>
+  <p>6/F, Phnom Penh Tech Park<br>
+  198 Norodom Blvd, Phnom Penh<br>
+  📞 +855 23 456 789<br>
+  ✉️ cambodia@neurontech.kh</p>
+  <p><em>Regional support and infrastructure operations.</em></p>
+</div>
+  
+  
+  
+  
+  
+  
+  
+  
+<script>
+  const vietnam = document.getElementById('vietnam');
+  const cambodia = document.getElementById('cambodia');
+  const labelVietnam = document.getElementById('label-vietnam');
+  const labelCambodia = document.getElementById('label-cambodia');
+  const mapContainer = document.getElementById('map-container');
+  const map = document.getElementById('map');
+
+  // Mostrar etiquetas al pasar el mouse
+  vietnam.addEventListener('mouseenter', () => labelVietnam.classList.add('visible'));
+  vietnam.addEventListener('mouseleave', () => labelVietnam.classList.remove('visible'));
+  cambodia.addEventListener('mouseenter', () => labelCambodia.classList.add('visible'));
+  cambodia.addEventListener('mouseleave', () => labelCambodia.classList.remove('visible'));
+  
+  
+  
+const china = document.getElementById('china');
+const labelChina = document.getElementById('label-china');
+const chinaPanel = document.getElementById('china-info-panel');
+
+let chinaPanelVisible = false;
+
+// Mostrar/Ocultar etiqueta al pasar el mouse (esto lo dejamos igual)
+china.addEventListener('mouseenter', () => labelChina.classList.add('visible'));
+china.addEventListener('mouseleave', () => labelChina.classList.remove('visible'));
+
+// Al hacer clic en China: mostrar u ocultar el panel (toggle)
+china.addEventListener('click', () => {
+  chinaPanelVisible = !chinaPanelVisible;
+  if (chinaPanelVisible) {
+    chinaPanel.classList.add('visible');
+  } else {
+    chinaPanel.classList.remove('visible');
+  }
+});
+
+const vietnamPath = document.getElementById('vietnam');
+const cambodiaPath = document.getElementById('cambodia');
+
+const vietnamInfoPanel = document.getElementById('vietnam-info-panel');
+const cambodiaInfoPanel = document.getElementById('cambodia-info-panel');
+const chinaInfoPanel = document.getElementById('china-info-panel');
+
+// Función para cerrar todos los paneles
+function closeAllPanels() {
+  vietnamInfoPanel.classList.remove('visible');
+  cambodiaInfoPanel.classList.remove('visible');
+  chinaInfoPanel.classList.remove('visible');
+}
+
+vietnamPath.addEventListener('click', () => {
+  if (vietnamInfoPanel.classList.contains('visible')) {
+    vietnamInfoPanel.classList.remove('visible');
+  } else {
+    closeAllPanels();
+    vietnamInfoPanel.classList.add('visible');
+  }
+});
+
+cambodiaPath.addEventListener('click', () => {
+  if (cambodiaInfoPanel.classList.contains('visible')) {
+    cambodiaInfoPanel.classList.remove('visible');
+  } else {
+    closeAllPanels();
+    cambodiaInfoPanel.classList.add('visible');
+  }
+});
+
+// También deja la lógica para China igual (si ya la tienes)
+chinaPath.addEventListener('click', () => {
+  if (chinaInfoPanel.classList.contains('visible')) {
+    chinaInfoPanel.classList.remove('visible');
+  } else {
+    closeAllPanels();
+    chinaInfoPanel.classList.add('visible');
+  }
+});
+
+  
+  
+  
+
+china.addEventListener('mouseenter', () => labelChina.classList.add('visible'));
+china.addEventListener('mouseleave', () => labelChina.classList.remove('visible'));
+
+
+  // Variables para drag
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let translateX = 0;
+  let translateY = 0;
+  
+  // Variables para zoom
+  let scale = 1;
+  const scaleMin = 0.5;
+  const scaleMax = 5;
+
+  // Manejo del arrastre
+  mapContainer.addEventListener('mousedown', (e) => {
+    // Evitar drag al hacer click en paths interactivos
+    if (e.target.closest('path.interactive')) return;
+    isDragging = true;
+    dragStartX = e.clientX - translateX;
+    dragStartY = e.clientY - translateY;
+    mapContainer.style.cursor = 'grabbing';
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    mapContainer.style.cursor = 'grab';
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    translateX = e.clientX - dragStartX;
+    translateY = e.clientY - dragStartY;
+    updateTransform();
+  });
+
+  // Manejo del zoom con rueda del mouse
+  mapContainer.addEventListener('wheel', (e) => {
+    e.preventDefault();
+
+    const rect = map.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const offsetY = e.clientY - rect.top;
+
+    // Dirección del zoom
+    const zoomAmount = e.deltaY * -0.001;
+
+    // Nuevo scale con límites
+    let newScale = scale + zoomAmount;
+    newScale = Math.min(Math.max(newScale, scaleMin), scaleMax);
+
+    // Ajustar la traslación para que el zoom se centre donde está el mouse
+    translateX -= (offsetX / scale) * (newScale - scale);
+    translateY -= (offsetY / scale) * (newScale - scale);
+
+    scale = newScale;
+
+    updateTransform();
+  }, { passive: false });
+
+  // Aplicar transformaciones CSS
+  function updateTransform() {
+    map.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  }
+
+  // Inicializar cursor
+  mapContainer.style.cursor = 'grab';
+  
+  
+  
+  
+
+</script>
+
+</body>
+</html>
