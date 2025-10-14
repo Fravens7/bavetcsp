@@ -1001,6 +1001,27 @@ path.inactive {
   color: #2c3e50;
 }
 
+/* --- ESTILOS PARA LAS ETIQUETAS DE LOS PAÍSES (TOOLTIP) --- */
+.country-label {
+  font-size: 10px;
+  fill: #333; /* Color del texto */
+  font-weight: bold;
+  pointer-events: none; /* Evita que la etiqueta interfiera con los eventos del ratón en el path */
+  opacity: 0; /* Oculto por defecto */
+  transition: opacity 0.2s ease; /* Transición suave para aparecer/desaparecer */
+}
+
+.country-label.visible {
+  opacity: 1; /* Se hace visible cuando el JS añade la clase .visible */
+}
+
+
+
+
+
+
+
+
 
 
 
