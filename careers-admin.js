@@ -6,24 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const ADMIN_PASSWORD = 'neuron2025';
     const MAX_CUSTOM_FIELDS = 4;
 
-
-// --- AÑADE ESTE EVENT LISTENER ---
-document.getElementById('login-button').addEventListener('click', () => {
-    checkPassword();
-});
-
-// Permitir entrar con la tecla "Enter"
-document.getElementById('password-input').addEventListener('keyup', function(event) {
-    if (event.key === 'Enter') {
-        checkPassword();
-    }
-});
-
-
-
-
-
-    
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     let activeCustomFields = 0;
     let sortable;
@@ -39,8 +21,15 @@ document.getElementById('password-input').addEventListener('keyup', function(eve
             alert('Incorrect password. Please try again.');
         }
     }
+
+    document.getElementById('login-button').addEventListener('click', () => {
+        checkPassword();
+    });
+
     document.getElementById('password-input').addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') { checkPassword(); }
+        if (event.key === 'Enter') {
+            checkPassword();
+        }
     });
 
     // --- LÓGICA DE CAMPOS PERSONALIZADOS ---
@@ -80,10 +69,17 @@ document.getElementById('password-input').addEventListener('keyup', function(eve
             alert('Limit of custom fields created. You can only have ' + MAX_CUSTOM_FIELDS + '.');
             return;
         }
+        
+        const wrapper = document.getElementById('custom-section-wrapper');
+        if (wrapper.style.display === 'none') {
+            wrapper.style.display = 'block';
+        }
+
         const nextIndex = activeCustomFields + 1;
         const container = document.getElementById('custom-fields-container');
         const newField = createCustomField(nextIndex, {});
         container.prepend(newField);
+        
         activeCustomFields++;
         updateAddButtonState();
     });
@@ -129,87 +125,39 @@ document.getElementById('password-input').addEventListener('keyup', function(eve
     const form = document.getElementById('job-form');
     const statusDiv = document.getElementById('status-message');
 
-// --- Reemplaza la función loadJobData ---
-// --- Reemplaza toda la función loadJobData por esta versión ---
-async function loadJobData() {
-    const { data, error } = await supabase.from('job_posts').select('*').eq('id', 1).single();
-    if (error) { console.error(error); return; }
+    async function loadJobData() {
+        const { data, error } = await supabase.from('job_posts').select('*').eq('id', 1).single();
+        if (error) { console.error(error); return; }
 
-    // Cargar campos estándar
-    Object.keys(data).forEach(key => {
-        const input = document.querySelector(`[name="${key}"]`);
-        if (input && !key.startsWith('custom_')) {
-            input.value = data[key] || '';
+        // Cargar campos estándar
+        Object.keys(data).forEach(key => {
+            const input = document.querySelector(`[name="${key}"]`);
+            if (input && !key.startsWith('custom_')) {
+                input.value = data[key] || '';
+            }
+        });
+
+        // Cargar campos personalizados
+        const container = document.getElementById('custom-fields-container');
+        const wrapper = document.getElementById('custom-section-wrapper');
+        container.innerHTML = ''; 
+        activeCustomFields = 0;
+
+        for (let i = 1; i <= MAX_CUSTOM_FIELDS; i++) {
+            const label = data[`custom_${i}_label`];
+            if (label) {
+                const fieldData = { label: data[`custom_${i}_label`], value: data[`custom_${i}_value`], hidden: data[`custom_${i}_hidden`] };
+                const newField = createCustomField(i, fieldData);
+                container.appendChild(newField);
+                activeCustomFields++;
+            }
         }
-    });
 
-    // Cargar campos personalizados
-    const container = document.getElementById('custom-fields-container');
-    const wrapper = document.getElementById('custom-section-wrapper');
-    container.innerHTML = ''; 
-    activeCustomFields = 0;
-
-    for (let i = 1; i <= MAX_CUSTOM_FIELDS; i++) {
-        const label = data[`custom_${i}_label`];
-        if (label) {
-            const fieldData = { label: data[`custom_${i}_label`], value: data[`custom_${i}_value`], hidden: data[`custom_${i}_hidden`] };
-            const newField = createCustomField(i, fieldData);
-            container.appendChild(newField);
-            activeCustomFields++;
+        if (activeCustomFields > 0) {
+            wrapper.style.display = 'block';
         }
-    }
 
-    if (activeCustomFields > 0) {
-        wrapper.style.display = 'block';
-    }
-
-    updateAddButtonState();
-    initializeSortable();
-}
-
-// --- Reemplaza el evento del botón add-custom-field-btn ---
-document.getElementById('add-custom-field-btn').addEventListener('click', () => {
-    if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
-        alert('Limit of custom fields created. You can only have ' + MAX_CUSTOM_FIELDS + '.');
-        return;
-    }
-    
-    // --- CAMBIO CLAVE: Mostrar la sección cuando se añade el primer campo ---
-    const wrapper = document.getElementById('custom-section-wrapper');
-    if (wrapper.style.display === 'none') {
-        wrapper.style.display = 'block';
-    }
-
-    const nextIndex = activeCustomFields + 1;
-    const container = document.getElementById('custom-fields-container');
-    const newField = createCustomField(nextIndex, {});
-    container.prepend(newField);
-    
-    activeCustomFields++;
-    updateAddButtonState();
-});
-
-        const fieldContainer = document.getElementById('sortable-fields-container');
-        const allDraggableFields = Array.from(fieldContainer.querySelectorAll('.draggable-field'));
-        let savedOrder = [];
-        try {
-            savedOrder = data.field_order ? JSON.parse(data.field_order) : [];
-        } catch (e) { console.error("Error parsing field_order from DB:", e); }
-        
-        const sortedFields = [];
-        savedOrder.forEach(fieldName => {
-            const field = allDraggableFields.find(el => el.dataset.fieldName === fieldName);
-            if (field) sortedFields.push(field);
-        });
-        allDraggableFields.forEach(field => {
-            if (!sortedFields.includes(field)) sortedFields.push(field);
-        });
-
-        fieldContainer.innerHTML = '';
-        sortedFields.forEach(field => {
-            if(field) fieldContainer.appendChild(field);
-        });
-        
+        updateAddButtonState();
         initializeSortable();
     }
 
