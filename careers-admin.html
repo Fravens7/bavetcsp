@@ -88,7 +88,7 @@
                 document.getElementById('edit-form-container').style.display = 'block';
                 loadJobData(); // Cargar los datos una vez que se accede
             } else {
-                alert('Contraseña incorrecta. Intenta de nuevo.');
+                alert('Incorrect password. Please try again.');
             }
         }
 
@@ -113,7 +113,7 @@
 
             if (error) {
                 console.error('Error al cargar datos:', error);
-                statusDiv.textContent = 'Error al cargar los datos.';
+                statusDiv.textContent = 'Error saving changes.';
                 statusDiv.className = 'status error';
                 return;
             }
@@ -135,9 +135,12 @@
 // Guardar los cambios en Supabase
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    statusDiv.textContent = 'Guardando...';
+    statusDiv.textContent = 'Saving...';
     statusDiv.className = 'status';
 
+
+
+    
     const formData = new FormData(form);
     const updatedData = Object.fromEntries(formData.entries());
 
@@ -151,13 +154,13 @@ form.addEventListener('submit', async (e) => {
 
     if (error) {
         // Si hay un error explícito, lo mostramos
-        console.error('Error explícito de Supabase:', error);
-        statusDiv.textContent = `Error al guardar: ${error.message}`;
+        console.error('Supabase explicit error:', error);
+        statusDiv.textContent = `Error saving changes: ${error.message}`;
         statusDiv.className = 'status error';
     } else {
         // Si NO hay error, damos el éxito por sentado
         console.log("Supabase no devolvió error. Asumiendo éxito.");
-        statusDiv.textContent = '¡Cambios guardados con éxito!';
+        statusDiv.textContent = 'Changes saved successfully!';
         statusDiv.className = 'status success';
     }
 });
