@@ -45,6 +45,8 @@
       async function loadJobPosts() {
         try {
           const { data: jobs, error } = await supabaseClient.from('job_posts').select('*');
+          alert('Error al actualizar: ' + err.message);
+
           if (error) throw error;
 
           if (!jobs || jobs.length === 0) {
