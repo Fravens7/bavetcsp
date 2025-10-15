@@ -35,34 +35,38 @@
 
         <!-- Formulario de Edición (oculto por defecto) -->
 <!-- Formulario de Edición (oculto por defecto) -->
+<!-- Formulario de Edición (oculto por defecto) -->
 <div id="edit-form-container" style="display: none;">
     <h1>Edit Job Vacancy</h1>
     <form id="job-form">
+        <!-- Campos estándar -->
         <label for="department">Department</label>
         <input type="text" id="department" name="department" required>
-
         <label for="type">Type</label>
         <input type="text" id="type" name="type" required>
-
         <label for="career_level">Career Level</label>
         <input type="text" id="career_level" name="career_level" required>
-
         <label for="description">Description</label>
         <textarea id="description" name="description" required></textarea>
-
         <label for="responsibilities">Key Responsibilities (one per line)</label>
         <textarea id="responsibilities" name="responsibilities" required></textarea>
-
         <label for="requirements">Requirements (one per line)</label>
         <textarea id="requirements" name="requirements" required></textarea>
-
         <label for="benefits">Benefits (one per line)</label>
         <textarea id="benefits" name="benefits" required></textarea>
-
         <label for="work_setup">Work Setup</label>
         <input type="text" id="work_setup" name="work_setup" required>
 
-        <button type="submit" class="btn">Save Changes</button>
+        <hr style="margin-top: 30px; margin-bottom: 20px;">
+        <h3>Custom Fields</h3>
+        <p>Add extra information to the job post. You can use up to 4 custom fields.</p>
+        
+        <div id="custom-fields-container">
+            <!-- Los campos personalizados se añadirán aquí con JavaScript -->
+        </div>
+
+        <button type="button" class="btn" id="add-custom-field-btn" style="background-color: #28a745; margin-top: 10px;">Add New Custom Field</button>
+        <button type="submit" class="btn" style="margin-top: 10px;">Save Changes</button>
     </form>
     <div id="status-message"></div>
 </div>
@@ -70,100 +74,143 @@
 
     <!-- Añade el cliente de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
-    <script>
-        // --- CONFIGURACIÓN ---
-        const SUPABASE_URL = 'https://hxnikfmwknlxmkqcsrol.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A';
-        
-        // --- CAMBIA ESTA CONTRASEÑA ---
-        const ADMIN_PASSWORD = 'neuron2025'; 
+<script>
+    // --- CONFIGURACIÓN ---
+    const SUPABASE_URL = 'https://hxnikfmwknlxmkqcsrol.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A';
+    const ADMIN_PASSWORD = 'neuron2025';
+    const MAX_CUSTOM_FIELDS = 4;
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // --- LÓGICA DE LOGIN ---
-        function checkPassword() {
-            const passwordInput = document.getElementById('password-input').value;
-            if (passwordInput === ADMIN_PASSWORD) {
-                document.getElementById('login-container').style.display = 'none';
-                document.getElementById('edit-form-container').style.display = 'block';
-                loadJobData(); // Cargar los datos una vez que se accede
-            } else {
-                alert('Incorrect password. Please try again.');
-            }
+    let activeCustomFields = 0; // Contador de campos personalizados activos
+
+    // --- LÓGICA DE LOGIN (sin cambios) ---
+    function checkPassword() {
+        const passwordInput = document.getElementById('password-input').value;
+        if (passwordInput === ADMIN_PASSWORD) {
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('edit-form-container').style.display = 'block';
+            loadJobData();
+        } else {
+            alert('Incorrect password. Please try again.');
         }
+    }
+    document.getElementById('password-input').addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') { checkPassword(); }
+    });
 
-        // Permitir entrar con la tecla "Enter"
-        document.getElementById('password-input').addEventListener('keyup', function(event) {
-            if (event.key === 'Enter') {
-                checkPassword();
+    // --- LÓGICA DE CAMPOS PERSONALIZADOS ---
+    function createCustomField(index, data = {}) {
+        const fieldDiv = document.createElement('div');
+        fieldDiv.className = 'custom-field-group';
+        fieldDiv.dataset.index = index;
+
+        fieldDiv.innerHTML = `
+            <hr style="margin: 20px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h4>Custom Field ${index + 1}</h4>
+                <div>
+                    <label style="font-weight: normal; margin-right: 15px;">
+                        <input type="checkbox" name="custom_${index}_hidden" ${data.hidden ? 'checked' : ''}> Hide on Website
+                    </label>
+                    <button type="button" class="btn-remove-custom" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Remove</button>
+                </div>
+            </div>
+            <label>Field Label (e.g., "Salary")</label>
+            <input type="text" name="custom_${index}_label" placeholder="e.g., Salary" value="${data.label || ''}" required>
+            <label>Field Content</label>
+            <textarea name="custom_${index}_value" placeholder="e.g., $500 - $800 per month.">${data.value || ''}</textarea>
+        `;
+        return fieldDiv;
+    }
+
+    function updateAddButtonState() {
+        const addBtn = document.getElementById('add-custom-field-btn');
+        if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
+            addBtn.disabled = true;
+            addBtn.textContent = 'Limit Reached';
+        } else {
+            addBtn.disabled = false;
+            addBtn.textContent = 'Add New Custom Field';
+        }
+    }
+    
+    document.getElementById('add-custom-field-btn').addEventListener('click', () => {
+        if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
+            alert('Limit of custom fields created. You can only have ' + MAX_CUSTOM_FIELDS + + '.');
+            return;
+        }
+        const container = document.getElementById('custom-fields-container');
+        const newField = createCustomField(activeCustomFields);
+        container.appendChild(newField);
+        activeCustomFields++;
+        updateAddButtonState();
+    });
+
+    document.getElementById('custom-fields-container').addEventListener('click', (e) => {
+        if (e.target.classList.contains('btn-remove-custom')) {
+            e.target.closest('.custom-field-group').remove();
+            activeCustomFields--;
+            updateAddButtonState();
+        }
+    });
+
+
+    // --- LÓGICA DEL FORMULARIO ---
+    const form = document.getElementById('job-form');
+    const statusDiv = document.getElementById('status-message');
+
+    async function loadJobData() {
+        const { data, error } = await supabase.from('job_posts').select('*').eq('id', 1).single();
+        if (error) { /* manejar error */ return; }
+
+        // Cargar campos estándar
+        Object.keys(data).forEach(key => {
+            const input = document.querySelector(`[name="${key}"]`);
+            if (input && !key.startsWith('custom_')) {
+                input.value = data[key] || '';
             }
         });
 
-        // --- LÓGICA DEL FORMULARIO ---
-        const form = document.getElementById('job-form');
-        const statusDiv = document.getElementById('status-message');
+        // Cargar campos personalizados
+        const container = document.getElementById('custom-fields-container');
+        container.innerHTML = ''; // Limpiar antes de añadir
+        activeCustomFields = 0;
 
-        // Cargar los datos actuales de Supabase
-        async function loadJobData() {
-            const { data, error } = await supabase
-                .from('job_posts')
-                .select('*')
-                .eq('id', 1) // Asumimos que siempre editaremos la fila con id=1
-                .single();
-
-            if (error) {
-                console.error('Error al cargar datos:', error);
-                statusDiv.textContent = 'Error saving changes.';
-                statusDiv.className = 'status error';
-                return;
-            }
-
-            if (data) {
-                // Rellenar el formulario con los datos existentes
-                Object.keys(data).forEach(key => {
-                    const input = document.querySelector(`[name="${key}"]`);
-                    if (input) {
-                        input.value = data[key] || '';
-                    }
-                });
+        for (let i = 1; i <= MAX_CUSTOM_FIELDS; i++) {
+            const label = data[`custom_${i}_label`];
+            if (label) { // Solo crear el campo si ya tiene una etiqueta
+                const fieldData = {
+                    label: label,
+                    value: data[`custom_${i}_value`],
+                    hidden: data[`custom_${i}_hidden`]
+                };
+                container.appendChild(createCustomField(i - 1, fieldData));
+                activeCustomFields++;
             }
         }
-
-        // Guardar los cambios en Supabase
-// Guardar los cambios en Supabase
-// Guardar los cambios en Supabase
-// Guardar los cambios en Supabase
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    statusDiv.textContent = 'Saving...';
-    statusDiv.className = 'status';
-
-
-
-    
-    const formData = new FormData(form);
-    const updatedData = Object.fromEntries(formData.entries());
-
-    console.log("Datos a enviar a Supabase:", updatedData);
-
-    // --- CAMBIO CLAVE: Simplificamos la respuesta y solo comprobamos el error ---
-    const { data, error } = await supabase
-        .from('job_posts')
-        .update(updatedData)
-        .eq('id', 1);
-
-    if (error) {
-        // Si hay un error explícito, lo mostramos
-        console.error('Supabase explicit error:', error);
-        statusDiv.textContent = `Error saving changes: ${error.message}`;
-        statusDiv.className = 'status error';
-    } else {
-        // Si NO hay error, damos el éxito por sentado
-        console.log("Supabase no devolvió error. Asumiendo éxito.");
-        statusDiv.textContent = 'Changes saved successfully!';
-        statusDiv.className = 'status success';
+        updateAddButtonState();
     }
-});
-    </script>
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        statusDiv.textContent = 'Saving...';
+        statusDiv.className = 'status';
+
+        const formData = new FormData(form);
+        const updatedData = Object.fromEntries(formData.entries());
+
+        const { data, error } = await supabase.from('job_posts').update(updatedData).eq('id', 1);
+
+        if (error) {
+            statusDiv.textContent = `Error saving changes: ${error.message}`;
+            statusDiv.className = 'status error';
+        } else {
+            statusDiv.textContent = 'Changes saved successfully!';
+            statusDiv.className = 'status success';
+        }
+    });
+</script>
 </body>
 </html>
