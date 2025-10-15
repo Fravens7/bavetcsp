@@ -145,20 +145,20 @@
     });
 
     // --- LÓGICA DE CAMPOS PERSONALIZADOS ---
+// Reemplaza la función createCustomField
 function createCustomField(index, data = {}) {
     const fieldDiv = document.createElement('div');
     fieldDiv.className = 'custom-field-group';
     fieldDiv.dataset.index = index;
 
     fieldDiv.innerHTML = `
-        <hr style="margin: 20px 0;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="field-controls">
             <h4>Custom Field ${index}</h4>
             <div>
                 <label style="font-weight: normal; margin-right: 15px;">
                     <input type="checkbox" name="custom_${index}_hidden" ${data.hidden ? 'checked' : ''}> Hide on Website
                 </label>
-                <button type="button" class="btn-remove-custom" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Remove</button>
+                <button type="button" class="btn-remove-custom">Remove</button>
             </div>
         </div>
         <label>Field Label (e.g., "Salary")</label>
@@ -169,39 +169,32 @@ function createCustomField(index, data = {}) {
     return fieldDiv;
 }
 
-    function updateAddButtonState() {
-        const addBtn = document.getElementById('add-custom-field-btn');
-        if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
-            addBtn.disabled = true;
-            addBtn.textContent = 'Limit Reached';
-        } else {
-            addBtn.disabled = false;
-            addBtn.textContent = 'Add New Custom Field';
-        }
-    }
-    
+// Reemplaza el evento del botón add-custom-field-btn
 document.getElementById('add-custom-field-btn').addEventListener('click', () => {
     if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
         alert('Limit of custom fields created. You can only have ' + MAX_CUSTOM_FIELDS + '.');
         return;
     }
-    // Encuentra el siguiente índice disponible (empezando en 1)
-    const nextIndex = activeCustomFields + 1;
     const container = document.getElementById('custom-fields-container');
+    const nextIndex = activeCustomFields + 1;
     const newField = createCustomField(nextIndex, {});
-    container.appendChild(newField);
+    
+    // --- CAMBIO CLAVE: Añadir al principio (prepend) en lugar de al final (append) ---
+    container.prepend(newField);
+    
     activeCustomFields++;
     updateAddButtonState();
 });
 
-    document.getElementById('custom-fields-container').addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn-remove-custom')) {
-            e.target.closest('.custom-field-group').remove();
-            activeCustomFields--;
-            updateAddButtonState();
-        }
-    });
-
+// Añade esta lógica para mostrar/ocultar el botón de añadir
+function updateAddButtonState() {
+    const addBtn = document.getElementById('add-custom-field-btn');
+    if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
+        addBtn.style.display = 'none'; // Ocultar el botón si se alcanza el límite
+    } else {
+        addBtn.style.display = 'block'; // Asegurarse de que sea visible
+    }
+}
 
     // --- LÓGICA DEL FORMULARIO ---
     const form = document.getElementById('job-form');
