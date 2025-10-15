@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Editar Vacante</title>
@@ -65,6 +66,7 @@
 
         
     </style>
+    
 </head>
 <body>
 
@@ -82,36 +84,55 @@
 <!-- Formulario de Edición (oculto por defecto) -->
 <div id="edit-form-container" style="display: none;">
     <h1>Edit Job Vacancy</h1>
-    <form id="job-form">
-        <!-- Campos estándar -->
-        <label for="department">Department</label>
-        <input type="text" id="department" name="department" required>
-        <label for="type">Type</label>
-        <input type="text" id="type" name="type" required>
-        <label for="career_level">Career Level</label>
-        <input type="text" id="career_level" name="career_level" required>
-        <label for="description">Description</label>
-        <textarea id="description" name="description" required></textarea>
-        <label for="responsibilities">Key Responsibilities (one per line)</label>
-        <textarea id="responsibilities" name="responsibilities" required></textarea>
-        <label for="requirements">Requirements (one per line)</label>
-        <textarea id="requirements" name="requirements" required></textarea>
-        <label for="benefits">Benefits (one per line)</label>
-        <textarea id="benefits" name="benefits" required></textarea>
-        <label for="work_setup">Work Setup</label>
-        <input type="text" id="work_setup" name="work_setup" required>
-
-        <hr style="margin-top: 30px; margin-bottom: 20px;">
-        <h3>Custom Fields</h3>
-        <p>Add extra information to the job post. You can use up to 4 custom fields.</p>
-        
-        <div id="custom-fields-container">
-            <!-- Los campos personalizados se añadirán aquí con JavaScript -->
+    <!-- Reemplaza todo el <form id="job-form"> por esto -->
+<form id="job-form">
+    <div id="sortable-fields-container">
+        <!-- CAMPOS ESTÁNDAR -->
+        <div class="draggable-field" data-field-name="department">
+            <label for="department">Department</label>
+            <input type="text" id="department" name="department" required>
+        </div>
+        <div class="draggable-field" data-field-name="type">
+            <label for="type">Type</label>
+            <input type="text" id="type" name="type" required>
+        </div>
+        <!-- ... Añade el resto de tus campos estándar dentro de un div con class="draggable-field" ... -->
+        <div class="draggable-field" data-field-name="career_level">
+            <label for="career_level">Career Level</label>
+            <input type="text" id="career_level" name="career_level" required>
+        </div>
+        <div class="draggable-field" data-field-name="description">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" required></textarea>
+        </div>
+        <div class="draggable-field" data-field-name="responsibilities">
+            <label for="responsibilities">Key Responsibilities (one per line)</label>
+            <textarea id="responsibilities" name="responsibilities" required></textarea>
+        </div>
+        <div class="draggable-field" data-field-name="requirements">
+            <label for="requirements">Requirements (one per line)</label>
+            <textarea id="requirements" name="requirements" required></textarea>
+        </div>
+        <div class="draggable-field" data-field-name="benefits">
+            <label for="benefits">Benefits (one per line)</label>
+            <textarea id="benefits" name="benefits" required></textarea>
+        </div>
+        <div class="draggable-field" data-field-name="work_setup">
+            <label for="work_setup">Work Setup</label>
+            <input type="text" id="work_setup" name="work_setup" required>
         </div>
 
-        <button type="button" class="btn" id="add-custom-field-btn" style="background-color: #28a745; margin-top: 10px;">Add New Custom Field</button>
-        <button type="submit" class="btn" style="margin-top: 10px;">Save Changes</button>
-    </form>
+        <!-- El contenedor para los campos personalizados se quedará igual -->
+        <hr style="margin-top: 30px; margin-bottom: 20px;">
+        <h3>Custom Fields</h3>
+        <div id="custom-fields-container">
+            <!-- Los campos personalizados se añadirán aquí -->
+        </div>
+    </div>
+
+    <button type="button" class="btn" id="add-custom-field-btn" style="background-color: #28a745; margin-top: 10px;">Add New Custom Field</button>
+    <button type="submit" class="btn" style="margin-top: 10px;">Save Changes</button>
+</form>
     <div id="status-message"></div>
 </div>
     </div>
