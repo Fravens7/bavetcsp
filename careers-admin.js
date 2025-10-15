@@ -129,29 +129,65 @@ document.getElementById('password-input').addEventListener('keyup', function(eve
     const form = document.getElementById('job-form');
     const statusDiv = document.getElementById('status-message');
 
-    async function loadJobData() {
-        const { data, error } = await supabase.from('job_posts').select('*').eq('id', 1).single();
-        if (error) { console.error(error); return; }
+// --- Reemplaza la función loadJobData ---
+async function loadJobData() {
+    const { data, error } = await supabase.from('job_posts').select('*').eq('id', 1).single();
+    if (error) { console.error(error); return; }
 
-        Object.keys(data).forEach(key => {
-            const input = document.querySelector(`[name="${key}"]`);
-            if (input && !key.startsWith('custom_')) {
-                input.value = data[key] || '';
-            }
-        });
-
-        const container = document.getElementById('custom-fields-container');
-        container.innerHTML = ''; activeCustomFields = 0;
-        for (let i = 1; i <= MAX_CUSTOM_FIELDS; i++) {
-            const label = data[`custom_${i}_label`];
-            if (label) {
-                const fieldData = { label: data[`custom_${i}_label`], value: data[`custom_${i}_value`], hidden: data[`custom_${i}_hidden`] };
-                const newField = createCustomField(i, fieldData);
-                container.appendChild(newField);
-                activeCustomFields++;
-            }
+    // Cargar campos estándar (sin cambios)
+    Object.keys(data).forEach(key => {
+        const input = document.querySelector(`[name="${key}"]`);
+        if (input && !key.startsWith('custom_')) {
+            input.value = data[key] || '';
         }
-        updateAddButtonState();
+    });
+
+    // Cargar campos personalizados
+    const container = document.getElementById('custom-fields-container');
+    const wrapper = document.getElementById('custom-section-wrapper'); // <-- Obtener el wrapper
+    container.innerHTML = ''; 
+    activeCustomFields = 0;
+
+    for (let i = 1; i <= MAX_CUSTOM_FIELDS; i++) {
+        const label = data[`custom_${i}_label`];
+        if (label) {
+            const fieldData = { label: data[`custom_${i}_label`], value: data[`custom_${i}_value`], hidden: data[`custom_${i}_hidden`] };
+            const newField = createCustomField(i, fieldData);
+            container.appendChild(newField);
+            activeCustomFields++;
+        }
+    }
+
+    // --- CAMBIO CLAVE: Mostrar la sección solo si hay campos personalizados ---
+    if (activeCustomFields > 0) {
+        wrapper.style.display = 'block';
+    }
+
+    updateAddButtonState();
+    initializeSortable(); // Asegurarse de que SortableJS se inicialice después de cargar los campos
+}
+
+// --- Reemplaza el evento del botón add-custom-field-btn ---
+document.getElementById('add-custom-field-btn').addEventListener('click', () => {
+    if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
+        alert('Limit of custom fields created. You can only have ' + MAX_CUSTOM_FIELDS + '.');
+        return;
+    }
+    
+    // --- CAMBIO CLAVE: Mostrar la sección cuando se añade el primer campo ---
+    const wrapper = document.getElementById('custom-section-wrapper');
+    if (wrapper.style.display === 'none') {
+        wrapper.style.display = 'block';
+    }
+
+    const nextIndex = activeCustomFields + 1;
+    const container = document.getElementById('custom-fields-container');
+    const newField = createCustomField(nextIndex, {});
+    container.prepend(newField);
+    
+    activeCustomFields++;
+    updateAddButtonState();
+});
 
         const fieldContainer = document.getElementById('sortable-fields-container');
         const allDraggableFields = Array.from(fieldContainer.querySelectorAll('.draggable-field'));
