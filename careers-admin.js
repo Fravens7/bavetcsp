@@ -130,11 +130,12 @@ document.getElementById('password-input').addEventListener('keyup', function(eve
     const statusDiv = document.getElementById('status-message');
 
 // --- Reemplaza la función loadJobData ---
+// --- Reemplaza toda la función loadJobData por esta versión ---
 async function loadJobData() {
     const { data, error } = await supabase.from('job_posts').select('*').eq('id', 1).single();
     if (error) { console.error(error); return; }
 
-    // Cargar campos estándar (sin cambios)
+    // Cargar campos estándar
     Object.keys(data).forEach(key => {
         const input = document.querySelector(`[name="${key}"]`);
         if (input && !key.startsWith('custom_')) {
@@ -144,7 +145,7 @@ async function loadJobData() {
 
     // Cargar campos personalizados
     const container = document.getElementById('custom-fields-container');
-    const wrapper = document.getElementById('custom-section-wrapper'); // <-- Obtener el wrapper
+    const wrapper = document.getElementById('custom-section-wrapper');
     container.innerHTML = ''; 
     activeCustomFields = 0;
 
@@ -158,13 +159,12 @@ async function loadJobData() {
         }
     }
 
-    // --- CAMBIO CLAVE: Mostrar la sección solo si hay campos personalizados ---
     if (activeCustomFields > 0) {
         wrapper.style.display = 'block';
     }
 
     updateAddButtonState();
-    initializeSortable(); // Asegurarse de que SortableJS se inicialice después de cargar los campos
+    initializeSortable();
 }
 
 // --- Reemplaza el evento del botón add-custom-field-btn ---
