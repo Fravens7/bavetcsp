@@ -11,18 +11,69 @@ document.addEventListener('DOMContentLoaded', () => {
   // Función para cargar los datos desde Supabase
 async function loadJobFromSupabase() {
     if (jobDetailsElement) {
-        const { data: jobData, error } = await supabase.from('job_posts').select('*').eq('id', 1).single();
-        if (error) { /* manejar error */ return; }
+        const { data: jobData, error } = await supabase
+            .from('job_posts')
+            .select('*')
+            .eq('id', 1)
+            .single();
+
+        if (error) {
+            console.error('Error fetching data from Supabase:', error);
+            return;
+        }
 
         if (jobData) {
+            console.log("Contenido cargado desde Supabase.");
+
+            // --- CAMBIO CLAVE: Leer el orden desde la BD ---
+            let fieldOrder = [];
+            try {
+                fieldOrder = jobData.field_order ? JSON.parse(jobData.field_order) : [];
+            } catch (e) {
+                console.error("Error parsing field_order from DB:", e);
+                // Si hay un error, usamos un orden por defecto
+                fieldOrder = ['department', 'type', 'career_level', 'description', 'responsibilities', 'requirements', 'benefits', 'work_setup'];
+            }
+
+            let finalHTML = '';
+
+            // --- CAMBIO CLAVE: Construir el HTML dinámicamente ---
+            fieldOrder.forEach(fieldName => {
+                switch (fieldName) {
+                    case 'department':
+                        finalHTML += `<p><strong>Department:</strong> ${jobData.department || 'N/A'}</p>`;
+                        break;
+                    case 'type':
+                        finalHTML += `<p><strong>Type:</strong> ${jobData.type || 'N/A'}</p>`;
+                        break;
+                    case 'career_level':
+                        finalHTML += `<p><strong>Career Level:</strong> ${jobData.career_level || 'N/A'}</p>`;
+                        break;
+                    case 'description':
+                        finalHTML += `<p><strong>Description:</strong> ${jobData.description || 'N/A'}</p>`;
+                        break;
+                    case 'responsibilities':
+                        finalHTML += `<h4>Key Responsibilities:</h4><ul>${(jobData.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>`;
+                        break;
+                    case 'requirements':
+                        finalHTML += `<h4>Requirements:</h4><ul>${(jobData.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>`;
+                        break;
+                    case 'benefits':
+                        finalHTML += `<h4>Benefits:</h4><ul>${(jobData.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>`;
+                        break;
+                    case 'work_setup':
+                        finalHTML += `<p><strong>Work Setup:</strong> ${jobData.work_setup || 'N/A'}</p>`;
+                        break;
+                }
+            });
+
+            // Añadir los campos personalizados al final
             let customFieldsHTML = '';
-            // Iterar sobre los 4 campos personalizados posibles
             for (let i = 1; i <= 4; i++) {
                 const label = jobData[`custom_${i}_label`];
                 const value = jobData[`custom_${i}_value`];
                 const isHidden = jobData[`custom_${i}_hidden`];
 
-                // Solo mostrar si tiene etiqueta Y no está oculto
                 if (label && !isHidden) {
                     customFieldsHTML += `
                         <h4>${label}</h4>
@@ -31,23 +82,7 @@ async function loadJobFromSupabase() {
                 }
             }
 
-            jobDetailsElement.innerHTML = `
-                <p><strong>Department:</strong> ${jobData.department || 'N/A'}</p>
-                <p><strong>Type:</strong> ${jobData.type || 'N/A'}</p>
-                <p><strong>Career Level:</strong> ${jobData.career_level || 'N/A'}</p>
-                <p><strong>Description:</strong> ${jobData.description || 'N/A'}</p>
-                <h4>Key Responsibilities:</h4>
-                <ul>${(jobData.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
-                <h4>Requirements:</h4>
-                <ul>${(jobData.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
-                <h4>Benefits:</h4>
-                <ul>${(jobData.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
-                <p><strong>Work Setup:</strong> ${jobData.work_setup || 'N/A'}</p>
-                
-                ${customFieldsHTML} <!-- Aquí se inyectan los campos personalizados -->
-
-                <a href="cv.html" class="btn">Apply Now</a>
-            `;
+            jobDetailsElement.innerHTML = finalHTML + customFieldsHTML + `<a href="cv.html" class="btn">Apply Now</a>`;
         }
     }
 }
