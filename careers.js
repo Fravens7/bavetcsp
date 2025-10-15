@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const { data: jobData, error } = await supabase
                 .from('job_posts')
                 .select('*')
-                .eq('id', 1)
+                .eq('id', 1) // <-- IMPORTANTE: Cargar la oferta con id=1
                 .single();
 
             if (error) {
@@ -51,13 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             finalHTML += `<p><strong>Description:</strong> ${jobData.description || 'N/A'}</p>`;
                             break;
                         case 'responsibilities':
-                            finalHTML += `<h4>Key Responsibilities:</h4><ul>${(jobData.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>`;
+                            finalHTML += `<h4>Key Responsibilities:</h4><ul>${( (jobData.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('') }</ul>`;
                             break;
                         case 'requirements':
-                            finalHTML += `<h4>Requirements:</h4><ul>${(jobData.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>`;
+                            finalHTML += `<h4>Requirements:</h4><ul>${ (jobData.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('') }</ul>`;
                             break;
                         case 'benefits':
-                            finalHTML += `<h4>Benefits:</h4><ul>${(jobData.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>`;
+                            finalHTML += `<h4>Benefits:</h4><ul>${ (jobData.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('') }</ul>`;
                             break;
                         case 'work_setup':
                             finalHTML += `<p><strong>Work Setup:</strong> ${jobData.work_setup || 'N/A'}</p>`;
@@ -105,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         )
         .subscribe();
-
 
     // --- LÓGICA PARA EL BOTÓN "SEE MORE / SEE LESS" ---
     const toggleButtons = document.querySelectorAll('.btn-toggle-details');
