@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const jobDetailsElement = document.getElementById('job-details-csr');
 
   // Función para cargar los datos desde Supabase
+// Reemplaza la función loadJobFromSupabase en careers.js
 async function loadJobFromSupabase() {
     if (jobDetailsElement) {
         const { data: jobData, error } = await supabase
@@ -31,7 +32,6 @@ async function loadJobFromSupabase() {
                 fieldOrder = jobData.field_order ? JSON.parse(jobData.field_order) : [];
             } catch (e) {
                 console.error("Error parsing field_order from DB:", e);
-                // Si hay un error, usamos un orden por defecto
                 fieldOrder = ['department', 'type', 'career_level', 'description', 'responsibilities', 'requirements', 'benefits', 'work_setup'];
             }
 
@@ -67,7 +67,7 @@ async function loadJobFromSupabase() {
                 }
             });
 
-            // Añadir los campos personalizados al final
+            // --- CAMBIO CLAVE: Añadir los campos personalizados al final ---
             let customFieldsHTML = '';
             for (let i = 1; i <= 4; i++) {
                 const label = jobData[`custom_${i}_label`];
