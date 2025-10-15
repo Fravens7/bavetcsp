@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- LÓGICA PARA CARGAR CONTENIDO DESDE GOOGLE SHEETS ---
+  // --- LÓGICA PARA CARGAR CONTENIDO DESDE GOOGLE SHEETS (CON RESPALDO) ---
   // --- IMPORTANTE: Pega aquí la URL que te dio Google Sheets ---
   const googleSheetsURL = 'https://docs.google.com/spreadsheets/d/1YkagCJ8yCNIAUlRv3ydghknRSOcONbMEhQkIcXEscyU/edit?usp=sharing';
 
@@ -13,7 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
       complete: function(results) {
         const jobData = results.data[0]; // Tomamos la primera fila de datos
 
+        // --- CAMBIO CLAVE: Solo actualizamos si los datos son VÁLIDOS ---
         if (jobData && jobData.department) {
+          console.log("Contenido cargado desde Google Sheets.");
           jobDetailsElement.innerHTML = `
             <p><strong>Department:</strong> ${jobData.department || 'N/A'}</p>
             <p><strong>Type:</strong> ${jobData.type || 'N/A'}</p>
@@ -29,30 +31,28 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="cv.html" class="btn">Apply Now</a>
           `;
         } else {
-          jobDetailsElement.innerHTML = '<p>No se pudo cargar la información de la vacante en este momento.</p>';
+          // --- CAMBIO CLAVE: Si los datos NO son válidos, no hacemos NADA. ---
+          // El contenido original del HTML permanece visible.
+          console.log("No se encontraron datos válidos en Google Sheets. Se mantiene el contenido por defecto.");
         }
       },
       error: function(error) {
-        console.error('Error al cargar el archivo CSV:', error);
-        jobDetailsElement.innerHTML = '<p>Error al cargar la información. Por favor, inténtalo de nuevo más tarde.</p>';
+        // --- CAMBIO CLAVE: Si hay un error de red, tampoco hacemos NADA. ---
+        // El contenido original del HTML permanece visible.
+        console.error('Error al cargar el archivo CSV, mostrando contenido por defecto:', error);
       }
     });
   }
 
 
-  // --- LÓGICA PARA EL BOTÓN "SEE MORE / SEE LESS" ---
+  // --- LÓGICA PARA EL BOTÓN "SEE MORE / SEE LESS" (sin cambios) ---
   const toggleButtons = document.querySelectorAll('.btn-toggle-details');
 
   toggleButtons.forEach(button => {
     button.addEventListener('click', () => {
-      // Busca el contenedor de detalles más cercano al botón
       const details = button.closest('.job-card').querySelector('.job-details');
-      
       if (details) {
-        // Alterna la clase 'open' en los detalles
         details.classList.toggle('open');
-        
-        // Cambia el texto del botón
         if (details.classList.contains('open')) {
           button.textContent = 'See less';
         } else {
