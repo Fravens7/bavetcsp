@@ -51,6 +51,59 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+document.addEventListener('DOMContentLoaded', async () => {
+  const { createClient } = supabase;
+
+  const supabaseUrl = 'https://hxnikfmwknlxmkqcsrol.supabase.co';  // <-- reemplaza con tu URL
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A';             // <-- usa la anon/public key
+
+  const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+  try {
+    const { data: jobPosts, error } = await supabaseClient
+      .from('job_posts')
+      .select('*');
+
+    if (error) throw error;
+
+    console.log("Datos cargados:", jobPosts);
+
+    const container = document.querySelector('.job-card .job-details');
+
+    if (jobPosts && jobPosts.length > 0 && container) {
+      const job = jobPosts[0];  // Muestra el primero (luego puedes hacer loop)
+
+      container.innerHTML = `
+        <p><strong>Description:</strong> ${job.description}</p>
+        <h4>Key Responsibilities:</h4>
+        <ul>${(job.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
+        <h4>Requirements:</h4>
+        <ul>${(job.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
+        <h4>Benefits:</h4>
+        <ul>${(job.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
+        <p><strong>Work Setup:</strong> ${job.work_setup}</p>
+        <a href="cv.html" class="btn">Apply Now</a>
+      `;
+    }
+  } catch (e) {
+    console.error('Error al cargar datos de Supabase:', e.message);
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
   // --- LÓGICA PARA EL BOTÓN "SEE MORE / SEE LESS" (sin cambios) ---
   const toggleButtons = document.querySelectorAll('.btn-toggle-details');
 
