@@ -15,7 +15,29 @@
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A';
     const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-    // Cargar las ofertas de trabajo
+    // Verificar sesión al cargar la página
+    document.addEventListener('DOMContentLoaded', async () => {
+      const session = supabase.auth.session(); // Obtener la sesión actual
+      if (session) {
+        console.log('Usuario autenticado:', session.user);
+      } else {
+        console.log('No hay usuario autenticado');
+      }
+
+      loadJobListings();  // Cargar las ofertas de trabajo
+    });
+
+    // Controlador de cambio de estado de autenticación
+    supabase.auth.onAuthStateChange((event, session) => {
+      console.log('Estado de autenticación cambiado:', event);
+      if (session && session.user) {
+        console.log('Usuario autenticado:', session.user);
+      } else {
+        console.log('No hay usuario autenticado');
+      }
+    });
+
+    // Función para cargar las ofertas de trabajo
     async function loadJobListings() {
       const container = document.getElementById('job-listings');
       const { data: jobs, error } = await supabaseClient.from('job_posts').select('*');
@@ -59,10 +81,6 @@
         </div>
       `).join('');
     }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      loadJobListings();  // Cargar las ofertas cuando se carga la página
-    });
 
     // Función para editar una oferta de trabajo
     async function editJob(id, title, department, type, location, description, responsibilities, requirements, benefits, work_setup) {
