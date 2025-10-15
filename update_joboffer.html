@@ -11,79 +11,59 @@
   <div id="job-listings"></div>
 
   <script>
+    // Crear el cliente Supabase fuera del bloque DOMContentLoaded para que sea accesible globalmente
     const supabaseUrl = 'https://hxnikfmwknlxmkqcsrol.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A';
-    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A'; // Reemplaza con tu clave de API
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);  // Creación correcta del cliente
 
-    // Verificar sesión al cargar la página
     document.addEventListener('DOMContentLoaded', async () => {
-      const session = supabase.auth.session(); // Obtener la sesión actual
-      if (session) {
-        console.log('Usuario autenticado:', session.user);
-      } else {
-        console.log('No hay usuario autenticado');
-      }
-
-      loadJobListings();  // Cargar las ofertas de trabajo
-    });
-
-    // Controlador de cambio de estado de autenticación
-    supabase.auth.onAuthStateChange((event, session) => {
-      console.log('Estado de autenticación cambiado:', event);
-      if (session && session.user) {
-        console.log('Usuario autenticado:', session.user);
-      } else {
-        console.log('No hay usuario autenticado');
-      }
-    });
-
-    // Función para cargar las ofertas de trabajo
-    async function loadJobListings() {
       const container = document.getElementById('job-listings');
-      const { data: jobs, error } = await supabaseClient.from('job_posts').select('*');
-      
-      if (error) {
+
+      try {
+        const { data: jobs, error } = await supabaseClient.from('job_posts').select('*');
+        if (error) throw error;
+
+        if (!jobs || jobs.length === 0) {
+          container.innerHTML = '<p>No hay ofertas disponibles.</p>';
+          return;
+        }
+
+        container.innerHTML = jobs.map(job => `
+          <div>
+            <h3>${job.title}</h3>
+            <p><strong>Departamento:</strong> ${job.department}</p>
+            <p><strong>Tipo:</strong> ${job.type}</p>
+            <p><strong>Ubicación:</strong> ${job.location}</p>
+            <p><strong>Descripción:</strong> ${job.description}</p>
+
+            <h4>Responsabilidades:</h4>
+            <ul>
+              ${(job.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
+            </ul>
+
+            <h4>Requisitos:</h4>
+            <ul>
+              ${(job.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
+            </ul>
+
+            <h4>Beneficios:</h4>
+            <ul>
+              ${(job.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
+            </ul>
+
+            <p><strong>Modalidad de trabajo:</strong> ${job.work_setup}</p>
+
+            <button onclick="editJob(${job.id}, '${job.title}', '${job.department}', '${job.type}', '${job.location}', '${job.description}', '${job.responsibilities}', '${job.requirements}', '${job.benefits}', '${job.work_setup}')">Editar</button>
+          </div>
+        `).join('');
+
+      } catch (error) {
         container.innerHTML = `<p>Error al cargar datos: ${error.message}</p>`;
-        return;
       }
+    });
 
-      if (!jobs || jobs.length === 0) {
-        container.innerHTML = '<p>No hay ofertas disponibles.</p>';
-        return;
-      }
-
-      container.innerHTML = jobs.map(job => `
-        <div data-id="${job.id}">
-          <h3>${job.title}</h3>
-          <p><strong>Departamento:</strong> ${job.department}</p>
-          <p><strong>Tipo:</strong> ${job.type}</p>
-          <p><strong>Ubicación:</strong> ${job.location}</p>
-          <p><strong>Descripción:</strong> ${job.description}</p>
-
-          <h4>Responsabilidades:</h4>
-          <ul>
-            ${(job.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
-          </ul>
-
-          <h4>Requisitos:</h4>
-          <ul>
-            ${(job.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
-          </ul>
-
-          <h4>Beneficios:</h4>
-          <ul>
-            ${(job.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
-          </ul>
-
-          <p><strong>Modalidad de trabajo:</strong> ${job.work_setup}</p>
-
-          <button onclick="editJob(${job.id}, '${job.title}', '${job.department}', '${job.type}', '${job.location}', '${job.description}', '${job.responsibilities}', '${job.requirements}', '${job.benefits}', '${job.work_setup}')">Editar</button>
-        </div>
-      `).join('');
-    }
-
-    // Función para editar una oferta de trabajo
-    async function editJob(id, title, department, type, location, description, responsibilities, requirements, benefits, work_setup) {
+    function editJob(id, title, department, type, location, description, responsibilities, requirements, benefits, work_setup) {
+      // Mostrar formulario de edición con los datos actuales
       const formHTML = `
         <h3>Editar Oferta de Trabajo</h3>
         <form id="edit-form">
@@ -121,46 +101,100 @@
 
       document.getElementById('job-listings').innerHTML = formHTML;
 
-      // Al enviar el formulario
       document.getElementById('edit-form').addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const user = supabase.auth.user();
+
         
-        if (!user) {
-          alert("Por favor, inicia sesión para editar la oferta.");
-          return;
-        }
 
-        const updates = {
-          title: e.target.title.value,
-          department: e.target.department.value,
-          type: e.target.type.value,
-          location: e.target.location.value,
-          description: e.target.description.value,
-          responsibilities: e.target.responsibilities.value,
-          requirements: e.target.requirements.value,
-          benefits: e.target.benefits.value,
-          work_setup: e.target.work_setup.value,
-          user_id: user.id // Asignar el ID del usuario autenticado
-        };
+const user = supabase.auth.user();  // Obtener el usuario autenticado
+if (!user) {
+  alert("Por favor, inicia sesión para editar la oferta.");
+  return;
+}
 
-        // Realizar la actualización
-        const { error } = await supabaseClient
-          .from('job_posts')
-          .update(updates)
-          .eq('id', id)
-          .eq('user_id', user.id);  // Asegura que solo el propietario pueda actualizar
+const updates = {
+  title: e.target.title.value,
+  department: e.target.department.value,
+  type: e.target.type.value,
+  location: e.target.location.value,
+  description: e.target.description.value,
+  responsibilities: e.target.responsibilities.value,
+  requirements: e.target.requirements.value,
+  benefits: e.target.benefits.value,
+  work_setup: e.target.work_setup.value,
+  user_id: user.id // Asignar el ID del usuario autenticado
+};
 
-        if (error) {
-          alert('Error al actualizar la oferta: ' + error.message);
-        } else {
-          alert('Oferta actualizada correctamente');
-          loadJobListings();  // Recargar las ofertas después de la actualización
-        }
+const { data, error } = await supabase
+  .from('job_posts')
+  .update(updates)
+  .eq('id', id)
+  .eq('user_id', user.id);  // Asegura que solo el dueño de la oferta pueda actualizarla
+
+if (error) {
+  alert('Error al actualizar la oferta: ' + error.message);
+} else {
+  alert('Oferta actualizada correctamente');
+  loadJobListings();  // Recarga las ofertas después de la actualización
+}
+
+
+
+
+       try {
+  const { data, error } = await supabaseClient
+    .from('job_posts')
+    .update(updates)
+    .eq('id', id);
+
+  if (error) throw error;
+
+  // Mostrar la alerta y actualizar la UI sin recargar la página
+  alert('Oferta actualizada correctamente');
+
+  // Buscar el trabajo actualizado en la lista de trabajos y actualizarlo en el DOM
+  const updatedJob = { id, ...updates }; // Este es el objeto con los datos actualizados
+
+  // Obtener el contenedor donde se muestran las ofertas
+  const container = document.getElementById('job-listings');
+
+  // Reemplazar el div correspondiente al trabajo editado con la nueva data
+  const jobDiv = container.querySelector(`div[data-id="${id}"]`);
+  if (jobDiv) {
+    jobDiv.innerHTML = `
+      <h3>${updatedJob.title}</h3>
+      <p><strong>Departamento:</strong> ${updatedJob.department}</p>
+      <p><strong>Tipo:</strong> ${updatedJob.type}</p>
+      <p><strong>Ubicación:</strong> ${updatedJob.location}</p>
+      <p><strong>Descripción:</strong> ${updatedJob.description}</p>
+
+      <h4>Responsabilidades:</h4>
+      <ul>
+        ${(updatedJob.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
+      </ul>
+
+      <h4>Requisitos:</h4>
+      <ul>
+        ${(updatedJob.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
+      </ul>
+
+      <h4>Beneficios:</h4>
+      <ul>
+        ${(updatedJob.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
+      </ul>
+
+      <p><strong>Modalidad de trabajo:</strong> ${updatedJob.work_setup}</p>
+
+      <button onclick="editJob(${updatedJob.id}, '${updatedJob.title}', '${updatedJob.department}', '${updatedJob.type}', '${updatedJob.location}', '${updatedJob.description}', '${updatedJob.responsibilities}', '${updatedJob.requirements}', '${updatedJob.benefits}', '${updatedJob.work_setup}')">Editar</button>
+    `;
+  }
+} catch (error) {
+  alert('Error al actualizar: ' + error.message);
+}
+
       });
     }
-
   </script>
 
 </body>
