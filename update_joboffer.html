@@ -117,19 +117,57 @@
           work_setup: e.target.work_setup.value
         };
 
-        try {
-          const { data, error } = await supabaseClient
-            .from('job_posts')
-            .update(updates)
-            .eq('id', id);
-          
-          if (error) throw error;
+       try {
+  const { data, error } = await supabaseClient
+    .from('job_posts')
+    .update(updates)
+    .eq('id', id);
 
-          alert('Oferta actualizada correctamente');
-          location.reload(); // Recarga la página para mostrar los cambios
-        } catch (error) {
-          alert('Error al actualizar: ' + error.message);
-        }
+  if (error) throw error;
+
+  // Mostrar la alerta y actualizar la UI sin recargar la página
+  alert('Oferta actualizada correctamente');
+
+  // Buscar el trabajo actualizado en la lista de trabajos y actualizarlo en el DOM
+  const updatedJob = { id, ...updates }; // Este es el objeto con los datos actualizados
+
+  // Obtener el contenedor donde se muestran las ofertas
+  const container = document.getElementById('job-listings');
+
+  // Reemplazar el div correspondiente al trabajo editado con la nueva data
+  const jobDiv = container.querySelector(`div[data-id="${id}"]`);
+  if (jobDiv) {
+    jobDiv.innerHTML = `
+      <h3>${updatedJob.title}</h3>
+      <p><strong>Departamento:</strong> ${updatedJob.department}</p>
+      <p><strong>Tipo:</strong> ${updatedJob.type}</p>
+      <p><strong>Ubicación:</strong> ${updatedJob.location}</p>
+      <p><strong>Descripción:</strong> ${updatedJob.description}</p>
+
+      <h4>Responsabilidades:</h4>
+      <ul>
+        ${(updatedJob.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
+      </ul>
+
+      <h4>Requisitos:</h4>
+      <ul>
+        ${(updatedJob.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
+      </ul>
+
+      <h4>Beneficios:</h4>
+      <ul>
+        ${(updatedJob.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
+      </ul>
+
+      <p><strong>Modalidad de trabajo:</strong> ${updatedJob.work_setup}</p>
+
+      <button onclick="editJob(${updatedJob.id}, '${updatedJob.title}', '${updatedJob.department}', '${updatedJob.type}', '${updatedJob.location}', '${updatedJob.description}', '${updatedJob.responsibilities}', '${updatedJob.requirements}', '${updatedJob.benefits}', '${updatedJob.work_setup}')">Editar</button>
+    `;
+  }
+} catch (error) {
+  alert('Error al actualizar: ' + error.message);
+}
+
       });
     }
   </script>
