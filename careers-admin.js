@@ -6,6 +6,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const ADMIN_PASSWORD = 'neuron2025';
     const MAX_CUSTOM_FIELDS = 4;
 
+
+// --- AÑADE ESTE EVENT LISTENER ---
+document.getElementById('login-button').addEventListener('click', () => {
+    checkPassword();
+});
+
+// Permitir entrar con la tecla "Enter"
+document.getElementById('password-input').addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+        checkPassword();
+    }
+});
+
+
+
+
+
+    
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     let activeCustomFields = 0;
     let sortable;
