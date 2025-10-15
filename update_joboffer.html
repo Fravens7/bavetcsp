@@ -11,10 +11,9 @@
   <div id="job-listings"></div>
 
   <script>
-    // Crear el cliente Supabase fuera del bloque DOMContentLoaded para que sea accesible globalmente
     const supabaseUrl = 'https://hxnikfmwknlxmkqcsrol.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A'; // Reemplaza con tu clave de API
-    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);  // Creación correcta del cliente
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A';
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
     // Cargar las ofertas de trabajo
     async function loadJobListings() {
@@ -66,7 +65,7 @@
     });
 
     // Función para editar una oferta de trabajo
-    function editJob(id, title, department, type, location, description, responsibilities, requirements, benefits, work_setup) {
+    async function editJob(id, title, department, type, location, description, responsibilities, requirements, benefits, work_setup) {
       const formHTML = `
         <h3>Editar Oferta de Trabajo</h3>
         <form id="edit-form">
@@ -104,10 +103,12 @@
 
       document.getElementById('job-listings').innerHTML = formHTML;
 
+      // Al enviar el formulario
       document.getElementById('edit-form').addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const user = supabase.auth.user();
+        
         if (!user) {
           alert("Por favor, inicia sesión para editar la oferta.");
           return;
@@ -126,6 +127,7 @@
           user_id: user.id // Asignar el ID del usuario autenticado
         };
 
+        // Realizar la actualización
         const { error } = await supabaseClient
           .from('job_posts')
           .update(updates)
@@ -140,6 +142,7 @@
         }
       });
     }
+
   </script>
 
 </body>
