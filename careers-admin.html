@@ -131,6 +131,7 @@
 
         // Guardar los cambios en Supabase
 // Guardar los cambios en Supabase
+// Guardar los cambios en Supabase
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     statusDiv.textContent = 'Guardando...';
@@ -139,19 +140,18 @@ form.addEventListener('submit', async (e) => {
     const formData = new FormData(form);
     const updatedData = Object.fromEntries(formData.entries());
 
-    console.log("Datos a enviar a Supabase:", updatedData); // <-- AÑADE ESTO PARA DEBUG
+    console.log("Datos a enviar a Supabase:", updatedData);
 
-    const { data, error } = await supabase
+    const { data, error, count } = await supabase // <-- AÑADIMOS 'count' aquí
         .from('job_posts')
         .update(updatedData)
         .eq('id', 1);
 
-    // --- MEJORA: Comprobación más estricta ---
     if (error) {
         console.error('Error explícito de Supabase:', error);
         statusDiv.textContent = `Error al guardar: ${error.message}`;
         statusDiv.className = 'status error';
-    } else if (data) { // <-- IMPORTANTE: Comprobamos si 'data' tiene contenido
+    } else if (count > 0) { // <-- ¡CAMBIO CLAVE! Comprobamos si se afectó alguna fila
         console.log("Respuesta de Supabase al actualizar:", data);
         statusDiv.textContent = '¡Cambios guardados con éxito!';
         statusDiv.className = 'status success';
