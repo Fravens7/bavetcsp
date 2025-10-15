@@ -107,7 +107,7 @@
 
         
 
-const user = supabase.auth.user();  // Obtener el usuario autenticado
+const { data: { user } } = await supabase.auth.getUser(); // Obtener el usuario autenticado
 if (!user) {
   alert("Por favor, inicia sesión para editar la oferta.");
   return;
