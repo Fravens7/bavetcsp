@@ -11,11 +11,12 @@
   <div id="job-listings"></div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      const supabaseUrl = 'https://hxnikfmwknlxmkqcsrol.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A'; // Reemplaza con tu clave de API
-      const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);  // Creación correcta del cliente
+    // Crear el cliente Supabase fuera del bloque DOMContentLoaded para que sea accesible globalmente
+    const supabaseUrl = 'https://hxnikfmwknlxmkqcsrol.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A'; // Reemplaza con tu clave de API
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);  // Creación correcta del cliente
 
+    document.addEventListener('DOMContentLoaded', async () => {
       const container = document.getElementById('job-listings');
 
       try {
