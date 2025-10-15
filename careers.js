@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- LÓGICA PARA CARGAR CONTENIDO DESDE GOOGLE SHEETS (CON RESPALDO) ---
   // --- IMPORTANTE: Pega aquí la URL que te dio Google Sheets ---
-  const googleSheetsURL = 'https://docs.google.com/spreadsheets/d/1YkagCJ8yCNIAUlRv3ydghknRSOcONbMEhQkIcXEscyU/export?format=csv';
+  const googleSheetsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTv-xk6w6BwAIoqp5PHH31LThNY0Umf9lsV7rnzaZdDPmnAfdM8xEKOzxS0rvO8x1nmcglqgYev8UsX/pub?output=csv';
 
 
   const jobDetailsElement = document.getElementById('job-details');
