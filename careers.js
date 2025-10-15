@@ -9,39 +9,48 @@ document.addEventListener('DOMContentLoaded', () => {
   const jobDetailsElement = document.getElementById('job-details-csr');
 
   // Función para cargar los datos desde Supabase
-  async function loadJobFromSupabase() {
+async function loadJobFromSupabase() {
     if (jobDetailsElement) {
-      const { data: jobData, error } = await supabase
-        .from('job_posts')
-        .select('*')
-        .eq('id', 1) // <-- IMPORTANTE: Siempre cargaremos la oferta con id=1
-        .single(); // .single() para obtener un solo resultado
+        const { data: jobData, error } = await supabase.from('job_posts').select('*').eq('id', 1).single();
+        if (error) { /* manejar error */ return; }
 
-      if (error) {
-        console.error('Error fetching data from Supabase:', error);
-        // Si hay un error, no hacemos nada y se muestra el contenido por defecto del HTML
-        return;
-      }
+        if (jobData) {
+            let customFieldsHTML = '';
+            // Iterar sobre los 4 campos personalizados posibles
+            for (let i = 1; i <= 4; i++) {
+                const label = jobData[`custom_${i}_label`];
+                const value = jobData[`custom_${i}_value`];
+                const isHidden = jobData[`custom_${i}_hidden`];
 
-      if (jobData) {
-        console.log("Contenido cargado desde Supabase.");
-        jobDetailsElement.innerHTML = `
-          <p><strong>Department:</strong> ${jobData.department || 'N/A'}</p>
-          <p><strong>Type:</strong> ${jobData.type || 'N/A'}</p>
-          <p><strong>Career Level:</strong> ${jobData.career_level || 'N/A'}</p>
-          <p><strong>Description:</strong> ${jobData.description || 'N/A'}</p>
-          <h4>Key Responsibilities:</h4>
-          <ul>${(jobData.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
-          <h4>Requirements:</h4>
-          <ul>${(jobData.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
-          <h4>Benefits:</h4>
-          <ul>${(jobData.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
-          <p><strong>Work Setup:</strong> ${jobData.work_setup || 'N/A'}</p>
-          <a href="cv.html" class="btn">Apply Now</a>
-        `;
-      }
+                // Solo mostrar si tiene etiqueta Y no está oculto
+                if (label && !isHidden) {
+                    customFieldsHTML += `
+                        <h4>${label}</h4>
+                        <p>${value || 'N/A'}</p>
+                    `;
+                }
+            }
+
+            jobDetailsElement.innerHTML = `
+                <p><strong>Department:</strong> ${jobData.department || 'N/A'}</p>
+                <p><strong>Type:</strong> ${jobData.type || 'N/A'}</p>
+                <p><strong>Career Level:</strong> ${jobData.career_level || 'N/A'}</p>
+                <p><strong>Description:</strong> ${jobData.description || 'N/A'}</p>
+                <h4>Key Responsibilities:</h4>
+                <ul>${(jobData.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
+                <h4>Requirements:</h4>
+                <ul>${(jobData.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
+                <h4>Benefits:</h4>
+                <ul>${(jobData.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
+                <p><strong>Work Setup:</strong> ${jobData.work_setup || 'N/A'}</p>
+                
+                ${customFieldsHTML} <!-- Aquí se inyectan los campos personalizados -->
+
+                <a href="cv.html" class="btn">Apply Now</a>
+            `;
+        }
     }
-  }
+}
 
   // Cargar los datos al inicio
   loadJobFromSupabase();
