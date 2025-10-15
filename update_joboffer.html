@@ -3,16 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Test Supabase Job Posts</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    .job-card { border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; }
-    .job-summary { font-weight: bold; }
-    .job-details { margin-top: 10px; display: none; }
-    .job-details.open { display: block; }
-    button { margin-top: 10px; }
-  </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 </head>
 <body>
 
@@ -22,16 +13,13 @@
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       const supabaseUrl = 'https://hxnikfmwknlxmkqcsrol.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A';
+      const supabaseKey = 'tu_api_key_aqui';
       const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-
-
 
       const container = document.getElementById('job-listings');
 
       try {
-        const { data: jobs, error } = await supabase.from('job_posts').select('*');
-        console.log('Jobs desde Supabase:', jobs, 'Error:', error);
+        const { data: jobs, error } = await supabaseClient.from('job_posts').select('*');
         if (error) throw error;
 
         if (!jobs || jobs.length === 0) {
@@ -40,47 +28,16 @@
         }
 
         container.innerHTML = jobs.map(job => `
-          <div class="job-card">
-            <div class="job-summary">
-              <h3>${job.title}</h3>
-              <p><strong>Location:</strong> ${job.location} | <strong>Department:</strong> ${job.department}</p>
-              <p><strong>Type:</strong> ${job.type}</p>
-              <button class="toggle-btn">Ver detalles</button>
-            </div>
-            <div class="job-details">
-              <p><strong>Description:</strong> ${job.description}</p>
-              <h4>Key Responsibilities:</h4>
-              <ul>${(job.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
-              <h4>Requirements:</h4>
-              <ul>${(job.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
-              <h4>Benefits:</h4>
-              <ul>${(job.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
-              <p><strong>Work Setup:</strong> ${job.work_setup}</p>
-            </div>
+          <div>
+            <h3>${job.title}</h3>
+            <p>${job.description}</p>
           </div>
         `).join('');
-
-        // Añadir funcionalidad toggle detalles
-        document.querySelectorAll('.toggle-btn').forEach(button => {
-          button.addEventListener('click', () => {
-            const details = button.parentElement.nextElementSibling;
-            if (details.style.display === 'block') {
-              details.style.display = 'none';
-              button.textContent = 'Ver detalles';
-            } else {
-              details.style.display = 'block';
-              button.textContent = 'Ocultar detalles';
-            }
-          });
-        });
-
-
       } catch (err) {
         container.innerHTML = `<p>Error al cargar datos: ${err.message}</p>`;
       }
     });
   </script>
-  
 
 </body>
 </html>
