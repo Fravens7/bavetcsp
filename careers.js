@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // --- CAMBIO CLAVE: Solo actualizamos si los datos son VÁLIDOS ---
         console.log("Job data loaded from sheet:", jobData);
+        console.log("Datos obtenidos:", jobData);
+
+
+        
         if (jobData && jobData.department) {
           console.log("Contenido cargado desde Google Sheets.");
           jobDetailsElement.innerHTML = `
