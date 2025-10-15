@@ -34,37 +34,38 @@
         </div>
 
         <!-- Formulario de Edición (oculto por defecto) -->
-        <div id="edit-form-container" style="display: none;">
-            <h1>Editar Vacante de Trabajo</h1>
-            <form id="job-form">
-                <label for="department">Departamento</label>
-                <input type="text" id="department" name="department" required>
+<!-- Formulario de Edición (oculto por defecto) -->
+<div id="edit-form-container" style="display: none;">
+    <h1>Edit Job Vacancy</h1>
+    <form id="job-form">
+        <label for="department">Department</label>
+        <input type="text" id="department" name="department" required>
 
-                <label for="type">Tipo</label>
-                <input type="text" id="type" name="type" required>
+        <label for="type">Type</label>
+        <input type="text" id="type" name="type" required>
 
-                <label for="career_level">Nivel Laboral</label>
-                <input type="text" id="career_level" name="career_level" required>
+        <label for="career_level">Career Level</label>
+        <input type="text" id="career_level" name="career_level" required>
 
-                <label for="description">Descripción</label>
-                <textarea id="description" name="description" required></textarea>
+        <label for="description">Description</label>
+        <textarea id="description" name="description" required></textarea>
 
-                <label for="responsibilities">Responsabilidades Clave (un punto por línea)</label>
-                <textarea id="responsibilities" name="responsibilities" required></textarea>
+        <label for="responsibilities">Key Responsibilities (one per line)</label>
+        <textarea id="responsibilities" name="responsibilities" required></textarea>
 
-                <label for="requirements">Requisitos (un punto por línea)</label>
-                <textarea id="requirements" name="requirements" required></textarea>
+        <label for="requirements">Requirements (one per line)</label>
+        <textarea id="requirements" name="requirements" required></textarea>
 
-                <label for="benefits">Beneficios (un punto por línea)</label>
-                <textarea id="benefits" name="benefits" required></textarea>
+        <label for="benefits">Benefits (one per line)</label>
+        <textarea id="benefits" name="benefits" required></textarea>
 
-                <label for="work_setup">Modalidad de Trabajo</label>
-                <input type="text" id="work_setup" name="work_setup" required>
+        <label for="work_setup">Work Setup</label>
+        <input type="text" id="work_setup" name="work_setup" required>
 
-                <button type="submit" class="btn">Guardar Cambios</button>
-            </form>
-            <div id="status-message"></div>
-        </div>
+        <button type="submit" class="btn">Save Changes</button>
+    </form>
+    <div id="status-message"></div>
+</div>
     </div>
 
     <!-- Añade el cliente de Supabase -->
