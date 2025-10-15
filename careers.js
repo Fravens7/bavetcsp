@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- LÓGICA PARA CARGAR CONTENIDO DESDE GOOGLE SHEETS (CON RESPALDO) ---
   // --- IMPORTANTE: Pega aquí la URL que te dio Google Sheets ---
-  const googleSheetsURL = 'https://docs.google.com/spreadsheets/d/1YkagCJ8yCNIAUlRv3ydghknRSOcONbMEhQkIcXEscyU/edit?usp=sharing';
+  const googleSheetsURL = 'https://docs.google.com/spreadsheets/d/1YkagCJ8yCNIAUlRv3ydghknRSOcONbMEhQkIcXEscyU/export?format=csv';
+
 
   const jobDetailsElement = document.getElementById('job-details');
 
