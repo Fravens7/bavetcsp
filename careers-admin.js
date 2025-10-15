@@ -33,27 +33,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- LÓGICA DE CAMPOS PERSONALIZADOS ---
-    function createCustomField(index, data = {}) {
-        const fieldDiv = document.createElement('div');
-        fieldDiv.className = 'custom-field-group draggable-field';
-        fieldDiv.dataset.fieldName = `custom_${index}`;
-        fieldDiv.innerHTML = `
-            <div class="field-controls">
-                <h4>Custom Field ${index}</h4>
-                <div>
-                    <label style="font-weight: normal; margin-right: 15px;">
-                        <input type="checkbox" name="custom_${index}_hidden" ${data.hidden ? 'checked' : ''}> Hide on Website
-                    </label>
-                    <button type="button" class="btn-remove-custom">Remove</button>
-                </div>
+function createCustomField(index, data = {}) {
+    const fieldDiv = document.createElement('div');
+    fieldDiv.className = 'custom-field-group'; // <-- IMPORTANTE: Ya no es 'draggable-field'
+    fieldDiv.dataset.fieldName = `custom_${index}`;
+
+    fieldDiv.innerHTML = `
+        <div class="field-controls">
+            <h4>Custom Field ${index}</h4>
+            <div>
+                <!-- CAMBIO CLAVE: Se reordena el HTML para poner "Remove" primero -->
+                <button type="button" class="btn-remove-custom">Remove</button>
+                <label style="font-weight: normal; margin-left: 15px;">
+                    <input type="checkbox" name="custom_${index}_hidden" ${data.hidden ? 'checked' : ''}> Hide on Website
+                </label>
             </div>
-            <label>Field Label (e.g., "Salary")</label>
-            <input type="text" name="custom_${index}_label" placeholder="e.g., Salary" value="${data.label || ''}" required>
-            <label>Field Content</label>
-            <textarea name="custom_${index}_value" placeholder="e.g., $500 - $800 per month.">${data.value || ''}</textarea>
-        `;
-        return fieldDiv;
-    }
+        </div>
+        <label>Field Label (e.g., "Salary")</label>
+        <input type="text" name="custom_${index}_label" placeholder="e.g., Salary" value="${data.label || ''}" required>
+        <label>Field Content</label>
+        <textarea name="custom_${index}_value" placeholder="e.g., $500 - $800 per month.">${data.value || ''}</textarea>
+    `;
+    return fieldDiv;
+}
 
     function updateAddButtonState() {
         const addBtn = document.getElementById('add-custom-field-btn');
