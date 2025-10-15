@@ -167,8 +167,21 @@
     let sortable; // Para la instancia de SortableJS
 
     // --- LÓGICA DE LOGIN (sin cambios) ---
-    function checkPassword() { /* ... */ }
-    document.getElementById('password-input').addEventListener('keyup', function(event) { /* ... */ });
+function checkPassword() {
+    console.log("Función checkPassword() llamada."); // Pista 1
+    const passwordInput = document.getElementById('password-input').value;
+    console.log("Contraseña introducida:", passwordInput); // Pista 2
+
+    if (passwordInput === ADMIN_PASSWORD) {
+        console.log("Contraseña correcta. Mostrando formulario..."); // Pista 3
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('edit-form-container').style.display = 'block';
+        loadJobData();
+    } else {
+        console.log("Contraseña incorrecta."); // Pista 4
+        alert('Incorrect password. Please try again.');
+    }
+}
 
     // --- LÓGICA DE CAMPOS PERSONALIZADOS (sin cambios) ---
     function createCustomField(index, data = {}) { /* ... */ }
