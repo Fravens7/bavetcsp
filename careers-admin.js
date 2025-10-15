@@ -101,7 +101,7 @@ function initializeSortable() {
         sortable = new Sortable(container, {
             animation: 150,
             // --- CAMBIO CLAVE: El arrastre solo funciona en los campos con la clase 'draggable-standard' ---
-            handle: '.draggable-standard',
+            handle: '#draggable-handle',
             ghostClass: 'sortable-ghost',
             dragClass: 'sortable-drag',
             onEnd: () => saveFieldOrder()
