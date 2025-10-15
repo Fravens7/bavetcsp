@@ -1,334 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Editar Vacante</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .admin-container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); width: 100%; max-width: 800px; }
-        h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
-        label { display: block; margin-top: 20px; font-weight: 600; color: #34495e; }
-        input, textarea { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #bdc3c7; border-radius: 6px; font-size: 16px; box-sizing: border-box; transition: border-color 0.3s; }
-        input:focus, textarea:focus { outline: none; border-color: #3498db; }
-        textarea { min-height: 120px; resize: vertical; }
-        .btn { background-color: #3498db; color: white; padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; margin-top: 25px; transition: background-color 0.3s; }
-        .btn:hover { background-color: #2980b9; }
-        .status { margin-top: 20px; padding: 15px; border-radius: 6px; text-align: center; font-weight: bold; }
-        .status.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .status.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        /* Estilos para la pantalla de login */
-        #login-container { text-align: center; }
-        #login-container input { margin-bottom: 20px; }
-
-
-/* --- Estilos para los campos personalizados --- */
-#custom-fields-container {
-    border: 1px dashed #ccc;
-    padding: 15px;
-    border-radius: 6px;
-    margin-top: 20px;
-}
-
-.custom-field-group {
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-}
-
-.custom-field-group .field-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.custom-field-group label {
-    font-weight: bold;
-}
-
-.btn-remove-custom {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.btn-remove-custom:hover {
-    background-color: #c82333;
-}
-/* --- Estilos para los campos arrastrables --- */
-.draggable-field {
-    cursor: move; /* Indica que se puede arrastrar */
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    background-color: #fff;
-}
-
-.sortable-ghost {
-    opacity: 0.4;
-}
-
-.sortable-drag {
-    opacity: 0.9;
-}
-
-        
-    </style>
     
+    <!-- Enlace al nuevo archivo CSS -->
+    <link rel="stylesheet" href="careers-admin.css">
+    
+    <!-- Enlace a las librerías externas -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
 <body>
 
     <div class="admin-container">
-        <!-- Pantalla de "Login" (oculta por defecto) -->
+        <!-- Pantalla de Login -->
         <div id="login-container">
-            <h1>Panel de Administración</h1>
-            <p>Por favor, introduce la contraseña para continuar.</p>
-            <input type="password" id="password-input" placeholder="Contraseña">
-            <button class="btn" onclick="checkPassword()">Entrar</button>
+            <h1>Admin Panel</h1>
+            <p>Please enter the password to continue.</p>
+            <input type="password" id="password-input" placeholder="Password">
+            <button class="btn" onclick="checkPassword()">Enter</button>
         </div>
 
-        <!-- Formulario de Edición (oculto por defecto) -->
-<!-- Formulario de Edición (oculto por defecto) -->
-<!-- Formulario de Edición (oculto por defecto) -->
-<div id="edit-form-container" style="display: none;">
-    <h1>Edit Job Vacancy</h1>
-    <!-- Reemplaza todo el <form id="job-form"> por esto -->
-<form id="job-form">
-    <div id="sortable-fields-container">
-        <!-- CAMPOS ESTÁNDAR -->
-        <div class="draggable-field" data-field-name="department">
-            <label for="department">Department</label>
-            <input type="text" id="department" name="department" required>
-        </div>
-        <div class="draggable-field" data-field-name="type">
-            <label for="type">Type</label>
-            <input type="text" id="type" name="type" required>
-        </div>
-        <!-- ... Añade el resto de tus campos estándar dentro de un div con class="draggable-field" ... -->
-        <div class="draggable-field" data-field-name="career_level">
-            <label for="career_level">Career Level</label>
-            <input type="text" id="career_level" name="career_level" required>
-        </div>
-        <div class="draggable-field" data-field-name="description">
-            <label for="description">Description</label>
-            <textarea id="description" name="description" required></textarea>
-        </div>
-        <div class="draggable-field" data-field-name="responsibilities">
-            <label for="responsibilities">Key Responsibilities (one per line)</label>
-            <textarea id="responsibilities" name="responsibilities" required></textarea>
-        </div>
-        <div class="draggable-field" data-field-name="requirements">
-            <label for="requirements">Requirements (one per line)</label>
-            <textarea id="requirements" name="requirements" required></textarea>
-        </div>
-        <div class="draggable-field" data-field-name="benefits">
-            <label for="benefits">Benefits (one per line)</label>
-            <textarea id="benefits" name="benefits" required></textarea>
-        </div>
-        <div class="draggable-field" data-field-name="work_setup">
-            <label for="work_setup">Work Setup</label>
-            <input type="text" id="work_setup" name="work_setup" required>
-        </div>
+        <!-- Formulario de Edición -->
+        <div id="edit-form-container" style="display: none;">
+            <h1>Edit Job Vacancy</h1>
+            <form id="job-form">
+                <div id="sortable-fields-container">
+                    <!-- CAMPOS ESTÁNDAR -->
+                    <div class="draggable-field" data-field-name="department">
+                        <label for="department">Department</label>
+                        <input type="text" id="department" name="department" required>
+                    </div>
+                    <div class="draggable-field" data-field-name="type">
+                        <label for="type">Type</label>
+                        <input type="text" id="type" name="type" required>
+                    </div>
+                    <div class="draggable-field" data-field-name="career_level">
+                        <label for="career_level">Career Level</label>
+                        <input type="text" id="career_level" name="career_level" required>
+                    </div>
+                    <div class="draggable-field" data-field-name="description">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" required></textarea>
+                    </div>
+                    <div class="draggable-field" data-field-name="responsibilities">
+                        <label for="responsibilities">Key Responsibilities (one per line)</label>
+                        <textarea id="responsibilities" name="responsibilities" required></textarea>
+                    </div>
+                    <div class="draggable-field" data-field-name="requirements">
+                        <label for="requirements">Requirements (one per line)</label>
+                        <textarea id="requirements" name="requirements" required></textarea>
+                    </div>
+                    <div class="draggable-field" data-field-name="benefits">
+                        <label for="benefits">Benefits (one per line)</label>
+                        <textarea id="benefits" name="benefits" required></textarea>
+                    </div>
+                    <div class="draggable-field" data-field-name="work_setup">
+                        <label for="work_setup">Work Setup</label>
+                        <input type="text" id="work_setup" name="work_setup" required>
+                    </div>
 
-        <!-- El contenedor para los campos personalizados se quedará igual -->
-        <hr style="margin-top: 30px; margin-bottom: 20px;">
-        <h3>Custom Fields</h3>
-        <div id="custom-fields-container">
-            <!-- Los campos personalizados se añadirán aquí -->
+                    <!-- Contenedor para los campos personalizados -->
+                    <hr style="margin-top: 30px; margin-bottom: 20px;">
+                    <h3>Custom Fields</h3>
+                    <div id="custom-fields-container">
+                        <!-- Los campos personalizados se añadirán aquí -->
+                    </div>
+                </div>
+
+                <button type="button" class="btn" id="add-custom-field-btn" style="background-color: #28a745; margin-top: 10px;">Add New Custom Field</button>
+                <button type="submit" class="btn" style="margin-top: 10px;">Save Changes</button>
+            </form>
+            <div id="status-message"></div>
         </div>
     </div>
 
-    <button type="button" class="btn" id="add-custom-field-btn" style="background-color: #28a745; margin-top: 10px;">Add New Custom Field</button>
-    <button type="submit" class="btn" style="margin-top: 10px;">Save Changes</button>
-</form>
-    <div id="status-message"></div>
-</div>
-    </div>
-
-    <!-- Añade el cliente de Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
-<script>
-    // --- CONFIGURACIÓN ---
-    const SUPABASE_URL = 'https://hxnikfmwknlxmkqcsrol.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A';
-    const ADMIN_PASSWORD = 'neuron2025';
-    const MAX_CUSTOM_FIELDS = 4;
-
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    let activeCustomFields = 0;
-    let sortable; // Para la instancia de SortableJS
-
-    // --- LÓGICA DE LOGIN (sin cambios) ---
-function checkPassword() {
-    console.log("Función checkPassword() llamada."); // Pista 1
-    const passwordInput = document.getElementById('password-input').value;
-    console.log("Contraseña introducida:", passwordInput); // Pista 2
-
-    if (passwordInput === ADMIN_PASSWORD) {
-        console.log("Contraseña correcta. Mostrando formulario..."); // Pista 3
-        document.getElementById('login-container').style.display = 'none';
-        document.getElementById('edit-form-container').style.display = 'block';
-        loadJobData();
-    } else {
-        console.log("Contraseña incorrecta."); // Pista 4
-        alert('Incorrect password. Please try again.');
-    }
-}
-
-    // --- LÓGICA DE CAMPOS PERSONALIZADOS (sin cambios) ---
-    function createCustomField(index, data = {}) {
-    const fieldDiv = document.createElement('div');
-    fieldDiv.className = 'custom-field-group draggable-field'; // <-- CAMBIO CLAVE: Añadimos 'draggable-field'
-    fieldDiv.dataset.fieldName = `custom_${index}`; // <-- CAMBIO CLAVE: Añadimos un identificador único
-
-    fieldDiv.innerHTML = `
-        <div class="field-controls">
-            <h4>Custom Field ${index}</h4>
-            <div>
-                <label style="font-weight: normal; margin-right: 15px;">
-                    <input type="checkbox" name="custom_${index}_hidden" ${data.hidden ? 'checked' : ''}> Hide on Website
-                </label>
-                <button type="button" class="btn-remove-custom">Remove</button>
-            </div>
-        </div>
-        <label>Field Label (e.g., "Salary")</label>
-        <input type="text" name="custom_${index}_label" placeholder="e.g., Salary" value="${data.label || ''}" required>
-        <label>Field Content</label>
-        <textarea name="custom_${index}_value" placeholder="e.g., $500 - $800 per month.">${data.value || ''}</textarea>
-    `;
-    return fieldDiv;
-}
-
-
-
-    
-    document.getElementById('add-custom-field-btn').addEventListener('click', () => { /* ... */ });
-    document.getElementById('custom-fields-container').addEventListener('click', (e) => { /* ... */ });
-    function updateAddButtonState() { /* ... */ }
-
-    // --- LÓGICA DE ORDENAMIENTO ---
-    function initializeSortable() {
-        const container = document.getElementById('sortable-fields-container');
-        if (container) {
-            sortable = new Sortable(container, {
-                animation: 150,
-                handle: '.draggable-field', // El arrastre solo funciona en el div principal
-                ghostClass: 'sortable-ghost',
-                dragClass: 'sortable-drag',
-                onEnd: function(evt) {
-                    // Cuando el usuario suelta el elemento, guardamos el nuevo orden
-                    saveFieldOrder();
-                }
-            });
-        }
-    }
-
-    async function saveFieldOrder() {
-        const allFields = document.querySelectorAll('#sortable-fields-container .draggable-field');
-        const fieldOrder = Array.from(allFields).map(el => el.dataset.fieldName);
-        
-        const { error } = await supabase
-            .from('job_posts')
-            .update({ field_order: JSON.stringify(fieldOrder) })
-            .eq('id', 1);
-        
-        if (error) {
-            console.error('Error saving field order:', error);
-            alert('Could not save the new order.');
-        } else {
-            console.log('Field order saved:', fieldOrder);
-        }
-    }
-
-    // --- LÓGICA DEL FORMULARIO ---
-    const form = document.getElementById('job-form');
-    const statusDiv = document.getElementById('status-message');
-
-async function loadJobData() {
-    const { data, error } = await supabase.from('job_posts').select('*').eq('id', 1).single();
-    if (error) { console.error(error); return; }
-
-    // Cargar campos estándar
-    Object.keys(data).forEach(key => {
-        const input = document.querySelector(`[name="${key}"]`);
-        if (input && !key.startsWith('custom_')) {
-            input.value = data[key] || '';
-        }
-    });
-
-    // Cargar campos personalizados
-    const container = document.getElementById('custom-fields-container');
-    container.innerHTML = ''; activeCustomFields = 0;
-    for (let i = 1; i <= MAX_CUSTOM_FIELDS; i++) {
-        const label = data[`custom_${i}_label`];
-        if (label) {
-            const fieldData = { label: data[`custom_${i}_label`], value: data[`custom_${i}_value`], hidden: data[`custom_${i}_hidden`] };
-            const newField = createCustomField(i, fieldData);
-            container.appendChild(newField);
-            activeCustomFields++;
-        }
-    }
-    updateAddButtonState();
-
-    // --- LÓGICA DE ORDENAMIENTO CORREGIDA ---
-    const fieldContainer = document.getElementById('sortable-fields-container');
-    const allDraggableFields = Array.from(fieldContainer.querySelectorAll('.draggable-field'));
-    
-    let savedOrder = [];
-    try {
-        savedOrder = data.field_order ? JSON.parse(data.field_order) : [];
-    } catch (e) {
-        console.error("Error parsing field_order from DB:", e);
-        savedOrder = [];
-    }
-    
-    const sortedFields = [];
-    // Primero, añadimos los campos que están en el orden guardado
-    savedOrder.forEach(fieldName => {
-        const field = allDraggableFields.find(el => el.dataset.fieldName === fieldName);
-        if (field) {
-            sortedFields.push(field);
-        }
-    });
-    // Luego, añadimos cualquier campo que no estaba en el orden guardado (ej. uno nuevo)
-    allDraggableFields.forEach(field => {
-        if (!sortedFields.includes(field)) {
-            sortedFields.push(field);
-        }
-    });
-
-    // Limpiamos el contenedor y volvemos a añadir todo en el orden correcto
-    fieldContainer.innerHTML = '';
-    sortedFields.forEach(field => {
-        if(field) { // <-- MEDIDA DE SEGURIDAD EXTRA
-            fieldContainer.appendChild(field);
-        }
-    });
-    
-    // Inicializar SortableJS después de que todo esté en su lugar
-    initializeSortable();
-}
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        statusDiv.textContent = 'Saving...';
-        statusDiv.className = 'status';
-        const formData = new FormData(form);
-        const updatedData = Object.fromEntries(formData.entries());
-        const { data, error } = await supabase.from('job_posts').update(updatedData).eq('id', 1);
-        if (error) { /* manejar error */ } else { /* manejar éxito */ }
-    });
-
-    // Cargar datos al iniciar
-    loadJobData();
-</script>
+    <!-- Enlace al nuevo archivo JavaScript al final del body -->
+    <script src="careers-admin.js"></script>
 </body>
 </html>
