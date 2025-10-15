@@ -104,13 +104,15 @@
       document.getElementById('edit-form').addEventListener('submit', async (e) => {
         e.preventDefault();
 
-const user = supabase.auth.user(); // Obtiene el usuario autenticado
+
+        
+
+const user = supabase.auth.user();  // Obtener el usuario autenticado
 if (!user) {
-  alert("Por favor, inicia sesión para poder editar.");
-  return; // Si no hay usuario autenticado, salimos de la función.
+  alert("Por favor, inicia sesión para editar la oferta.");
+  return;
 }
 
-// Si el usuario está autenticado, continua con la operación de actualización.
 const updates = {
   title: e.target.title.value,
   department: e.target.department.value,
@@ -121,21 +123,22 @@ const updates = {
   requirements: e.target.requirements.value,
   benefits: e.target.benefits.value,
   work_setup: e.target.work_setup.value,
-  user_id: user.id // Aquí agregamos el user_id del usuario autenticado
+  user_id: user.id // Asignar el ID del usuario autenticado
 };
 
-try {
-  const { data, error } = await supabase
-    .from('job_posts')
-    .update(updates)
-    .eq('id', id); // Actualizamos el trabajo con el ID correspondiente
+const { data, error } = await supabase
+  .from('job_posts')
+  .update(updates)
+  .eq('id', id)
+  .eq('user_id', user.id);  // Asegura que solo el dueño de la oferta pueda actualizarla
 
-  if (error) throw error;
-
+if (error) {
+  alert('Error al actualizar la oferta: ' + error.message);
+} else {
   alert('Oferta actualizada correctamente');
-} catch (error) {
-  alert('Error al actualizar: ' + error.message);
+  loadJobListings();  // Recarga las ofertas después de la actualización
 }
+
 
 
 
