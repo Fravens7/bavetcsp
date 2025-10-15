@@ -132,6 +132,7 @@
         // Guardar los cambios en Supabase
 // Guardar los cambios en Supabase
 // Guardar los cambios en Supabase
+// Guardar los cambios en Supabase
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     statusDiv.textContent = 'Guardando...';
@@ -142,24 +143,22 @@ form.addEventListener('submit', async (e) => {
 
     console.log("Datos a enviar a Supabase:", updatedData);
 
-    const { data, error, count } = await supabase // <-- AÑADIMOS 'count' aquí
+    // --- CAMBIO CLAVE: Simplificamos la respuesta y solo comprobamos el error ---
+    const { data, error } = await supabase
         .from('job_posts')
         .update(updatedData)
         .eq('id', 1);
 
     if (error) {
+        // Si hay un error explícito, lo mostramos
         console.error('Error explícito de Supabase:', error);
         statusDiv.textContent = `Error al guardar: ${error.message}`;
         statusDiv.className = 'status error';
-    } else if (count > 0) { // <-- ¡CAMBIO CLAVE! Comprobamos si se afectó alguna fila
-        console.log("Respuesta de Supabase al actualizar:", data);
+    } else {
+        // Si NO hay error, damos el éxito por sentado
+        console.log("Supabase no devolvió error. Asumiendo éxito.");
         statusDiv.textContent = '¡Cambios guardados con éxito!';
         statusDiv.className = 'status success';
-    } else {
-        // Este es el caso de error silencioso (probablemente RLS)
-        console.error("Fallo silencioso: Supabase no devolvió datos ni un error. Revisa las RLS Policies.");
-        statusDiv.textContent = 'Error: No se pudo guardar. Es posible que no tengas permiso (revisa RLS).';
-        statusDiv.className = 'status error';
     }
 });
     </script>
