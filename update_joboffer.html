@@ -2,200 +2,205 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Test Supabase Job Posts</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <title>Admin - Ofertas de Trabajo</title>
+  <style>
+    body { font-family: sans-serif; background-color: #f4f4f4; padding: 20px; }
+    .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h1, h3 { color: #333; }
+    .job-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; }
+    .job-card h3 { margin-top: 0; }
+    .edit-button { background-color: #007bff; color: white; padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer; }
+    .edit-button:hover { background-color: #0056b3; }
+    /* Estilos para el formulario de edición */
+    #edit-form-container { display: none; }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    textarea, input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+    textarea { min-height: 100px; }
+    .form-buttons { margin-top: 20px; }
+    .btn { background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px; }
+    .btn-cancel { background-color: #6c757d; }
+    .btn:hover { opacity: 0.9; }
+  </style>
 </head>
 <body>
 
+<div class="container">
   <h1>Ofertas de Trabajo desde Supabase</h1>
+  
+  <!-- Lista de ofertas -->
   <div id="job-listings"></div>
 
+  <!-- Formulario de edición (oculto por defecto) -->
+  <div id="edit-form-container">
+    <h3>Editar Oferta de Trabajo</h3>
+    <form id="edit-form">
+      <input type="hidden" id="edit-job-id" name="id">
+      
+      <label for="title">Título:</label>
+      <input type="text" id="title" name="title" required>
+      
+      <label for="department">Departamento:</label>
+      <input type="text" id="department" name="department" required>
+      
+      <label for="type">Tipo:</label>
+      <input type="text" id="type" name="type" required>
+      
+      <label for="location">Ubicación:</label>
+      <input type="text" id="location" name="location" required>
+      
+      <label for="description">Descripción:</label>
+      <textarea id="description" name="description" required></textarea>
+      
+      <label for="responsibilities">Responsabilidades:</label>
+      <textarea id="responsibilities" name="responsibilities"></textarea>
+      
+      <label for="requirements">Requisitos:</label>
+      <textarea id="requirements" name="requirements"></textarea>
+      
+      <label for="benefits">Beneficios:</label>
+      <textarea id="benefits" name="benefits"></textarea>
+      
+      <label for="work_setup">Modalidad de trabajo:</label>
+      <input type="text" id="work_setup" name="work_setup" required>
+
+      <div class="form-buttons">
+        <button type="submit" class="btn">Guardar cambios</button>
+        <button type="button" class="btn btn-cancel" onclick="cancelEdit()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+  <!-- Añade el cliente de Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // Crear el cliente Supabase fuera del bloque DOMContentLoaded para que sea accesible globalmente
+    // Crear el cliente Supabase
     const supabaseUrl = 'https://hxnikfmwknlxmkqcsrol.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A'; // Reemplaza con tu clave de API
-    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);  // Creación correcta del cliente
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4bmlrZm13a25seG1rcWNzcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTUwNTksImV4cCI6MjA3NTE3MTA1OX0.G2b3hFEvpvOFpiFFk_a2os-7mFOgsZz6pj_YMihvv5A';
+    const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    let allJobs = []; // Guardaremos todos los trabajos aquí para acceder fácilmente
 
     document.addEventListener('DOMContentLoaded', async () => {
+      await loadJobListings();
+      setupEventListeners();
+    });
+
+    async function loadJobListings() {
       const container = document.getElementById('job-listings');
+      container.innerHTML = '<p>Cargando ofertas...</p>';
 
       try {
         const { data: jobs, error } = await supabaseClient.from('job_posts').select('*');
         if (error) throw error;
 
-        if (!jobs || jobs.length === 0) {
+        allJobs = jobs || []; // Guardamos los datos en la variable global
+
+        if (!allJobs.length) {
           container.innerHTML = '<p>No hay ofertas disponibles.</p>';
           return;
         }
 
-        container.innerHTML = jobs.map(job => `
-          <div>
+        // --- CAMBIO CLAVE: Usamos data-id en lugar de onclick ---
+        container.innerHTML = allJobs.map(job => `
+          <div class="job-card" data-id="${job.id}">
             <h3>${job.title}</h3>
             <p><strong>Departamento:</strong> ${job.department}</p>
             <p><strong>Tipo:</strong> ${job.type}</p>
             <p><strong>Ubicación:</strong> ${job.location}</p>
             <p><strong>Descripción:</strong> ${job.description}</p>
-
             <h4>Responsabilidades:</h4>
-            <ul>
-              ${(job.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
-            </ul>
-
+            <ul>${(job.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
             <h4>Requisitos:</h4>
-            <ul>
-              ${(job.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
-            </ul>
-
+            <ul>${(job.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
             <h4>Beneficios:</h4>
-            <ul>
-              ${(job.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
-            </ul>
-
+            <ul>${(job.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>
             <p><strong>Modalidad de trabajo:</strong> ${job.work_setup}</p>
-
-            <button onclick="editJob(${job.id}, '${job.title}', '${job.department}', '${job.type}', '${job.location}', '${job.description}', '${job.responsibilities}', '${job.requirements}', '${job.benefits}', '${job.work_setup}')">Editar</button>
+            <button class="edit-button">Editar</button>
           </div>
         `).join('');
 
       } catch (error) {
         container.innerHTML = `<p>Error al cargar datos: ${error.message}</p>`;
       }
-    });
+    }
+    
+    function setupEventListeners() {
+        const listingsContainer = document.getElementById('job-listings');
+        const editForm = document.getElementById('edit-form');
 
-    function editJob(id, title, department, type, location, description, responsibilities, requirements, benefits, work_setup) {
-      // Mostrar formulario de edición con los datos actuales
-      const formHTML = `
-        <h3>Editar Oferta de Trabajo</h3>
-        <form id="edit-form">
-          <input type="hidden" name="id" value="${id}" />
-          <label for="title">Título:</label>
-          <input type="text" id="title" name="title" value="${title}" required><br><br>
-          
-          <label for="department">Departamento:</label>
-          <input type="text" id="department" name="department" value="${department}" required><br><br>
-          
-          <label for="type">Tipo:</label>
-          <input type="text" id="type" name="type" value="${type}" required><br><br>
-          
-          <label for="location">Ubicación:</label>
-          <input type="text" id="location" name="location" value="${location}" required><br><br>
-          
-          <label for="description">Descripción:</label>
-          <textarea id="description" name="description" required>${description}</textarea><br><br>
-          
-          <label for="responsibilities">Responsabilidades:</label>
-          <textarea id="responsibilities" name="responsibilities">${responsibilities}</textarea><br><br>
-          
-          <label for="requirements">Requisitos:</label>
-          <textarea id="requirements" name="requirements">${requirements}</textarea><br><br>
-          
-          <label for="benefits">Beneficios:</label>
-          <textarea id="benefits" name="benefits">${benefits}</textarea><br><br>
-          
-          <label for="work_setup">Modalidad de trabajo:</label>
-          <input type="text" id="work_setup" name="work_setup" value="${work_setup}" required><br><br>
+        // --- CAMBIO CLAVE: Un solo listener para todos los botones de editar ---
+        listingsContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('edit-button')) {
+                const jobCard = e.target.closest('.job-card');
+                const jobId = jobCard.dataset.id;
+                showEditForm(jobId);
+            }
+        });
 
-          <button type="submit">Guardar cambios</button>
-        </form>
-      `;
+        editForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await saveJobChanges();
+        });
+    }
 
-      document.getElementById('job-listings').innerHTML = formHTML;
+    function showEditForm(jobId) {
+        const job = allJobs.find(j => j.id == jobId);
+        if (!job) return;
 
-      document.getElementById('edit-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
+        // Rellenar el formulario con los datos del trabajo
+        document.getElementById('edit-job-id').value = job.id;
+        document.getElementById('title').value = job.title;
+        document.getElementById('department').value = job.department;
+        document.getElementById('type').value = job.type;
+        document.getElementById('location').value = job.location;
+        document.getElementById('description').value = job.description;
+        document.getElementById('responsibilities').value = job.responsibilities;
+        document.getElementById('requirements').value = job.requirements;
+        document.getElementById('benefits').value = job.benefits;
+        document.getElementById('work_setup').value = job.work_setup;
 
+        // Mostrar el formulario y ocultar la lista
+        document.getElementById('job-listings').style.display = 'none';
+        document.getElementById('edit-form-container').style.display = 'block';
+    }
 
-        
+    function cancelEdit() {
+        // Ocultar el formulario y mostrar la lista
+        document.getElementById('edit-form-container').style.display = 'none';
+        document.getElementById('job-listings').style.display = 'block';
+    }
 
-const user = supabase.auth.user();  // Obtener el usuario autenticado
-if (!user) {
-  alert("Por favor, inicia sesión para editar la oferta.");
-  return;
-}
+    async function saveJobChanges() {
+        const jobId = document.getElementById('edit-job-id').value;
+        const updates = {
+            title: document.getElementById('title').value,
+            department: document.getElementById('department').value,
+            type: document.getElementById('type').value,
+            location: document.getElementById('location').value,
+            description: document.getElementById('description').value,
+            responsibilities: document.getElementById('responsibilities').value,
+            requirements: document.getElementById('requirements').value,
+            benefits: document.getElementById('benefits').value,
+            work_setup: document.getElementById('work_setup').value,
+        };
 
-const updates = {
-  title: e.target.title.value,
-  department: e.target.department.value,
-  type: e.target.type.value,
-  location: e.target.location.value,
-  description: e.target.description.value,
-  responsibilities: e.target.responsibilities.value,
-  requirements: e.target.requirements.value,
-  benefits: e.target.benefits.value,
-  work_setup: e.target.work_setup.value,
-  user_id: user.id // Asignar el ID del usuario autenticado
-};
+        try {
+            const { data, error } = await supabaseClient
+                .from('job_posts')
+                .update(updates)
+                .eq('id', jobId);
 
-const { data, error } = await supabase
-  .from('job_posts')
-  .update(updates)
-  .eq('id', id)
-  .eq('user_id', user.id);  // Asegura que solo el dueño de la oferta pueda actualizarla
+            if (error) throw error;
 
-if (error) {
-  alert('Error al actualizar la oferta: ' + error.message);
-} else {
-  alert('Oferta actualizada correctamente');
-  loadJobListings();  // Recarga las ofertas después de la actualización
-}
+            alert('Oferta actualizada correctamente');
+            cancelEdit(); // Ocultar formulario
+            await loadJobListings(); // Recargar la lista para mostrar los cambios
 
-
-
-
-       try {
-  const { data, error } = await supabaseClient
-    .from('job_posts')
-    .update(updates)
-    .eq('id', id);
-
-  if (error) throw error;
-
-  // Mostrar la alerta y actualizar la UI sin recargar la página
-  alert('Oferta actualizada correctamente');
-
-  // Buscar el trabajo actualizado en la lista de trabajos y actualizarlo en el DOM
-  const updatedJob = { id, ...updates }; // Este es el objeto con los datos actualizados
-
-  // Obtener el contenedor donde se muestran las ofertas
-  const container = document.getElementById('job-listings');
-
-  // Reemplazar el div correspondiente al trabajo editado con la nueva data
-  const jobDiv = container.querySelector(`div[data-id="${id}"]`);
-  if (jobDiv) {
-    jobDiv.innerHTML = `
-      <h3>${updatedJob.title}</h3>
-      <p><strong>Departamento:</strong> ${updatedJob.department}</p>
-      <p><strong>Tipo:</strong> ${updatedJob.type}</p>
-      <p><strong>Ubicación:</strong> ${updatedJob.location}</p>
-      <p><strong>Descripción:</strong> ${updatedJob.description}</p>
-
-      <h4>Responsabilidades:</h4>
-      <ul>
-        ${(updatedJob.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
-      </ul>
-
-      <h4>Requisitos:</h4>
-      <ul>
-        ${(updatedJob.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
-      </ul>
-
-      <h4>Beneficios:</h4>
-      <ul>
-        ${(updatedJob.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
-      </ul>
-
-      <p><strong>Modalidad de trabajo:</strong> ${updatedJob.work_setup}</p>
-
-      <button onclick="editJob(${updatedJob.id}, '${updatedJob.title}', '${updatedJob.department}', '${updatedJob.type}', '${updatedJob.location}', '${updatedJob.description}', '${updatedJob.responsibilities}', '${updatedJob.requirements}', '${updatedJob.benefits}', '${updatedJob.work_setup}')">Editar</button>
-    `;
-  }
-} catch (error) {
-  alert('Error al actualizar: ' + error.message);
-}
-
-      });
+        } catch (error) {
+            alert('Error al actualizar: ' + error.message);
+        }
     }
   </script>
-
 </body>
 </html>
