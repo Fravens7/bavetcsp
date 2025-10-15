@@ -104,19 +104,37 @@
       document.getElementById('edit-form').addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const id = e.target.id.value;
-const updates = {
-  title: e.target.title.value,
-  department: e.target.department.value,
-  type: e.target.type.value,
-  location: e.target.location.value,
-  description: e.target.description.value,
-  responsibilities: e.target.responsibilities.value,
-  requirements: e.target.requirements.value,
-  benefits: e.target.benefits.value,
-  work_setup: e.target.work_setup.value,
-  user_id: supabase.auth.user().id  // Asegurándote de incluir el user_id en la actualización
-};
+const user = supabase.auth.user();
+if (user) {
+  // Proceder con la actualización
+  const updates = {
+    title: e.target.title.value,
+    department: e.target.department.value,
+    type: e.target.type.value,
+    location: e.target.location.value,
+    description: e.target.description.value,
+    responsibilities: e.target.responsibilities.value,
+    requirements: e.target.requirements.value,
+    benefits: e.target.benefits.value,
+    work_setup: e.target.work_setup.value,
+    user_id: user.id // Aquí usas user.id
+  };
+
+  try {
+    const { data, error } = await supabase
+      .from('job_posts')
+      .update(updates)
+      .eq('id', id);
+
+    if (error) throw error;
+    alert('Oferta actualizada correctamente');
+  } catch (error) {
+    alert('Error al actualizar: ' + error.message);
+  }
+} else {
+  alert("No estás autenticado. Por favor, inicia sesión.");
+}
+
 
 
        try {
