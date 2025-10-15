@@ -136,17 +136,19 @@ function createCustomField(index, data = {}) {
         }
     }
     
-    document.getElementById('add-custom-field-btn').addEventListener('click', () => {
-        if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
-            alert('Limit of custom fields created. You can only have ' + MAX_CUSTOM_FIELDS + + '.');
-            return;
-        }
-        const container = document.getElementById('custom-fields-container');
-        const newField = createCustomField(activeCustomFields);
-        container.appendChild(newField);
-        activeCustomFields++;
-        updateAddButtonState();
-    });
+document.getElementById('add-custom-field-btn').addEventListener('click', () => {
+    if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
+        alert('Limit of custom fields created. You can only have ' + MAX_CUSTOM_FIELDS + '.');
+        return;
+    }
+    // Encuentra el siguiente índice disponible (empezando en 1)
+    const nextIndex = activeCustomFields + 1;
+    const container = document.getElementById('custom-fields-container');
+    const newField = createCustomField(nextIndex, {});
+    container.appendChild(newField);
+    activeCustomFields++;
+    updateAddButtonState();
+});
 
     document.getElementById('custom-fields-container').addEventListener('click', (e) => {
         if (e.target.classList.contains('btn-remove-custom')) {
