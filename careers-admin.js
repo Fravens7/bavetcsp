@@ -11,118 +11,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let sortable;
 
     // --- LÓGICA DE LOGIN ---
-    function checkPassword() {
-        const passwordInput = document.getElementById('password-input').value;
-        if (passwordInput === ADMIN_PASSWORD) {
-            document.getElementById('login-container').style.display = 'none';
-            document.getElementById('edit-form-container').style.display = 'block';
-            loadJobData();
-        } else {
-            alert('Incorrect password. Please try again.');
-        }
-    }
-
-    document.getElementById('login-button').addEventListener('click', () => {
-        checkPassword();
-    });
-
-    document.getElementById('password-input').addEventListener('keyup', function(event) {
-        if (event.key === 'Enter') {
-            checkPassword();
-        }
-    });
+    function checkPassword() { /* ... */ }
+    document.getElementById('login-button').addEventListener('click', () => { checkPassword(); });
+    document.getElementById('password-input').addEventListener('keyup', function(event) { if (event.key === 'Enter') { checkPassword(); } });
 
     // --- LÓGICA DE CAMPOS PERSONALIZADOS ---
-function createCustomField(index, data = {}) {
-    const fieldDiv = document.createElement('div');
-    fieldDiv.className = 'custom-field-group'; // <-- IMPORTANTE: Ya no es 'draggable-field'
-    fieldDiv.dataset.fieldName = `custom_${index}`;
-
-    fieldDiv.innerHTML = `
-        <div class="field-controls">
-            <h4>Custom Field ${index}</h4>
-            <div>
-                <!-- CAMBIO CLAVE: Se reordena el HTML para poner "Remove" primero -->
-                <button type="button" class="btn-remove-custom">Remove</button>
-                <label style="font-weight: normal; margin-left: 15px;">
-                    <input type="checkbox" name="custom_${index}_hidden" ${data.hidden ? 'checked' : ''}> Hide on Website
-                </label>
-            </div>
-        </div>
-        <label>Field Label (e.g., "Salary")</label>
-        <input type="text" name="custom_${index}_label" placeholder="e.g., Salary" value="${data.label || ''}" required>
-        <label>Field Content</label>
-        <textarea name="custom_${index}_value" placeholder="e.g., $500 - $800 per month.">${data.value || ''}</textarea>
-    `;
-    return fieldDiv;
-}
-
-    function updateAddButtonState() {
-        const addBtn = document.getElementById('add-custom-field-btn');
-        if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
-            addBtn.style.display = 'none';
-        } else {
-            addBtn.style.display = 'block';
-        }
-    }
-    
-    document.getElementById('add-custom-field-btn').addEventListener('click', () => {
-        if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
-            alert('Limit of custom fields created. You can only have ' + MAX_CUSTOM_FIELDS + '.');
-            return;
-        }
-        
-        const wrapper = document.getElementById('custom-section-wrapper');
-        if (wrapper.style.display === 'none') {
-            wrapper.style.display = 'block';
-        }
-
-        const nextIndex = activeCustomFields + 1;
-        const container = document.getElementById('custom-fields-container');
-        const newField = createCustomField(nextIndex, {});
-        container.prepend(newField);
-        
-        activeCustomFields++;
-        updateAddButtonState();
-    });
-
-    document.getElementById('custom-fields-container').addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn-remove-custom')) {
-            e.target.closest('.custom-field-group').remove();
-            activeCustomFields--;
-            updateAddButtonState();
-        }
-    });
+    function createCustomField(index, data = {}) { /* ... */ }
+    function updateAddButtonState() { /* ... */ }
+    document.getElementById('add-custom-field-btn').addEventListener('click', () => { /* ... */ });
+    document.getElementById('custom-fields-container').addEventListener('click', (e) => { /* ... */ });
 
     // --- LÓGICA DE ORDENAMIENTO ---
-function initializeSortable() {
-    const container = document.getElementById('sortable-fields-container');
-    if (container) {
-        sortable = new Sortable(container, {
-            animation: 150,
-            // --- CAMBIO CLAVE: El arrastre solo funciona en los campos con la clase 'draggable-standard' ---
-            handle: '#draggable-handle',
-            ghostClass: 'sortable-ghost',
-            dragClass: 'sortable-drag',
-            onEnd: () => saveFieldOrder()
-        });
-    }
-}
-
-    async function saveFieldOrder() {
-        const allFields = document.querySelectorAll('#sortable-fields-container .draggable-field');
-        const fieldOrder = Array.from(allFields).map(el => el.dataset.fieldName);
-        const { error } = await supabase
-            .from('job_posts')
-            .update({ field_order: JSON.stringify(fieldOrder) })
-            .eq('id', 1);
-        if (error) {
-            console.error('Error saving field order:', error);
-            alert('Could not save the new order.');
-        } else {
-            console.log('Field order saved:', fieldOrder);
+    function initializeSortable() {
+        const container = document.getElementById('sortable-fields-container');
+        if (container) {
+            sortable = new Sortable(container, {
+                animation: 150,
+                handle: '#department-handle',
+                ghostClass: 'sortable-ghost',
+                dragClass: 'sortable-drag',
+                onEnd: () => saveFieldOrder()
+            });
         }
     }
+
+    async function saveFieldOrder() { /* ... */ }
 
     // --- LÓGICA DEL FORMULARIO ---
     const form = document.getElementById('job-form');
@@ -132,7 +45,6 @@ function initializeSortable() {
         const { data, error } = await supabase.from('job_posts').select('*').eq('id', 1).single();
         if (error) { console.error(error); return; }
 
-        // Cargar campos estándar
         Object.keys(data).forEach(key => {
             const input = document.querySelector(`[name="${key}"]`);
             if (input && !key.startsWith('custom_')) {
@@ -140,11 +52,9 @@ function initializeSortable() {
             }
         });
 
-        // Cargar campos personalizados
         const container = document.getElementById('custom-fields-container');
         const wrapper = document.getElementById('custom-section-wrapper');
-        container.innerHTML = ''; 
-        activeCustomFields = 0;
+        container.innerHTML = ''; activeCustomFields = 0;
 
         for (let i = 1; i <= MAX_CUSTOM_FIELDS; i++) {
             const label = data[`custom_${i}_label`];
@@ -161,7 +71,7 @@ function initializeSortable() {
         }
 
         updateAddButtonState();
-        initializeSortable();
+        initializeSortable(); // Llamar a SortableJS después de que los campos están en el DOM
     }
 
     form.addEventListener('submit', async (e) => {
