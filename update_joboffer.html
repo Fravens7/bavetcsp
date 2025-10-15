@@ -27,12 +27,34 @@
           return;
         }
 
-        container.innerHTML = jobs.map(job => `
-          <div>
-            <h3>${job.title}</h3>
-            <p>${job.description}</p>
-          </div>
-        `).join('');
+container.innerHTML = jobs.map(job => `
+  <div class="job-card" style="border:1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+    <h3>${job.title}</h3>
+    <p><strong>Departamento:</strong> ${job.department}</p>
+    <p><strong>Tipo:</strong> ${job.type}</p>
+    <p><strong>Ubicación:</strong> ${job.location}</p>
+    <p><strong>Descripción:</strong> ${job.description}</p>
+
+    <h4>Responsabilidades:</h4>
+    <ul>
+      ${(job.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
+    </ul>
+
+    <h4>Requisitos:</h4>
+    <ul>
+      ${(job.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
+    </ul>
+
+    <h4>Beneficios:</h4>
+    <ul>
+      ${(job.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}
+    </ul>
+
+    <p><strong>Modalidad de trabajo:</strong> ${job.work_setup}</p>
+  </div>
+`).join('');
+
+        
       } catch (err) {
         container.innerHTML = `<p>Error al cargar datos: ${err.message}</p>`;
       }
