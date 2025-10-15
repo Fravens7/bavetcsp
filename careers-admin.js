@@ -95,18 +95,19 @@ function createCustomField(index, data = {}) {
     });
 
     // --- LÓGICA DE ORDENAMIENTO ---
-    function initializeSortable() {
-        const container = document.getElementById('sortable-fields-container');
-        if (container) {
-            sortable = new Sortable(container, {
-                animation: 150,
-                handle: '.draggable-field',
-                ghostClass: 'sortable-ghost',
-                dragClass: 'sortable-drag',
-                onEnd: () => saveFieldOrder()
-            });
-        }
+function initializeSortable() {
+    const container = document.getElementById('sortable-fields-container');
+    if (container) {
+        sortable = new Sortable(container, {
+            animation: 150,
+            // --- CAMBIO CLAVE: El arrastre solo funciona en los campos con la clase 'draggable-standard' ---
+            handle: '.draggable-standard',
+            ghostClass: 'sortable-ghost',
+            dragClass: 'sortable-drag',
+            onEnd: () => saveFieldOrder()
+        });
     }
+}
 
     async function saveFieldOrder() {
         const allFields = document.querySelectorAll('#sortable-fields-container .draggable-field');
