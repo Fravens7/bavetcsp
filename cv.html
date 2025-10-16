@@ -103,7 +103,7 @@
         }
 
         submitButton.disabled = true;
-        submitButton.textContent = 'Enviando...';
+        submitButton.textContent = 'Sending...';
 
         try {
           const response = await fetch(bytescaleUrl, {
@@ -154,7 +154,7 @@
           alert('An error occurred. Please try again.');
         } finally {
           submitButton.disabled = false;
-          submitButton.textContent = 'Enviar';
+          submitButton.textContent = 'Send';
         }
       });
 
