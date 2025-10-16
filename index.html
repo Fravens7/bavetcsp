@@ -427,26 +427,24 @@
       </div>
 
  <!-- Social -->
-      <div class="info-item">
-
-        
-  <a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+<div class="info-item">
+  <a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Facebook"
+     class="social-link">
+     
     <span class="info-icon">
-      <img src="assets/images/fb.jpg" alt="Facebook" />
+      <img src="assets/images/fb.jpg" alt="Facebook" class="fb-icon" />
     </span>
     <h4>Social</h4>
-    <p><a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/" class="social-link" target="_blank" rel="noopener noreferrer">
-       
-       <!-- El icono de Facebook -->
-       <i class="fab fa-facebook"></i>
-       
-       <!-- El texto, con un ID para identificarlo con JavaScript -->
-       <span id="social-text">Facebook</span>
-       
+    <p>
+      <i class="fab fa-facebook"></i>
+      <span id="social-text">Facebook</span>
     </p>
-  </a>        
-</div>   
-     
+  </a>
+</div>
+
      
 
       <!-- Email -->
@@ -463,6 +461,16 @@
 </section>
 
 <style>
+
+/* Cuando el usuario pasa el mouse sobre el enlace */
+.social-link:hover .fb-icon {
+  filter: brightness(0) saturate(100%) invert(27%) sepia(97%) saturate(4482%) hue-rotate(203deg) brightness(97%) contrast(101%);
+  transition: filter 0.3s ease;
+}
+
+
+  
+  
 .clients-info {
   padding: 50px 20px;
   background-color: #f4f4f4;
