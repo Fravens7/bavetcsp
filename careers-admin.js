@@ -56,10 +56,14 @@ document.addEventListener('DOMContentLoaded', () => {
     return fieldDiv;
   }
 
-  function updateAddButtonState() {
-    const addBtn = document.getElementById('add-custom-field-btn');
-    addBtn.style.display = activeCustomFields >= MAX_CUSTOM_FIELDS ? 'none' : 'block';
-  }
+function updateAddButtonState() {
+  // Mostrar el botón solo si hay menos de MAX_CUSTOM_FIELDS
+  addBtn.style.display = activeCustomFields >= MAX_CUSTOM_FIELDS ? 'none' : 'block';
+
+  // Mostrar el contenedor solo si hay al menos un campo
+  customWrapper.style.display = activeCustomFields > 0 ? 'block' : 'none';
+}
+
 
   document.getElementById('add-custom-field-btn').addEventListener('click', () => {
     if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
