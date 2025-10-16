@@ -147,9 +147,9 @@ function updateAddButtonState() {
       }
     }
 
-    if (activeCustomFields > 0) customWrapper.style.display = 'block';
-    updateAddButtonState();
-    initializeSortable();
+updateAddButtonState(); // esto ahora controla todo, no necesitamos mostrar manualmente
+initializeSortable();
+
   }
 
   // --- GUARDAR CAMBIOS ---
