@@ -8,82 +8,55 @@ document.addEventListener('DOMContentLoaded', () => {
     const jobDetailsElement = document.getElementById('job-details');
 
     // --- FUNCIÓN PARA CARGAR DATOS DESDE SUPABASE ---
-    async function loadJobFromSupabase() {
-        if (jobDetailsElement) {
-            const { data: jobData, error } = await supabase
-                .from('job_posts')
-                .select('*')
-                .eq('id', 1)
-                .single();
+async function loadJobData() {
+    const { data, error } = await supabase
+        .from('job_posts')
+        .select('*')
+        .eq('id', 1)
+        .single();
 
-            if (error) {
-                console.error('Error fetching data from Supabase:', error);
-                jobDetailsElement.innerHTML = `<p>Error loading data. Please try again later.</p>`;
-                return;
-            }
+    if (error) {
+        console.error('Error fetching data from Supabase:', error);
+        return;
+    }
 
-            if (jobData) {
-                console.log("Contenido cargado desde Supabase.");
+    if (data) {
+        console.log("Datos cargados desde Supabase.");
+        
+        // --- CAMBIO CLAVE: Construir el HTML dinámicamente ---
+        let finalHTML = '';
 
-                // --- LÓGICA PARA LEER EL ORDEN GUARDADO ---
-                let fieldOrder = [];
-                try {
-                    fieldOrder = jobData.field_order ? JSON.parse(jobData.field_order) : ['department', 'type', 'career_level', 'description', 'responsibilities', 'requirements', 'benefits', 'work_setup'];
-                } catch (e) {
-                    console.error("Error parsing field_order from DB:", e);
-                }
-                
-                let finalHTML = '';
+        // 1. Primero, construir el HTML con los campos estándar y personalizados
+        const standardFields = ['department', 'type', 'career_level', 'description', 'responsibilities', 'requirements', 'benefits', 'work_setup'];
+        standardFields.forEach(fieldName => {
+            switch (fieldName) {
+                case 'department':
+                    finalHTML += `<p><strong>Department:</strong> ${jobData.department || 'N/A'}</p>`;
+                    break;
+                case 'type':
+                    finalHTML += `<p><strong>Type:</strong> ${jobData.type || 'N/A'}</p>`;
+                    break;
+                // ... (copia aquí los demás casos para el resto de los campos estándar)
+            });
+        });
 
-                // --- LÓGICA PARA CONSTRUIR EL HTML DINÁMICAMENTE ---
-                fieldOrder.forEach(fieldName => {
-                    switch (fieldName) {
-                        case 'department':
-                            finalHTML += `<p><strong>Department:</strong> ${jobData.department || 'N/A'}</p>`;
-                            break;
-                        case 'type':
-                            finalHTML += `<p><strong>Type:</strong> ${jobData.type || 'N/A'}</p>`;
-                            break;
-                        case 'career_level':
-                            finalHTML += `<p><strong>Career Level:</strong> ${jobData.career_level || 'N/A'}</p>`;
-                            break;
-                        case 'description':
-                            finalHTML += `<p><strong>Description:</strong> ${jobData.description || 'N/A'}</p>`;
-                            break;
-                        case 'responsibilities':
-                            finalHTML += `<h4>Key Responsibilities:</h4><ul>${(jobData.responsibilities || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>`;
-                            break;
-                        case 'requirements':
-                            finalHTML += `<h4>Requirements:</h4><ul>${(jobData.requirements || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>`;
-                            break;
-                        case 'benefits':
-                            finalHTML += `<h4>Benefits:</h4><ul>${(jobData.benefits || '').split('\n').map(item => `<li>${item.trim()}</li>`).join('')}</ul>`;
-                            break;
-                        case 'work_setup':
-                            finalHTML += `<p><strong>Work Setup:</strong> ${jobData.work_setup || 'N/A'}</p>`;
-                            break;
-                    }
-                });
+        // 2. Luego, añadir los campos personalizados al final
+        let customFieldsHTML = '';
+        for (let i = 1; i <= 4; i++) {
+            const label = jobData[`custom_${i}_label`];
+            const value = jobData[`custom_${i}_value`];
+            const isHidden = jobData[`custom_${i}_hidden`];
 
-                // --- LÓGICA PARA AÑADIR LOS CAMPOS PERSONALIZADOS ---
-                let customFieldsHTML = '';
-                for (let i = 1; i <= 4; i++) {
-                    const label = jobData[`custom_${i}_label`];
-                    const value = jobData[`custom_${i}_value`];
-                    const isHidden = jobData[`custom_${i}_hidden`];
-
-                    if (label && !isHidden) {
-                        customFieldsHTML += `
-                            <h4>${label}</h4>
-                            <p>${value || 'N/A'}</p>
-                        `;
-                    }
-                }
-
-                // --- UNIR TODO Y PONER EN EL DOM ---
-                jobDetailsElement.innerHTML = finalHTML + customFieldsHTML + `<a href="cv.html" class="btn">Apply Now</a>`;
+            if (label && !isHidden) {
+                customFieldsHTML += `
+                    <h4>${label}</h4>
+                    <p>${value || 'N/A'}</p>
+                `;
             }
         }
+
+        // 3. Unir todo y mostrar en la página
+        jobDetailsElement.innerHTML = finalHTML + customFieldsHTML + `<a href="cv.html" class="btn">Apply Now</a>`;
     }
 
     // --- CARGAR DATOS AL INICIO ---
