@@ -65,6 +65,7 @@ function updateAddButtonState() {
 }
 
 
+
   document.getElementById('add-custom-field-btn').addEventListener('click', () => {
     if (activeCustomFields >= MAX_CUSTOM_FIELDS) {
       alert('Limit of 4 custom fields.');
