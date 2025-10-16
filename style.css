@@ -349,6 +349,37 @@ header img {
 
 
 
+/* Estilos para el contenedor del enlace */
+.social-link {
+    display: inline-flex; /* Alinea el icono y el texto horizontalmente */
+    align-items: center;
+    gap: 8px; /* Espacio entre el icono y el texto */
+    text-decoration: none; /* Quita el subrayado del enlace */
+    color: #333; /* Color del texto por defecto (gris oscuro) */
+    font-family: sans-serif;
+    font-size: 18px;
+    transition: color 0.3s ease; /* Transición suave para el color del texto */
+}
+
+/* Efecto cuando el mouse pasa sobre el enlace completo */
+.social-link:hover {
+    color: #1877f2; /* Cambia el color del texto a azul de Facebook */
+}
+
+/* --- ESTE ES EL EFECTO CLAVE PARA EL ICONO --- */
+/* Selecciona el icono (i) SOLO cuando el mouse está sobre el enlace (a) */
+.social-link:hover .fab.fa-facebook {
+    color: #1877f2; /* Cambia el color del icono a azul de Facebook */
+}
+
+
+
+
+
+
+
+
+
 
 
 
