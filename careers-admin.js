@@ -112,10 +112,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('job-form');
     const statusDiv = document.getElementById('status-message');
 
-    async function loadJobData() {
-        const { data, error } = await supabase.from('job_posts').select('*').eq('id', 1).single();
-        if (error) { console.error(error); return; }
 
+
+
+async function loadJobData() {
+    const { data, error } = await supabase
+        .from('job_posts')
+        .select('*')
+        .eq('id', 1)
+        .single();
+
+    if (error) {
+        console.error('Error fetching data from Supabase:', error);
+        return;
+    }
+
+    if (data) {
+        // Cargar campos estándar
         Object.keys(data).forEach(key => {
             const input = document.querySelector(`[name="${key}"]`);
             if (input && !key.startsWith('custom_')) {
@@ -123,12 +136,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Cargar campos personalizados <-- ESTA ES LA PARTE CLAVE
         const container = document.getElementById('custom-fields-container');
-        const wrapper = document.getElementById('custom-section-wrapper');
-        container.innerHTML = ''; activeCustomFields = 0;
+        const wrapper = document.getElementById('div id="custom-section-wrapper");
+        container.innerHTML = ''; 
+        activeCustomFields = 0;
 
         for (let i = 1; i <= MAX_CUSTOM_FIELDS; i++) {
             const label = data[`custom_${i}_label`];
+            const value = data[`custom_${i}_value`];
+            const isHidden = data[`custom_${i}_hidden`];
+
             if (label) {
                 const fieldData = { label: data[`custom_${i}_label`], value: data[`custom_${i}_value`], hidden: data[`custom_${i}_hidden`] };
                 const newField = createCustomField(i, fieldData);
@@ -137,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // Mostrar la sección si hay campos personalizados
         if (activeCustomFields > 0) {
             wrapper.style.display = 'block';
         }
@@ -144,6 +163,16 @@ document.addEventListener('DOMContentLoaded', () => {
         updateAddButtonState();
         initializeSortable();
     }
+
+
+
+
+
+
+
+
+
+    
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
