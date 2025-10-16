@@ -134,3 +134,83 @@ textarea {
 .sortable-drag {
     opacity: 0.9;
 }
+
+#custom-section-wrapper {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f8f9fa; /* gris muy claro */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+#custom-fields-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* separa cada campo */
+}
+
+
+.custom-field-group {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.custom-field-group:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.btn-remove-custom {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-remove-custom:hover {
+    background-color: #e74c3c;
+}
+
+
+#add-custom-field-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background-color 0.2s;
+}
+#add-custom-field-btn:hover {
+    background-color: #43a047;
+}
+
+
+input, textarea {
+    padding: 12px 15px;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+input:focus, textarea:focus {
+    border-color: #3f51b5;
+    box-shadow: 0 0 0 2px rgba(63,81,181,0.2);
+}
+textarea {
+    min-height: 100px;
+}
+
+
+#sortable-fields-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+
