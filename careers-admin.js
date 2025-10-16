@@ -66,7 +66,7 @@ function updateAddButtonState() {
   addBtn.style.display = activeCustomFields >= MAX_CUSTOM_FIELDS ? 'none' : 'block';
 
   // Mostrar el contenedor solo si hay al menos un campo
-  customWrapper.style.display = activeCustomFields > 0 ? 'block' : 'none';
+ // customWrapper.style.display = activeCustomFields > 0 ? 'block' : 'none';
 }
 
 
