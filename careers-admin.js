@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusDiv = document.getElementById('status-message');
   const customContainer = document.getElementById('custom-fields-container');
   const customWrapper = document.getElementById('custom-section-wrapper');
+  const addBtn = document.getElementById('add-custom-field-btn');
+
+  // ocultar al inicio
+customWrapper.style.display = 'none';
+addBtn.style.display = 'none';
 
   let activeCustomFields = 0;
   let sortable;
@@ -57,12 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 function updateAddButtonState() {
-  // Mostrar el botón solo si hay menos de MAX_CUSTOM_FIELDS
+  // Mostrar el botón solo si no se llegó al máximo
   addBtn.style.display = activeCustomFields >= MAX_CUSTOM_FIELDS ? 'none' : 'block';
 
   // Mostrar el contenedor solo si hay al menos un campo
   customWrapper.style.display = activeCustomFields > 0 ? 'block' : 'none';
 }
+
 
 
 
