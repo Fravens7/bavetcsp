@@ -1233,9 +1233,16 @@ footer p a:hover {
     text-align: center;
   }
 
-  .about-text {
+ /* .about-text {
     text-align: center;
   }
+*/
+  .about-text {
+  display: flex;
+  flex-direction: column; /* Mantiene los elementos (h2, p) en una columna */
+  align-items: center;    /* Centra los elementos horizontalmente */
+  justify-content: center; /* (Opcional) Centra los elementos verticalmente si el div tiene una altura */
+}
 
   .service-grid,
   .testimonial-grid {
