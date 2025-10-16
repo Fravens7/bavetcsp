@@ -528,7 +528,18 @@
     <div class="container">
       <p>&copy; 2025 Neuron Tech Solutions. All rights reserved.</p>
     <p>Follow us: 
-      <a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">Facebook</a>  
+      <a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/" 
+       class="social-link" 
+       target="_blank" 
+       rel="noopener noreferrer">
+       
+       <!-- El icono de Facebook -->
+       <i class="fab fa-facebook"></i>
+       
+       <!-- El texto, con un ID para identificarlo con JavaScript -->
+       <span id="social-text">Facebook</span>
+       
+    </a> 
        <!-- <a href="#" aria-label="LinkedIn">LinkedIn</a>-->
       </p>
       
@@ -671,6 +682,35 @@ map.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale
 
 mapContainer.style.cursor = 'grab';
 });
+
+
+
+// 1. Seleccionamos el elemento del texto por su ID
+const socialTextElement = document.getElementById('social-text');
+
+// 2. Guardamos los textos que queremos mostrar
+const originalText = 'Facebook';
+const newText = 'Neuron Tech Solutions';
+
+// 3. Añadimos un "escuchador de eventos" para cuando el mouse ENTRA en el enlace
+socialTextElement.parentElement.addEventListener('mouseenter', () => {
+    socialTextElement.textContent = newText;
+});
+
+// 4. Añadimos otro "escuchador" para cuando el mouse SALE del enlace
+socialTextElement.parentElement.addEventListener('mouseleave', () => {
+    socialTextElement.textContent = originalText;
+});
+
+
+
+
+
+
+
+
+
+  
 </script>
 
 
