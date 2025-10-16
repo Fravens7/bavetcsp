@@ -7,17 +7,48 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let activeCustomFields = 0;
 let sortable;
 
+
+
+
+  
+
 function checkPassword() {
-const passwordInput = document.getElementById('password-input').value;
-if (passwordInput === ADMIN_PASSWORD) {
-document.getElementById('login-container').style.display = 'none';
-document.getElementById('edit-form-container').style.display = 'block';
-loadJobData();
-} else {
-alert('Incorrect password. Please try again.');
-}
+    console.log("checkPassword() fue llamada.");
+    const passwordInput = document.getElementById('password-input').value;
+    if (passwordInput === ADMIN_PASSWORD) {
+        console.log("Contraseña correcta. Mostrando formulario...");
+
+        // --- CAMBIO CLAVE: Mostrar el formulario ---
+        const loginContainer = document.getElementById('login-container');
+        const editFormContainer = document.getElementById('edit-form-container');
+
+        loginContainer.style.display = 'none';
+        editFormContainer.style.display = 'oblock';
+
+        // Cargar los datos del formulario ANTES de mostrarlo
+        const allInputs = editFormContainer.querySelectorAll('input, textarea');
+        allInputs.forEach(input => {
+            const fieldName = input.name;
+            const savedValue = jobData[fieldName];
+            if (savedValue) {
+                input.value = savedValue;
+            }
+        });
+
+        loadJobData(); // Cargar los datos más recientes de Supabase
+    } else {
+        console.log("Contraseña incorrecta.");
+        alert('Necesitas la contraseña correcta para continuar.');
+    }
+  
 }
 
+
+
+
+
+
+  
 document.getElementById('login-button').addEventListener('click', checkPassword);
 document.getElementById('password-input').addEventListener('keyup', (event) => {
 if (event.key === 'Enter') {
