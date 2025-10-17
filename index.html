@@ -323,16 +323,23 @@
 
 
 
-  
+.testimonials-list {
+  display: flex;
+  flex-wrap: wrap;        /* permite que bajen a otra fila si no caben */
+  gap: 20px;              /* espacio entre items */
+  justify-content: center;/* centra la fila */
+}
+
 .testimonial-item {
   background-color: #fff;
   border-radius: 20px;
   padding: 30px 20px 70px; /* deja espacio para la foto */
-  width: 300px;
-  position: relative;
+  width: 300px;            /* ancho fijo de cada item */
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  text-align: center; /* centra texto */
+  text-align: center;
+  flex: 0 1 auto;          /* evita que flex los estire */
 }
+
 
 .testimonial-text {
   font-size: 0.95em;
