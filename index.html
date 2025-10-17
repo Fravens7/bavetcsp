@@ -389,10 +389,20 @@
   color: #333;
 }
 
-.testimonial-photo {
-  position: relative; /* contenedor de la foto */
-  margin-bottom: 10px; /* espacio debajo de la foto */
+.testimonial-photo img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #007bff;
+  display: block;       /* necesario para margin auto */
+  margin: 20px auto 0;  /* centra la foto y da espacio arriba */
+  position: relative;   /* ya no absolute */
+  bottom: auto;
+  left: auto;
+  transform: none;
 }
+
 
 .testimonial-photo img {
   width: 70px;
