@@ -330,41 +330,14 @@
 
 
   
-.clients-testimonials {
-  background-color: #f4f4f4;
-  text-align: center;
-  padding: 60px 20px;
-}
-
-.clients-testimonials h2 {
-  font-size: 2em;
-  margin-bottom: 10px;
-}
-
-.clients-testimonials p {
-  max-width: 700px;
-  margin: 0 auto 40px;
-  font-size: 1em;
-  color: #555;
-}
-
-.testimonials-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
 .testimonial-item {
   background-color: #fff;
   border-radius: 20px;
-  padding: 30px 20px 50px;
+  padding: 30px 20px 70px; /* deja espacio para la foto */
   width: 300px;
   position: relative;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  
-  /* CENTRAR TEXTO */
-  text-align: center;
+  text-align: center; /* centra texto */
 }
 
 .testimonial-text {
@@ -373,20 +346,27 @@
   color: #333;
 }
 
+.testimonial-photo {
+  position: relative; /* contenedor de la foto */
+  margin-bottom: 10px; /* espacio debajo de la foto */
+}
+
 .testimonial-photo img {
   width: 70px;
   height: 70px;
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid #007bff;
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  display: block;
+  margin: 0 auto; /* centra la foto horizontalmente */
+  position: relative; /* ya no absolute */
+  bottom: auto; /* quitar bottom */
+  left: auto;   /* quitar left */
+  transform: none; /* quitar transform */
 }
 
 .testimonial-name {
-  margin-top: 80px; /* espacio para la foto */
+  margin-top: 15px; /* ajusta según quieras */
   font-weight: bold;
   color: #007bff;
 }
