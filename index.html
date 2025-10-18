@@ -138,34 +138,182 @@
 
   
 
-  <section id="services" class="services">
-    <div class="container">
-      <h2>Our Services</h2>
-      <div class="service-grid">
-        <div class="service-item">
-          <img class="service-image" src="assets/images/forcompany.png" alt="Call Center for Companies" />
-          <h3>Call Center for Companies</h3>
-          <p>
-            We provide global, personalized call center services for businesses, including customer support, sales, lead qualification, and more.
-          </p>
-        </div>
-        <div class="service-item">
-          <img class="service-image" src="assets/images/presale.png" alt="Pre-sales" />
-          <h3>Pre-sales and After-sales</h3>
-          <p>
-            We support you throughout the entire sales process and provide efficient customer service across multiple channels.
-          </p>
-        </div>
-        <div class="service-item">
-          <img class="service-image" src="assets/images/pay.jpeg" alt="Collection Outsourcing" />
-          <h3>Collection Outsourcing</h3>
-          <p>
-            We offer a strategic debt collection solution for individuals and businesses, ensuring ethical, professional, and effective results to support your growth.
-          </p>
+<!-- === 3D Scroll Services Section === -->
+<section id="services" class="services-3d">
+
+  <!-- Scroll height provider -->
+  <div class="scroll-spacer"></div>
+
+  <!-- Fixed viewport camera -->
+  <div class="camera-container">
+    <div class="world">
+
+      <!-- Scene 1 -->
+      <div class="scene" style="transform: translateZ(0px);">
+        <div class="scene-content">
+          <h2>Call Center for Companies</h2>
+          <img src="assets/images/forcompany.png" alt="Call Center Service" class="service-image">
+          <p>We provide global, personalized call center services for businesses, including customer support, sales, and lead qualification.</p>
         </div>
       </div>
+
+      <!-- Scene 2 -->
+      <div class="scene" style="transform: translateZ(-1500px);">
+        <div class="scene-content">
+          <h2>Pre-sales and After-sales</h2>
+          <img src="assets/images/presale.png" alt="Pre-sales Support" class="service-image">
+          <p>We support you throughout the entire sales process and provide efficient customer service across multiple channels.</p>
+        </div>
+      </div>
+
+      <!-- Scene 3 -->
+      <div class="scene" style="transform: translateZ(-3000px);">
+        <div class="scene-content">
+          <h2>Collection Outsourcing</h2>
+          <img src="assets/images/pay.jpeg" alt="Collection Outsourcing" class="service-image">
+          <p>We offer a strategic debt collection solution, ensuring ethical, professional, and effective results to support your growth.</p>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- GSAP CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<!-- Animation Script -->
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Animate first scene on load
+  gsap.to(".scene:nth-child(1) .scene-content", {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    delay: 0.5,
+    ease: "power2.out"
+  });
+
+  // Scroll animation
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".scroll-spacer",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 1,
+      pin: ".camera-container",
+      markers: false
+    }
+  });
+
+  // Zoom to scene 2
+  tl.to(".world", {
+    z: 1500,
+    ease: "none"
+  })
+  .to(".scene:nth-child(2) .scene-content", {
+    opacity: 1,
+    y: 0,
+    duration: 0.5
+  }, "-=0.2");
+
+  // Zoom to scene 3
+  tl.to(".world", {
+    z: 3000,
+    ease: "none"
+  })
+  .to(".scene:nth-child(3) .scene-content", {
+    opacity: 1,
+    y: 0,
+    duration: 0.5
+  }, "-=0.2");
+</script>
+
+<!-- Styles (can be extracted to services.css later) -->
+<style>
+  .scroll-spacer {
+    height: 500vh;
+  }
+
+  .camera-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    perspective: 1000px;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .world {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+
+  .scene {
+    position: absolute;
+    width: 80vw;
+    max-width: 900px;
+    height: 80vh;
+    top: 10vh;
+    left: 10vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+  }
+
+  .scene h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #111;
+  }
+
+  .scene p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .service-image {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .scene-content {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  @media(max-width: 768px) {
+    .scene {
+      width: 90vw;
+      left: 5vw;
+    }
+    .scene h2 {
+      font-size: 2rem;
+    }
+    .scene p {
+      font-size: 1rem;
+    }
+  }
+</style>
+
 
   <section id="about" class="about">
 
