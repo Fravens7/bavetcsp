@@ -136,49 +136,95 @@
   </div>
 </section>
 
+
+
+
+
+
+
+
+  
   
 
-  <section id="services" class="services">
-    <div class="container">
-      <h2>Our Services</h2>
-      <div class="service-grid">
-        <div class="service-item">
-          <img class="service-image" src="assets/images/forcompany.png" alt="Call Center for Companies" />
-          <h3>Call Center for Companies</h3>
-          <p>
-            We provide global, personalized call center services for businesses, including customer support, sales, lead qualification, and more.
-          </p>
-        </div>
-        <div class="service-item">
-          <img class="service-image" src="assets/images/presale.png" alt="Pre-sales" />
-          <h3>Pre-sales and After-sales</h3>
-          <p>
-            We support you throughout the entire sales process and provide efficient customer service across multiple channels.
-          </p>
-        </div>
-        <div class="service-item">
-          <img class="service-image" src="assets/images/pay.jpeg" alt="Collection Outsourcing" />
-          <h3>Collection Outsourcing</h3>
-          <p>
-            We offer a strategic debt collection solution for individuals and businesses, ensuring ethical, professional, and effective results to support your growth.
-          </p>
-        </div>
+<section id="services" class="services">
+  <div class="container">
+    <h2>Our Services</h2>
+    <div class="service-grid">
+      
+      <!-- Existing Service 1 -->
+      <div class="service-item">
+        <img class="service-image" src="https://picsum.photos/seed/callcenter-service/400/250.jpg" alt="Call Center for Companies" />
+        <h3>Call Center for Companies</h3>
+        <p>
+          We provide global, personalized call center services for businesses, including customer support, sales, lead qualification, and more.
+        </p>
       </div>
-    </div>
-  </section>
 
-  <section id="about" class="about">
-
-      <div class="about-text">
-        <h2>About Us</h2>
-        <p>Since 1998, Neuron Tech Solutions has been a trusted provider of customer experience solutions in Cambodia.</p>
-        <p>With over 20 years of expertise, we specialize in helping businesses optimize their customer journeys across various industries.</p>
-        <p>We serve clients in key markets such as China, Taiwan, Hong Kong, and Vietnam, providing tailored services that drive customer satisfaction, improve revenue, and enhance brand loyalty.</p>
-        <p>Our team of skilled professionals is dedicated to delivering high-quality, personalized support across multiple communication channels.</p>
+      <!-- Existing Service 2 -->
+      <div class="service-item">
+        <img class="service-image" src="https://picsum.photos/seed/presales-support/400/250.jpg" alt="Pre-sales" />
+        <h3>Pre-sales and After-sales</h3>
+        <p>
+          We support you throughout the entire sales process and provide efficient customer service across multiple channels.
+        </p>
       </div>
+
+      <!-- Existing Service 3 -->
+      <div class="service-item">
+        <img class="service-image" src="https://picsum.photos/seed/collection-finance/400/250.jpg" alt="Collection Outsourcing" />
+        <h3>Collection Outsourcing</h3>
+        <p>
+          We offer a strategic debt collection solution for individuals and businesses, ensuring ethical, professional, and effective results to support your growth.
+        </p>
+      </div>
+
+      <!-- New Service 4 -->
+      <div class="service-item">
+        <img class="service-image" src="https://picsum.photos/seed/virtual-machine-tech/400/250.jpg" alt="Virtual Machine" />
+        <h3>Virtual Machine</h3>
+        <p>
+          Our VM management services ensure that your virtual infrastructure runs securely, efficiently, and is aligned with your business operations. From initial optimization to long-term performance tuning and cost control, we help you get the most from your cloud investment.
+        </p>
+      </div>
+
+      <!-- New Service 5 -->
+      <div class="service-item">
+        <img class="service-image" src="https://picsum.photos/seed/managed-database/400/250.jpg" alt="Managed Databases" />
+        <h3>Managed Databases</h3>
+        <p>
+          Our managed database services are designed to simplify and secure your cloud data infrastructure. Whether you're migrating from on-premises, optimizing performance, or ensuring high availability, we offer end-to-end support tailored to your operational needs.
+        </p>
+      </div>
+
+      <!-- New Service 6 -->
+      <div class="service-item">
+        <img class="service-image" src="https://picsum.photos/seed/cloud-migration/400/250.jpg" alt="Cloud Database Migration" />
+        <h3>Cloud Database Migration</h3>
+        <ul>
+            <li>Export & import data.</li>
+            <li>Migration planning (downtime windows, compatibility, backup validation).</li>
+            <li>Test connectivity with apps and validate data integrity.</li>
+        </ul>
+      </div>
+
     </div>
-  </section>
- 
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 <section class="clients-testimonials">
   <div class="container">
     <h2>Hear it from our Clients</h2>
@@ -225,6 +271,14 @@
   </div>
 </section>
 
+
+
+
+
+
+
+
+  
 <style>
 /* --- Import a modern font (optional, but recommended) --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -232,7 +286,7 @@
 /* --- General Body & Section Styling --- */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f8f9fa; /* A very light gray background */
+    background-color: #f8f9fa;
     color: #212529;
     margin: 0;
     padding: 0;
@@ -240,7 +294,6 @@ body {
 
 .services {
     padding: 80px 20px;
-    /* A subtle gradient background for the glassmorphism effect to shine */
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     min-height: 100vh;
     display: flex;
@@ -274,31 +327,28 @@ body {
 /* --- Service Grid Layout --- */
 .service-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 30px;
 }
 
 /* --- The Modern Service Item Card --- */
 .service-item {
-    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent for glassmorphism */
-    backdrop-filter: blur(10px); /* The core of the glassmorphism effect */
-    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15); /* Soft, deep shadow */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
     padding: 30px;
     text-align: left;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth, slightly elastic transition */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
-    /* Initial state for GSAP animation */
-    opacity: 0;
-    transform: translateY(30px);
+    transform-origin: center center; /* Important for rotation animations */
 }
 
-/* --- Hover Effect for the Card --- */
 .service-item:hover {
-    transform: translateY(-10px); /* Lifts the card up */
-    box-shadow: 0 15px 50px 0 rgba(31, 38, 135, 0.25); /* More pronounced shadow on hover */
+    transform: translateY(-10px);
+    box-shadow: 0 15px 50px 0 rgba(31, 38, 135, 0.25);
 }
 
 .service-item h3 {
@@ -311,28 +361,49 @@ body {
 }
 
 .service-item:hover h3 {
-    color: #007bff; /* Changes color on hover */
+    color: #007bff;
 }
 
-.service-item p {
+.service-item p, .service-item ul {
     font-size: 1rem;
     line-height: 1.6;
     color: #495057;
     margin: 0;
 }
 
+/* --- Styling for the bulleted list in the new service --- */
+.service-item ul {
+    list-style: none; /* Remove default bullets */
+    padding-left: 5px;
+}
+
+.service-item ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
+
+.service-item ul li::before {
+    content: '▸'; /* Custom bullet */
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #007bff;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
 .service-image {
     width: 100%;
     height: 200px;
-    object-fit: cover; /* Ensures the image covers the area without distortion */
+    object-fit: cover;
     border-radius: 12px;
     transition: transform 0.4s ease;
 }
 
 .service-item:hover .service-image {
-    transform: scale(1.05); /* Slight zoom on the image on hover */
+    transform: scale(1.05);
 }
-
 
 /* --- Responsive Design for Mobile --- */
 @media (max-width: 768px) {
@@ -343,7 +414,7 @@ body {
         font-size: 2rem;
     }
     .service-grid {
-        grid-template-columns: 1fr; /* Stacks cards vertically */
+        grid-template-columns: 1fr;
         gap: 20px;
     }
     .service-item {
@@ -359,6 +430,7 @@ body {
 
 
 
+  
 
 
 
@@ -778,25 +850,39 @@ socialTextElement.parentElement.addEventListener('mouseleave', () => {
   
 </script>
 
+
+
+
+
+
+
+
+
+  
+
+<!-- Add these scripts to your HTML file -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Register the ScrollTrigger plugin
     gsap.registerPlugin(ScrollTrigger);
 
-    // Create the animation for the service items
-    gsap.to(".service-item", {
-        opacity: 1,          // Fade in to full opacity
-        y: 0,                // Move to their final position
-        duration: 0.8,       // Animation duration
-        ease: "power2.out",  // Smooth easing
-        stagger: 0.15,       // Stagger the start of each animation by 0.15 seconds
-        scrollTrigger: {
-            trigger: ".service-grid",   // The element that triggers the animation
-            start: "top 85%",           // Starts when the top of the grid hits 85% of the viewport
-            toggleActions: "play none none reverse" // Plays on scroll down, reverses on scroll up
-        }
+    const serviceItems = gsap.utils.toArray(".service-item");
+
+    serviceItems.forEach((item, index) => {
+        // Create a unique animation for each item based on its index
+        gsap.to(item, {
+            y: -50 - (index * 20),  // Move up by a different amount for each card
+            rotation: index % 2 === 0 ? 2 : -2, // Alternate rotation direction
+            ease: "none", // Use "none" for a direct link to scroll speed
+            scrollTrigger: {
+                trigger: ".services", // The section that triggers the animation
+                start: "top bottom", // When the top of the section hits the bottom of the viewport
+                end: "bottom top",   // When the bottom of the section hits the top of the viewport
+                scrub: 1,            // Smoothly link the animation to the scroll position
+            }
+        });
     });
 });
 </script>
@@ -804,6 +890,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+
+
+
+
+
+  
 
 
   
