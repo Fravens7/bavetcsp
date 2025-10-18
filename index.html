@@ -293,24 +293,40 @@ body {
 }
 
 .services {
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+    padding: 100px 20px;
+    /* Parallax Background Image */
+    background-image: url('https://picsum.photos/seed/tech-background/1920/1080.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* This creates the parallax effect */
+    position: relative;
+    /* Overlay to ensure text readability over the background image */
+    overflow: hidden;
+}
+
+.services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.85); /* Semi-transparent white overlay */
 }
 
 .services .container {
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
+    position: relative; /* Ensures content is above the overlay */
+    z-index: 1;
 }
 
 .services h2 {
     font-size: 2.5rem;
     font-weight: 700;
     color: #343a40;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
     position: relative;
 }
 
@@ -333,21 +349,23 @@ body {
 
 /* --- The Modern Service Item Card --- */
 .service-item {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
     padding: 30px;
     text-align: left;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
-    transform-origin: center center; /* Important for rotation animations */
+    /* Initial state for GSAP animation */
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
 }
 
 .service-item:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.02);
     box-shadow: 0 15px 50px 0 rgba(31, 38, 135, 0.25);
 }
 
@@ -373,7 +391,7 @@ body {
 
 /* --- Styling for the bulleted list in the new service --- */
 .service-item ul {
-    list-style: none; /* Remove default bullets */
+    list-style: none;
     padding-left: 5px;
 }
 
@@ -384,7 +402,7 @@ body {
 }
 
 .service-item ul li::before {
-    content: '▸'; /* Custom bullet */
+    content: '▸';
     position: absolute;
     left: 0;
     top: 0;
@@ -409,6 +427,8 @@ body {
 @media (max-width: 768px) {
     .services {
         padding: 60px 15px;
+        /* Disable parallax on mobile for performance */
+        background-attachment: scroll;
     }
     .services h2 {
         font-size: 2rem;
@@ -868,21 +888,24 @@ socialTextElement.parentElement.addEventListener('mouseleave', () => {
 document.addEventListener("DOMContentLoaded", function() {
     gsap.registerPlugin(ScrollTrigger);
 
+    // Select all service items
     const serviceItems = gsap.utils.toArray(".service-item");
 
-    serviceItems.forEach((item, index) => {
-        // Create a unique animation for each item based on its index
-        gsap.to(item, {
-            y: -50 - (index * 20),  // Move up by a different amount for each card
-            rotation: index % 2 === 0 ? 2 : -2, // Alternate rotation direction
-            ease: "none", // Use "none" for a direct link to scroll speed
-            scrollTrigger: {
-                trigger: ".services", // The section that triggers the animation
-                start: "top bottom", // When the top of the section hits the bottom of the viewport
-                end: "bottom top",   // When the bottom of the section hits the top of the viewport
-                scrub: 1,            // Smoothly link the animation to the scroll position
-            }
-        });
+    // Create a timeline for the staggered animation
+    gsap.timeline({
+        scrollTrigger: {
+            trigger: ".service-grid",   // The element that triggers the animation
+            start: "top 85%",           // Starts when the top of the grid hits 85% of the viewport
+            toggleActions: "play none none reverse" // Plays on scroll down, reverses on scroll up
+        }
+    })
+    .to(serviceItems, {
+        opacity: 1,          // Fade in to full opacity
+        y: 0,                // Move to their final Y position
+        scale: 1,            // Scale up to their final size
+        duration: 0.8,       // Animation duration
+        ease: "power2.out",  // Smooth easing
+        stagger: 0.15        // Stagger the start of each animation by 0.15 seconds
     });
 });
 </script>
