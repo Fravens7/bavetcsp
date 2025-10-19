@@ -14,7 +14,7 @@
     }
   </style>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -575,71 +575,67 @@ body {
 
   
 
-<section class="contact-section" aria-labelledby="contact-heading">
-  <div class="section-header">
-    <h2 id="contact-heading" class="section-title">Get In Touch</h2>
-    <p class="section-subtitle">We're here to help and answer any questions you might have. We look forward to hearing from you.</p>
-  </div>
+<section id="contact" class="contact">
 
-  <div class="contact-grid">
-    <!-- Locations -->
-    <article class="contact-card">
-      <div class="contact-icon" aria-hidden="true">
-        <i class="fas fa-map-marker-alt"></i>
-      </div>
-      <h3 class="contact-title">Our Locations</h3>
-      <div class="contact-info">
-        <ul class="location-list">
-          <li>Sri Lanka</li>
-          <li>Cambodia</li>
-        </ul>
-      </div>
-    </article>
 
-    <!-- Phone -->
-    <article class="contact-card">
-      <div class="contact-icon" aria-hidden="true">
-        <i class="fas fa-phone"></i>
+<section class="clients-info">
+  <div class="container">
+    <h2>Our Contact Info</h2>
+    <div class="info-grid">
+      
+      <!-- Locations -->
+      <div class="info-item">
+        <span class="info-icon">
+          <img src="assets/images/location_pin.jpg" alt="Locations">
+        </span>
+        <h4>Location</h4>
+        <p>Sri Lanka<br>Cambodia</p>
       </div>
-      <h3 class="contact-title">Phone</h3>
-      <div class="contact-info">
-        <a href="tel:+855976491668" aria-label="Call us at +855 976491668">
-          <i class="fas fa-phone-alt"></i>
-          +855 976491668
-        </a>
-      </div>
-    </article>
 
-    <!-- Email -->
-    <article class="contact-card">
-      <div class="contact-icon" aria-hidden="true">
-        <i class="fas fa-envelope"></i>
+      <!-- Phone -->
+      <div class="info-item">
+        
+        
+        <span class="info-icon">
+          <img src="assets/images/phone_icon.jpg" alt="Phone">
+        </span>
+        <h4>Phone</h4>
+        <p><a href="tel:+855 976491668">+855 976491668</a></p>
+        
+        
       </div>
-      <h3 class="contact-title">Email</h3>
-      <div class="contact-info">
-        <a href="mailto:neurontechsol@outlook.com?subject=Business%20Inquiry" aria-label="Email us at neurontechsol@outlook.com">
-          <i class="fas fa-paper-plane"></i>
-          neurontechsol@outlook.com
-        </a>
-      </div>
-    </article>
 
-    <!-- Facebook -->
-    <article class="contact-card">
-      <div class="contact-icon" aria-hidden="true">
-        <i class="fab fa-facebook-f"></i>
+
+         <!-- Social -->
+ <div class="info-item">
+
+     
+  <a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+    <span class="info-icon">
+      <img src="assets/images/fb_logo.jpg" alt="Facebook" class="fb-icon"/>
+    </span>
+    <h4>Social</h4>
+    <p><a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/" class="social-link" target="_blank" rel="noopener noreferrer">       
+       <!-- El icono de Facebook -->
+       <i class="fab fa-facebook"></i>       
+       <!-- El texto, con un ID para identificarlo con JavaScript -->
+       <span id="social-text">Facebook</span>       
+    </p>
+  </a>        
+</div>   
+
+
+
+      <!-- Email -->
+      <div class="info-item">
+        <span class="info-icon">
+          <img src="assets/images/email_icon.png" alt="Email">
+        </span>
+        <h4>Email</h4>
+        <p><a href="mailto:hello@newxp.co?subject=Business%20Inquiry">neurontechsol@outlook.com</a></p>
       </div>
-      <h3 class="contact-title">Facebook</h3>
-      <div class="contact-info">
-        <a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/" 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           aria-label="Visit our Facebook page">
-          <i class="fas fa-external-link-alt"></i>
-          Neuron Tech Solutions
-        </a>
-      </div>
-    </article>
+
+    </div>
   </div>
 </section>
 
@@ -1005,97 +1001,6 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-  
-/* Cuando el usuario pasa el mouse sobre el enlace */
-.fb-icon {
-  transition: filter 0.3s ease;
-}
-
-/* Cambia de tono (azul) al pasar el mouse */
-.social-link:hover .fb-icon {
-  filter: hue-rotate(200deg) saturate(250%);
-}
-
-
-  
-.clients-info {
-  padding: 50px 20px;
-  background-color: #f4f4f4;
-  text-align: center;
-}
-
-.clients-info h2 {
-  font-size: 32px;
-  margin-bottom: 30px;
-}
-
-.info-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-}
-
-.info-item {
-  background: #fff;
-  padding: 20px;
-  border-radius: 15px;
-  width: 220px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-
-.info-item:hover {
-  transform: translateY(-5px);
-}
-
-.info-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.info-icon img {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-}
-
-.info-item h4 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.info-item p {
-  font-size: 16px;
-  color: #555;
-}
-
-.info-item a {
-  color: #0073b1;
-  text-decoration: none;
-}
-
-.info-item a:hover {
-  text-decoration: underline;
-}
-
-@media(max-width:768px) {
-  .info-grid {
-    flex-direction: column;
-    gap: 20px;
-  }
-}
 </style>
 
 
@@ -1302,33 +1207,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-
-
-
-
-
-
-
- // Add interactive hover effect with mouse movement
-        document.querySelectorAll('.contact-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const angleX = (y - centerY) / 20;
-                const angleY = (centerX - x) / 20;
-                
-                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(10px)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-            });
-        });
 
 
 
