@@ -574,64 +574,74 @@ body {
 
   
 
-<section class="contact-info" aria-labelledby="contact-heading">
-  <div class="container">
-    <h2 id="contact-heading">Contact Information</h2>
-    
-    <div class="contact-grid">
-      <!-- Locations -->
-      <address class="contact-item">
-        <div class="contact-icon" aria-hidden="true">
-          <img src="assets/images/location_pin.jpg" alt="" width="24" height="24">
-        </div>
-        <h3>Locations</h3>
-        <p>
-          <span>Sri Lanka</span><br>
-          <span>Cambodia</span>
-        </p>
-      </address>
-      
-      <!-- Phone -->
-      <div class="contact-item">
-        <div class="contact-icon" aria-hidden="true">
-          <img src="assets/images/phone_icon.jpg" alt="" width="24" height="24">
-        </div>
-        <h3>Phone</h3>
-        <p>
-          <a href="tel:+855976491668" aria-label="Call us at +855 976491668">+855 976491668</a>
-        </p>
+<section class="contact-section" aria-labelledby="contact-heading">
+  <div class="section-header">
+    <h2 id="contact-heading" class="section-title">Get In Touch</h2>
+    <p class="section-subtitle">We're here to help and answer any questions you might have. We look forward to hearing from you.</p>
+  </div>
+
+  <div class="contact-grid">
+    <!-- Locations -->
+    <article class="contact-card">
+      <div class="contact-icon" aria-hidden="true">
+        <i class="fas fa-map-marker-alt"></i>
       </div>
-      
-      <!-- Email -->
-      <div class="contact-item">
-        <div class="contact-icon" aria-hidden="true">
-          <img src="assets/images/email_icon.png" alt="" width="24" height="24">
-        </div>
-        <h3>Email</h3>
-        <p>
-          <a href="mailto:neurontechsol@outlook.com?subject=Business%20Inquiry" aria-label="Email us at neurontechsol@outlook.com">neurontechsol@outlook.com</a>
-        </p>
+      <h3 class="contact-title">Our Locations</h3>
+      <div class="contact-info">
+        <ul class="location-list">
+          <li>Sri Lanka</li>
+          <li>Cambodia</li>
+        </ul>
       </div>
-      
-      <!-- Social Media -->
-      <div class="contact-item">
-        <div class="contact-icon" aria-hidden="true">
-          <img src="assets/images/fb_logo.jpg" alt="" width="24" height="24">
-        </div>
-        <h3>Social Media</h3>
-        <p>
-          <a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/" 
-             target="_blank" 
-             rel="noopener noreferrer" 
-             aria-label="Visit our Facebook page">
-            <i class="fab fa-facebook" aria-hidden="true"></i>
-            <span>Facebook</span>
-          </a>
-        </p>
+    </article>
+
+    <!-- Phone -->
+    <article class="contact-card">
+      <div class="contact-icon" aria-hidden="true">
+        <i class="fas fa-phone"></i>
       </div>
-    </div>
+      <h3 class="contact-title">Phone</h3>
+      <div class="contact-info">
+        <a href="tel:+855976491668" aria-label="Call us at +855 976491668">
+          <i class="fas fa-phone-alt"></i>
+          +855 976491668
+        </a>
+      </div>
+    </article>
+
+    <!-- Email -->
+    <article class="contact-card">
+      <div class="contact-icon" aria-hidden="true">
+        <i class="fas fa-envelope"></i>
+      </div>
+      <h3 class="contact-title">Email</h3>
+      <div class="contact-info">
+        <a href="mailto:neurontechsol@outlook.com?subject=Business%20Inquiry" aria-label="Email us at neurontechsol@outlook.com">
+          <i class="fas fa-paper-plane"></i>
+          neurontechsol@outlook.com
+        </a>
+      </div>
+    </article>
+
+    <!-- Facebook -->
+    <article class="contact-card">
+      <div class="contact-icon" aria-hidden="true">
+        <i class="fab fa-facebook-f"></i>
+      </div>
+      <h3 class="contact-title">Facebook</h3>
+      <div class="contact-info">
+        <a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           aria-label="Visit our Facebook page">
+          <i class="fas fa-external-link-alt"></i>
+          Neuron Tech Solutions
+        </a>
+      </div>
+    </article>
   </div>
 </section>
+
 
 
 
@@ -650,6 +660,359 @@ body {
   
 <style>
 
+
+
+
+
+
+        :root {
+            --primary-color: #4a6cf7;
+            --secondary-color: #6c63ff;
+            --accent-color: #ff6b6b;
+            --dark-color: #1a1a2e;
+            --light-color: #f5f7fa;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background elements */
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            bottom: -50px;
+            left: -50px;
+            animation-delay: 5s;
+        }
+
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #43e97b, #38f9d7);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            33% {
+                transform: translate(30px, -30px) rotate(120deg);
+            }
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg);
+            }
+        }
+
+        .contact-section {
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(31, 38, 135, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .contact-card:hover::before {
+            opacity: 1;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+            transition: var(--transition);
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(74, 108, 247, 0.4);
+        }
+
+        .contact-icon i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .contact-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .contact-info a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-info a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .contact-info a i {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .location-list {
+            list-style: none;
+        }
+
+        .location-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .location-list li::before {
+            content: '•';
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            line-height: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .contact-card {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .contact-section {
+                padding: 20px 15px;
+            }
+        }
+
+        /* Animation for cards on load */
+        .contact-card {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .contact-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .contact-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .contact-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .contact-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 /* Cuando el usuario pasa el mouse sobre el enlace */
 .fb-icon {
   transition: filter 0.3s ease;
@@ -933,6 +1296,74 @@ document.addEventListener("DOMContentLoaded", function() {
         stagger: 0.15        // Stagger the start of each animation by 0.15 seconds
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+ // Add interactive hover effect with mouse movement
+        document.querySelectorAll('.contact-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const angleX = (y - centerY) / 20;
+                const angleY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(10px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 </script>
 
 
