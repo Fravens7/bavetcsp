@@ -17,6 +17,20 @@
 
 
   <link rel="stylesheet" href="style.css" />
+
+
+
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+
+
+  
 </head>
 <body>
 
@@ -285,6 +299,305 @@
 
   
 <style>
+
+
+
+:root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --text-dark: #2b2d42;
+            --text-light: #6c757d;
+            --bg-light: #f8f9fa;
+            --border-color: #e9ecef;
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .contact-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(67, 97, 238, 0.2);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-size: 24px;
+            transition: var(--transition);
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+        }
+
+        .contact-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-info a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+
+        .location-list {
+            list-style: none;
+        }
+
+        .location-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .location-list li::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .decorative-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .decorative-element-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            top: -150px;
+            right: -100px;
+        }
+
+        .decorative-element-2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            bottom: -100px;
+            left: -50px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .contact-card {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .contact-section {
+                padding: 40px 15px;
+            }
+        }
+
+        /* Animation for cards on load */
+        .contact-card {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .contact-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .contact-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .contact-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .contact-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Interactive hover effect with mouse movement */
+        .contact-card {
+            perspective: 1000px;
+        }
+
+        .contact-card-inner {
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 /* --- Import a modern font (optional, but recommended) --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -575,69 +888,76 @@ body {
 
   
 
-<section id="contact" class="contact">
-
-
-<section class="clients-info">
-  <div class="container">
-    <h2>Our Contact Info</h2>
-    <div class="info-grid">
-      
-      <!-- Locations -->
-      <div class="info-item">
-        <span class="info-icon">
-          <img src="assets/images/location_pin.jpg" alt="Locations">
-        </span>
-        <h4>Location</h4>
-        <p>Sri Lanka<br>Cambodia</p>
-      </div>
-
-      <!-- Phone -->
-      <div class="info-item">
+<section class="contact-section" aria-labelledby="contact-heading">
+        <div class="decorative-element decorative-element-1"></div>
+        <div class="decorative-element decorative-element-2"></div>
         
-        
-        <span class="info-icon">
-          <img src="assets/images/phone_icon.jpg" alt="Phone">
-        </span>
-        <h4>Phone</h4>
-        <p><a href="tel:+855 976491668">+855 976491668</a></p>
-        
-        
-      </div>
+        <header class="section-header">
+            <h2 id="contact-heading" class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">We're here to help and answer any questions you might have. We look forward to hearing from you.</p>
+        </header>
 
+        <div class="contact-grid">
+            <!-- Locations Card -->
+            <article class="contact-card">
+                <div class="contact-icon" aria-hidden="true">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3 class="contact-title">Our Locations</h3>
+                <div class="contact-info">
+                    <ul class="location-list">
+                        <li>Sri Lanka</li>
+                        <li>Cambodia</li>
+                    </ul>
+                </div>
+            </article>
 
-         <!-- Social -->
- <div class="info-item">
+            <!-- Phone Card -->
+            <article class="contact-card">
+                <div class="contact-icon" aria-hidden="true">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <h3 class="contact-title">Phone</h3>
+                <div class="contact-info">
+                    <a href="tel:+855976491668" aria-label="Call us at +855 976491668">
+                        <i class="fas fa-phone-alt"></i>
+                        +855 976491668
+                    </a>
+                </div>
+            </article>
 
-     
-  <a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-    <span class="info-icon">
-      <img src="assets/images/fb_logo.jpg" alt="Facebook" class="fb-icon"/>
-    </span>
-    <h4>Social</h4>
-    <p><a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/" class="social-link" target="_blank" rel="noopener noreferrer">       
-       <!-- El icono de Facebook -->
-       <i class="fab fa-facebook"></i>       
-       <!-- El texto, con un ID para identificarlo con JavaScript -->
-       <span id="social-text">Facebook</span>       
-    </p>
-  </a>        
-</div>   
+            <!-- Email Card -->
+            <article class="contact-card">
+                <div class="contact-icon" aria-hidden="true">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3 class="contact-title">Email</h3>
+                <div class="contact-info">
+                    <a href="mailto:neurontechsol@outlook.com?subject=Business%20Inquiry" aria-label="Email us at neurontechsol@outlook.com">
+                        <i class="fas fa-paper-plane"></i>
+                        neurontechsol@outlook.com
+                    </a>
+                </div>
+            </article>
 
-
-
-      <!-- Email -->
-      <div class="info-item">
-        <span class="info-icon">
-          <img src="assets/images/email_icon.png" alt="Email">
-        </span>
-        <h4>Email</h4>
-        <p><a href="mailto:hello@newxp.co?subject=Business%20Inquiry">neurontechsol@outlook.com</a></p>
-      </div>
-
-    </div>
-  </div>
-</section>
+            <!-- Social Media Card -->
+            <article class="contact-card">
+                <div class="contact-icon" aria-hidden="true">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <h3 class="contact-title">Facebook</h3>
+                <div class="contact-info">
+                    <a href="https://web.facebook.com/people/Neuron-Tech-Solutions/61582577452875/" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       aria-label="Visit our Facebook page">
+                        <i class="fas fa-external-link-alt"></i>
+                        Neuron Tech Solutions
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
 
 
 
@@ -894,7 +1214,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-
+// Add interactive hover effect with mouse movement
+        document.querySelectorAll('.contact-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const angleX = (y - centerY) / 20;
+                const angleY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(10px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+            });
+        });
 
 
 
