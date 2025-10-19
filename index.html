@@ -1796,6 +1796,152 @@ socialTextElement.parentElement.addEventListener('mouseleave', () => {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
+
+
+
+
+
+
+
+<!-- TESTIMONIOS -->
+
+ <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script>
+        // Initialize Swiper
+        const swiper = new Swiper('.testimonialSlider', {
+            // Default parameters
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            
+            // Responsive breakpoints
+            breakpoints: {
+                // when window width is >= 640px
+                640: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                },
+                // when window width is >= 768px
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                },
+                // when window width is >= 1024px
+                1024: {
+                    slidesPerView: 2,
+                    spaceBetween: 40,
+                },
+                // when window width is >= 1280px
+                1280: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                }
+            },
+            
+            // Navigation
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            
+            // Pagination
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true,
+            },
+            
+            // Effect
+            effect: 'coverflow',
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 2,
+                slideShadows: false,
+            },
+            
+            // Events
+            on: {
+                init: function () {
+                    // Add animation delay to each slide
+                    const slides = this.slides;
+                    slides.forEach((slide, index) => {
+                        slide.style.animationDelay = `${index * 0.1}s`;
+                    });
+                },
+                slideChange: function () {
+                    // Reset and trigger animations on slide change
+                    const activeSlide = this.slides[this.activeIndex];
+                    const cards = activeSlide.querySelectorAll('.testimonial-card');
+                    cards.forEach(card => {
+                        card.style.animation = 'none';
+                        setTimeout(() => {
+                            card.style.animation = '';
+                        }, 10);
+                    });
+                }
+            }
+        });
+
+        // Add parallax effect to decorative elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const decorativeElements = document.querySelectorAll('.decorative-element');
+            
+            decorativeElements.forEach((element, index) => {
+                const speed = 0.5 + (index * 0.1);
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Add interactive hover effect with mouse movement
+        document.querySelectorAll('.testimonial-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const angleX = (y - centerY) / 20;
+                const angleY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-8px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        });
+    </script>
+<!-- TESTIMONIOS END-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     gsap.registerPlugin(ScrollTrigger);
