@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuron Tech Solutions - Digital Shield Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: #000;
+            color: #fff;
+        }
+
+        #canvas-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #info-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            max-width: 320px;
+            z-index: 100;
+            background: rgba(0, 10, 20, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 200, 255, 0.3);
+            backdrop-filter: blur(15px);
+            transition: all 0.5s ease;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+        }
+
+        #info-panel h1 {
+            font-size: 26px;
+            margin-bottom: 12px;
+            color: #00d4ff;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+            letter-spacing: 1px;
+        }
+
+        #info-panel p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #a0e0ff;
+            margin-bottom: 20px;
+        }
+
+        #zoom-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 20, 40, 0.85);
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 200, 255, 0.5);
+            font-size: 14px;
+            color: #00d4ff;
+            z-index: 100;
+            transition: all 0.5s ease;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        #loading-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(0, 212, 255, 0.2);
+            border-top: 5px solid #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-text {
+            color: #00d4ff;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #service-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 500px;
+            background: rgba(0, 10, 20, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 200, 255, 0.5);
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            transition: opacity 1s ease;
+            z-index: 90;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+            text-align: center;
+        }
+
+        #service-content h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #00d4ff;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        #service-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #a0e0ff;
+        }
+
+        #final-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 10, 20, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 200, 255, 0.7);
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            transition: opacity 1s ease;
+            z-index: 95;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.5);
+            text-align: center;
+            width: 400px;
+        }
+
+        #final-content h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #00d4ff;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+            letter-spacing: 1px;
+        }
+
+        #expert-button {
+            background: linear-gradient(135deg, #00a8ff, #00d4ff);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            margin-top: 20px;
+        }
+
+        #expert-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
+        }
+
+        #zoom-level {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 20, 40, 0.8);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 200, 255, 0.3);
+            font-size: 14px;
+            color: #00d4ff;
+            z-index: 100;
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 6px;
+            background: rgba(0, 20, 40, 0.8);
+            border-radius: 3px;
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00a8ff, #00d4ff);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <div class="loading-text">INITIALIZING DIGITAL SHIELD</div>
+    </div>
+
+    <div id="canvas-container">
+        <div id="info-panel">
+            <h1>Neuron Tech Solutions</h1>
+            <p>Experience our advanced cybersecurity shield. Scroll to zoom in and unlock the digital gateway to our secure infrastructure.</p>
+        </div>
+        
+        <div id="zoom-level">Zoom Level: 0%</div>
+        
+        <div id="zoom-indicator">Scroll to zoom in</div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        
+        <div id="service-content">
+            <h2 id="service-title">Service Title</h2>
+            <p id="service-description">Service description</p>
+        </div>
+        
+        <div id="final-content">
+            <h1>Neuron Tech Solutions</h1>
+            <p>Secure, Scalable, Smart IT Services</p>
+            <button id="expert-button">Talk to an IT Expert</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Global variables
+        let scene, camera, renderer;
+        let shield, core, portal, circuitLines;
+        let particles = [];
+        let dataStreams = [];
+        let zoomLevel = 0;
+        let targetZoomLevel = 0;
+        let isPortalMode = false;
+        let clock = new THREE.Clock();
+        let serviceRevealed = false;
+        let finalRevealed = false;
+
+        // Service descriptions for random content
+        const serviceDescriptions = [
+            {
+                title: "Cloud Infrastructure",
+                description: "Exploring cloud infrastructure for scalable IT solutions."
+            },
+            {
+                title: "AI-Powered Analytics",
+                description: "AI-powered data analytics driving business insights."
+            },
+            {
+                title: "Cybersecurity Protocols",
+                description: "Cutting-edge cybersecurity protocols to protect your data."
+            },
+            {
+                title: "Neural Computing",
+                description: "Advanced neural networks for intelligent processing."
+            },
+            {
+                title: "Quantum Security",
+                description: "Quantum-resistant encryption for future-proof protection."
+            },
+            {
+                title: "Data Management",
+                description: "Comprehensive data solutions for enterprise needs."
+            },
+            {
+                title: "Network Infrastructure",
+                description: "High-performance networking for seamless connectivity."
+            },
+            {
+                title: "Digital Transformation",
+                description: "Guiding businesses through digital evolution."
+            }
+        ];
+
+        // Initialize the scene
+        function init() {
+            // Create scene
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x000511, 0.0008);
+
+            // Create camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            // Create renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            // Create lights
+            createLights();
+
+            // Create shield
+            createShield();
+
+            // Create core
+            createCore();
+
+            // Create circuit patterns
+            createCircuitPatterns();
+
+            // Create portal (initially hidden)
+            createPortal();
+
+            // Create particles
+            createParticles();
+
+            // Create data streams
+            createDataStreams();
+
+            // Add event listeners
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('wheel', onMouseWheel, { passive: false });
+
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 1000);
+            }, 2000);
+
+            // Start animation loop
+            animate();
+        }
+
+        function createLights() {
+            // Ambient light
+            const ambientLight = new THREE.AmbientLight(0x001133, 0.5);
+            scene.add(ambientLight);
+
+            // Point light at center
+            const pointLight = new THREE.PointLight(0x00d4ff, 2, 100);
+            pointLight.position.set(0, 0, 0);
+            pointLight.castShadow = true;
+            scene.add(pointLight);
+
+            // Directional light
+            const directionalLight = new THREE.DirectionalLight(0x00a8ff, 0.5);
+            directionalLight.position.set(5, 5, 5);
+            scene.add(directionalLight);
+
+            // Spot light for dramatic effect
+            const spotLight = new THREE.SpotLight(0x00d4ff, 1);
+            spotLight.position.set(0, 10, 10);
+            spotLight.angle = Math.PI / 6;
+            spotLight.penumbra = 0.2;
+            spotLight.decay = 2;
+            spotLight.distance = 200;
+            spotLight.castShadow = true;
+            scene.add(spotLight);
+        }
+
+        function createShield() {
+            // Create shield geometry
+            const shieldGeometry = new THREE.SphereGeometry(2, 64, 64, 0, Math.PI * 2, 0, Math.PI * 0.8);
+            
+            // Create shield material with metallic properties
+            const shieldMaterial = new THREE.MeshPhysicalMaterial({
+                color: 0x00a8ff,
+                metalness: 0.8,
+                roughness: 0.2,
+                clearcoat: 1.0,
+                clearcoatRoughness: 0.1,
+                reflectivity: 0.9,
+                envMapIntensity: 1.5,
+                transparent: true,
+                opacity: 0.8,
+                side: THREE.DoubleSide
+            });
+
+            // Create shield mesh
+            shield = new THREE.Mesh(shieldGeometry, shieldMaterial);
+            shield.position.set(0, 0, 0);
+            shield.castShadow = true;
+            shield.receiveShadow = true;
+            scene.add(shield);
+
+            // Add edge glow
+            const edgesGeometry = new THREE.EdgesGeometry(shieldGeometry);
+            const edgesMaterial = new THREE.LineBasicMaterial({ 
+                color: 0x00d4ff,
+                linewidth: 2,
+                transparent: true,
+                opacity: 0.8
+            });
+            const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
+            shield.add(edges);
+        }
+
+        function createCore() {
+            // Create holographic core
+            const coreGeometry = new THREE.IcosahedronGeometry(0.5, 2);
+            
+            // Create holographic material
+            const coreMaterial = new THREE.MeshPhysicalMaterial({
+                color: 0x00ffff,
+                emissive: 0x00ffff,
+                emissiveIntensity: 0.5,
+                metalness: 0.7,
+                roughness: 0.1,
+                transparent: true,
+                opacity: 0.7,
+                side: THREE.DoubleSide
+            });
+
+            core = new THREE.Mesh(coreGeometry, coreMaterial);
+            core.position.set(0, 0, 0);
+            scene.add(core);
+
+            // Add inner glow
+            const innerGlowGeometry = new THREE.SphereGeometry(0.6, 32, 32);
+            const innerGlowMaterial = new THREE.MeshBasicMaterial({
+                color: 0x00d4ff,
+                transparent: true,
+                opacity: 0.2,
+                side: THREE.BackSide
+            });
+            const innerGlow = new THREE.Mesh(innerGlowGeometry, innerGlowMaterial);
+            core.add(innerGlow);
+        }
+
+        function createCircuitPatterns() {
+            circuitLines = new THREE.Group();
+            
+            // Create multiple circuit lines
+            for (let i = 0; i < 30; i++) {
+                const points = [];
+                const radius = 2 + Math.random() * 0.5;
+                const segments = 20 + Math.floor(Math.random() * 10);
+                
+                for (let j = 0; j <= segments; j++) {
+                    const angle = (j / segments) * Math.PI * 2;
+                    const height = (Math.random() - 0.5) * 2;
+                    const x = Math.cos(angle) * radius;
+                    const z = Math.sin(angle) * radius;
+                    points.push(new THREE.Vector3(x, height, z));
+                }
+                
+                const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                const material = new THREE.LineBasicMaterial({
+                    color: new THREE.Color().setHSL(0.5 + Math.random() * 0.1, 1, 0.5),
+                    transparent: true,
+                    opacity: 0.6,
+                    linewidth: 2
+                });
+                
+                const line = new THREE.Line(geometry, material);
+                circuitLines.add(line);
+            }
+            
+            scene.add(circuitLines);
+        }
+
+        function createPortal() {
+            // Create portal geometry
+            const portalGeometry = new THREE.RingGeometry(0.5, 2, 64);
+            
+            // Create portal material with animated texture
+            const portalMaterial = new THREE.MeshBasicMaterial({
+                color: 0x00d4ff,
+                transparent: true,
+                opacity: 0,
+                side: THREE.DoubleSide
+            });
+            
+            portal = new THREE.Mesh(portalGeometry, portalMaterial);
+            portal.position.set(0, 0, 0);
+            portal.rotation.x = Math.PI / 2;
+            scene.add(portal);
+        }
+
+        function createParticles() {
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 1000;
+            const posArray = new Float32Array(particlesCount * 3);
+            
+            for (let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+            }
+            
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.05,
+                color: 0x00d4ff,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending
+            });
+            
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+            particles.push(particlesMesh);
+        }
+
+        function createDataStreams() {
+            for (let i = 0; i < 8; i++) {
+                const points = [];
+                const segments = 50;
+                
+                for (let j = 0; j <= segments; j++) {
+                    const t = j / segments;
+                    const x = Math.sin(t * Math.PI * 2) * (1 + Math.random() * 0.5);
+                    const y = (Math.random() - 0.5) * 4;
+                    const z = Math.cos(t * Math.PI * 2) * (1 + Math.random() * 0.5);
+                    points.push(new THREE.Vector3(x, y, z));
+                }
+                
+                const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                const material = new THREE.LineBasicMaterial({
+                    color: 0x00ffff,
+                    transparent: true,
+                    opacity: 0,
+                    linewidth: 1
+                });
+                
+                const stream = new THREE.Line(geometry, material);
+                scene.add(stream);
+                dataStreams.push(stream);
+            }
+        }
+
+        function updateServiceContent() {
+            // Get a random service description
+            const randomService = serviceDescriptions[Math.floor(Math.random() * serviceDescriptions.length)];
+            
+            // Update the content
+            document.getElementById('service-title').textContent = randomService.title;
+            document.getElementById('service-description').textContent = randomService.description;
+        }
+
+        function onMouseWheel(event) {
+            event.preventDefault();
+            
+            // Adjust zoom level based on wheel delta
+            targetZoomLevel += event.deltaY * -0.001;
+            targetZoomLevel = Math.max(0, Math.min(1, targetZoomLevel));
+            
+            // Update zoom level display
+            const zoomPercentage = Math.round(targetZoomLevel * 100);
+            document.getElementById('zoom-level').textContent = `Zoom Level: ${zoomPercentage}%`;
+            
+            // Update progress bar
+            document.getElementById('progress-fill').style.width = `${zoomPercentage}%`;
+            
+            // Update zoom indicator
+            const indicator = document.getElementById('zoom-indicator');
+            if (targetZoomLevel > 0.9) {
+                indicator.textContent = 'Entering digital core...';
+            } else if (targetZoomLevel > 0.7) {
+                indicator.textContent = 'Accessing service information...';
+            } else if (targetZoomLevel > 0.5) {
+                indicator.textContent = 'Unlocking security systems...';
+            } else if (targetZoomLevel > 0.2) {
+                indicator.textContent = 'Approaching shield...';
+            } else {
+                indicator.textContent = 'Scroll to zoom in';
+            }
+            
+            // Reveal service content at 70% zoom
+            if (targetZoomLevel >= 0.7 && !serviceRevealed) {
+                serviceRevealed = true;
+                updateServiceContent();
+                document.getElementById('service-content').style.opacity = '1';
+            } else if (targetZoomLevel < 0.7 && serviceRevealed) {
+                serviceRevealed = false;
+                document.getElementById('service-content').style.opacity = '0';
+            }
+            
+            // Reveal final content at 100% zoom
+            if (targetZoomLevel >= 1.0 && !finalRevealed) {
+                finalRevealed = true;
+                document.getElementById('final-content').style.opacity = '1';
+                document.getElementById('info-panel').style.opacity = '0';
+                document.getElementById('service-content').style.opacity = '0';
+            } else if (targetZoomLevel < 1.0 && finalRevealed) {
+                finalRevealed = false;
+                document.getElementById('final-content').style.opacity = '0';
+                document.getElementById('info-panel').style.opacity = '1';
+            }
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const elapsedTime = clock.getElapsedTime();
+            
+            // Smooth zoom transition
+            zoomLevel += (targetZoomLevel - zoomLevel) * 0.05;
+            
+            // Update camera position and FOV based on zoom
+            const baseZ = 5;
+            const minZ = 0.5;
+            const maxFOV = 75;
+            const minFOV = 30;
+            
+            camera.position.z = baseZ - (baseZ - minZ) * zoomLevel;
+            camera.fov = maxFOV - (maxFOV - minFOV) * zoomLevel;
+            camera.updateProjectionMatrix();
+            
+            // Rotate shield
+            shield.rotation.y = elapsedTime * 0.1;
+            shield.rotation.z = Math.sin(elapsedTime * 0.5) * 0.05;
+            
+            // Pulse core
+            const coreScale = 1 + Math.sin(elapsedTime * 2) * 0.1;
+            core.scale.set(coreScale, coreScale, coreScale);
+            core.rotation.x = elapsedTime * 0.2;
+            core.rotation.y = elapsedTime * 0.3;
+            
+            // Animate circuit lines based on zoom
+            circuitLines.children.forEach((line, index) => {
+                line.material.opacity = 0.3 + zoomLevel * 0.5;
+                line.rotation.y = elapsedTime * 0.05 * (index % 2 === 0 ? 1 : -1);
+                
+                // Glow effect when zooming
+                if (zoomLevel > 0.3) {
+                    line.material.color.setHSL(0.5 + Math.sin(elapsedTime + index) * 0.1, 1, 0.5 + zoomLevel * 0.3);
+                }
+            });
+            
+            // Transform shield to portal when zooming
+            if (zoomLevel > 0.7 && !isPortalMode) {
+                isPortalMode = true;
+                shield.material.opacity = 0.2;
+                portal.material.opacity = 0.8;
+                
+                // Show data streams
+                dataStreams.forEach(stream => {
+                    stream.material.opacity = 0.6;
+                });
+            } else if (zoomLevel < 0.7 && isPortalMode) {
+                isPortalMode = false;
+                shield.material.opacity = 0.8;
+                portal.material.opacity = 0;
+                
+                // Hide data streams
+                dataStreams.forEach(stream => {
+                    stream.material.opacity = 0;
+                });
+            }
+            
+            // Animate portal
+            if (isPortalMode) {
+                portal.rotation.z = elapsedTime * 0.5;
+                portal.scale.set(1 + Math.sin(elapsedTime * 2) * 0.1, 1 + Math.sin(elapsedTime * 2) * 0.1, 1);
+                
+                // Animate data streams
+                dataStreams.forEach((stream, index) => {
+                    stream.rotation.y = elapsedTime * 0.1 * (index % 2 === 0 ? 1 : -1);
+                    stream.position.y = Math.sin(elapsedTime + index) * 0.5;
+                });
+            }
+            
+            // Animate particles
+            particles.forEach(particle => {
+                particle.rotation.y = elapsedTime * 0.01;
+                particle.rotation.x = elapsedTime * 0.005;
+            });
+            
+            // Render scene
+            renderer.render(scene, camera);
+        }
+
+        // Expert button event
+        document.getElementById('expert-button').addEventListener('click', () => {
+            alert('Thank you for your interest! Our IT experts will contact you shortly.');
+        });
+
+        // Initialize the application
+        init();
+    </script>
+</body>
+</html>
