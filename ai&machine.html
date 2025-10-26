@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Machine Services - Neuron Tech Solutions</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ai&machine.css" />
+</head>
+
+
+
+<body>
+  <header>
+    <!-- ... (sin cambios) ... -->
+    <div class="container nav-container">
+      <a href="index.html">
+        <img src="assets/images/neuronlogo.jpg" alt="Bavet Call Center Logo" />
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="services.html" class="active">Solutions</a></li>
+          <li><a href="index.html#testimonials-heading">Clients</a></li>
+          <li><a href="careers.html">Work with Us</a></li>
+          <li><a href="index.html#testimonials-section">Location</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="services-section" role="main" aria-labelledby="services-title">
+    <!-- SECCIÓN 1: VIRTUAL MACHINE -->
+    <section class="virtual-services-detail">
+      
+      <div class="service-header">
+        <h2 id="services-title">🤖 ML Models into Production</h2>
+        <div class="supported-vendors">
+          <div class="vendor-logos">
+            <img src="assets/images/prometheus_logo.png" alt="Prome Logo">
+            <img src="assets/images/tensor_logo.png" alt="Tensor Logo">
+            <img src="assets/images/docker_logo.jpg" alt="Docker Logo">
+          </div>
+        </div>
+      </div>
+
+      <p>
+        The deployment of ML models into production is a process that involves several phases, from setting up the infrastructure to monitoring the model once it's live. Here’s how I would break this process into three key services.
+      </p>
+
+      <!-- Sección 1: Initial Hardening & Optimization -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 1. Model Development and Training (Pre-production) <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4><a href="monitoring-agents-details.html">Preparing model & data</a></h4>
+          <!-- TODO: Crear el archivo monitoring-agents-details.html -->
+          <ul>
+            <li>Data selection and preprocessing.</li>
+            <li>Model construction.</li>
+            <li>raining and hyperparameter tuning.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sección 2: Access Control & Identity Integration -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 2. Deployment of the Model into Production <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4><a href="iam-integration-details.html">Implementation and configuration of the infrastructure</a></h4>
+          <!-- TODO: Crear el archivo iam-integration-details.html -->
+          <ul>
+            <li>Containerization.</li>
+            <li>API Service.</li>
+            <li>Scalability.</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Sección 3: Backup & Snapshot Strategy -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 3. Monitoring and Post-deployment Maintenance <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <h4><a href="backup-strategy-details.html">Ongoing monitoring and adjustments for data drift</a></h4>
+          <!-- TODO: Crear el archivo backup-strategy-details.html -->
+          <ul>
+            <li>Performance Monitoring.</li>
+            <li>Retraining.</li>
+            <li>Alerting.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- = NUEVA SECCIÓN: SECURE ENDPOINT EDR                           = -->
+    <!-- ================================================================= -->
+    <section class="edr-services-detail">
+
+
+      <div class="service-header">
+        <h2 id="edr-title">⚙️ Model Optimization</h2>
+        <div class="supported-vendors">
+
+          <div class="vendor-logos">
+            <img src="assets/images/prometheus_logo.png" alt="GCP Logo">
+            <img src="assets/images/azure_logo.png" alt="Azure Logo">
+            <img src="assets/images/amazon_logo.png" alt="Amazon Logo">
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Once a model is deployed, it’s crucial to ensure that it performs optimally. This involves continuous adjustments, from improving performance to reducing computational costs. Below are three key activities involved in this service.
+      </p>
+      
+      <!-- Subsección 1: Manage EDR -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 1. Performance Analysis & Tuning <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <ul>
+            <li>Data to detect potential accuracy.</li>
+            <li>Tuning hyperparameters using techniques like Grid Search, Random Search.</li>
+            <li>Analyzing learning curves.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Subsección 2: Deployment Service -->
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 2. Latency Reduction & Inference Optimization <span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <ul>
+            <li>Model Compression.</li>
+            <li>Hardware Accelerators.</li>
+            <li>Inference Optimization.</li>         
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="service-collapsible">
+        <h3 class="collapsible-trigger">🔹 3. Concept Drift Monitoring<span class="icon">+</span></h3>
+        <div class="collapsible-content">
+          <ul>
+            <li>Concept Drift Detection.</li>
+            <li>Automated Retraining.</li> 
+            <li>Threshold Adjustment.</li>
+          </ul>
+        </div>
+      </div>
+
+      
+      
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Neuron Tech Solutions. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const triggers = document.querySelectorAll('.collapsible-trigger');
+      triggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+          const collapsible = this.parentElement;
+          const content = collapsible.querySelector('.collapsible-content');
+          collapsible.classList.toggle('active');
+          if (collapsible.classList.contains('active')) {
+            content.style.maxHeight = content.scrollHeight + "px";
+          } else {
+            content.style.maxHeight = null;
+          }
+        });
+      });
+
+      window.addEventListener('resize', () => {
+        const openCollapsibles = document.querySelectorAll('.service-collapsible.active');
+        openCollapsibles.forEach(collapsible => {
+          const content = collapsible.querySelector('.collapsible-content');
+          content.style.maxHeight = content.scrollHeight + "px";
+        });
+      });
+    });
+  </script>
+</body>
+</html>
