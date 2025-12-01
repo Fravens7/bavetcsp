@@ -1,255 +1,517 @@
-/* =======================================
-   1. RESET Y VARIABLES GLOBALES
-   ======================================= */
-
-/* Variables de tu Design System (para elementos que no son Tailwind) */
-:root {
-    /* Neural Color Palette */
-    --neural-primary: #4f46e5;
-    --neural-secondary: #7c3aed;
-    --neural-accent: #06b6d4;
-    --neutral-50: #ffffff;
-    --neutral-500: #64748b;
-    --neutral-700: #334155;
-    --neutral-800: #1e293b;
-    
-    /* Glassmorphism System */
-    --glass-bg: rgba(255, 255, 255, 0.85);
-    --glass-border: rgba(255, 255, 255, 0.3);
-    --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.08);
-    --glass-blur: 16px;
-
-    /* Contact Card Colors (del código anterior) */
-    --primary-color: #4361ee;
-    --secondary-color: #3f37c9;
-    --accent-color: #4cc9f0;
-    --text-dark: #2b2d42;
-    --text-light: #6c757d;
-    --border-color: #e9ecef;
-    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-/* Global Reset y Estilos Base */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
 
 body {
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    background-color: var(--neutral-50);
-    color: var(--neutral-700);
-    overflow-x: hidden;
-    scroll-behavior: smooth;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: #f7f9fc;
+  color: #333;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .container {
-    width: 90%;
-    max-width: 1100px;
-    margin: 0 auto;
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-/* =======================================
-   2. ESTILOS DE NAVEGACIÓN Y FOOTER
-   ======================================= */
+/* Header */
 header {
-    background-color: white;
-    padding: 10px 0;
+  background-color: white;
+  color: #333;
+  padding: 10px 0;
 }
 
 .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    border-bottom: 2px solid #e1e1e1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  max-width: 100px; /* Ajusta la altura máxima del logo */
+  height: auto;   /* Mantiene las proporciones del logo */
+}
+
+header {
+  background-color: white; /* Fondo blanco para todo el header */
+  color: #333; /* Color del texto del header en gris oscuro */
+  padding: 10px 0;  /* Reducción del padding para el header */
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;  /* Espaciado para que el logo no quede pegado a los bordes */
+}
+
+header img {
+  max-width: 150px;  /* Ajusta el tamaño del logo */
+  height: auto;
+  display: block;
+  margin: 0;
+}
+
+/* Agregar un borde en caso que el fondo no se mezcle bien */
+.nav-container {
+  border-bottom: 2px solid #e1e1e1;  /* Borde sutil debajo del header */
 }
 
 .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 25px;
+  list-style: none;
+  display: flex;
+  gap: 25px;
 }
 
 .nav-links a {
-    color: var(--neutral-800);
-    font-weight: 500;
-    transition: color 0.3s;
+  color: #191e32;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
 .nav-links a:hover {
-    color: var(--neural-accent);
+  color: #a8dadc;
 }
 
-footer {
-    background: #333;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-    font-size: 0.9rem;
-    margin-top: 40px;
-}
-
-footer p a {
-    color: var(--neural-accent);
-    margin: 0 5px;
-    font-weight: 500;
-}
-
-footer p a:hover {
-    text-decoration: underline;
-}
-
-/* =======================================
-   3. HERO Y ANIMACIONES COMPLEJAS (ESCUDO Y COMETAS)
-   ======================================= */
-
-/* Hero (Fondo espacial) */
+/* Hero */
+/* Hero */
+/* Hero */
 .hero {
-    background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f172a 100%);
-    color: white;
-    padding: 80px 20px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 500px;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px), radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 50px 50px;
-    opacity: 0.3;
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f172a 100%);
+  color: white;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px; /* Altura mínima para mantener el espacio */
 }
 
 .hero-content {
-    display: flex;
-    flex-direction: row; /* Desktop first */
-    align-items: center;
-    justify-content: center;
-    text-align: left;
-    max-width: 1100px;
-    width: 100%;
-    z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+}
+
+.shield-container {
+  position: relative;
+  width: 320px;
+  height: 370px;
+  margin-bottom: 30px; /* Espacio entre el escudo y el texto */
+  transform: translateX(15px); /* Pequeño ajuste a la derecha */
 }
 
 .hero-text {
-    max-width: 600px;
-    margin-right: 40px;
+  max-width: 600px;
 }
 
 .hero-text h2 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
 }
 
 .hero-text p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
 }
 
 .hero .btn {
-    padding: 12px 25px;
-    background: #023e8a;
-    border-radius: 5px;
-    color: white;
-    display: inline-block;
-    transition: background 0.3s;
+  padding: 12px 25px;
+  background: #023e8a;
+  border-radius: 5px;
+  color: white;
+  display: inline-block;
+  transition: background 0.3s;
 }
 
 .hero .btn:hover {
-    background: #001f54;
+  background: #001f54;
 }
 
 
-/* Escudo SVG y Animaciones de Circuitos */
+/* Estilo específico para el Airways Logo */
+.client-logo:nth-child(6) {
+  animation: moveTrain 12s infinite linear;
+  animation-delay: 0.2s;
+}
+
+/* Si eso no funciona, prueba con un selector más específico */
+.client-logos:nth-of-type(6) {
+  animation: moveTrain 12s infinite linear;
+}
+
+
+
+
+.hero-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.hero .btn {
+  padding: 12px 25px;
+  background: #023e8a;
+  border-radius: 5px;
+  color: white;
+  display: inline-block;
+  transition: background 0.3s;
+}
+
+.hero .btn:hover {
+  background: #001f54;
+}
+
+.hero-image img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+
+
+/* Galaxy/Universe Background for Hero */
+.hero {
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f172a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Stars layer */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.3;
+}
+
+/* Comets Container */
+/* Comets Container */
+.comets-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+/* Individual Comet */
+/* Individual Comet */
+.comet {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  pointer-events: auto;
+  transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease;
+}
+
+.comet:hover {
+  transform: scale(1.2);
+  width: 140px;
+  height: 140px;
+}
+
+.comet-body {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #ffffff 0%, #00a2ff 50%, #005599 100%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px #00a2ff, 0 0 20px #005599;
+}
+
+.comet-tail {
+  position: absolute;
+  width: 80px;
+  height: 6px;
+  background: linear-gradient(to left, rgba(0, 162, 255, 0) 0%, rgba(0, 162, 255, 0.7) 100%);
+  top: 50%;
+  right: 50%;
+  transform: translateY(-50%);
+  border-radius: 50% 0 0 50%;
+  filter: blur(2px);
+}
+
+.comet-label {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 0 5px rgba(0, 162, 255, 0.8);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Mostrar etiquetas solo cuando el cometa está en la parte inferior */
+.comet.show-label .comet-label {
+  opacity: 0.8;
+}
+
+.comet:hover .comet-label {
+  opacity: 1;
+}
+
+/* Orbital paths ajustados para mantener los cometas en la parte inferior */
+/* Orbital paths ajustados para orbitar alrededor del centro */
+.orbit-1 {
+  animation: orbit1 30s infinite linear;
+}
+
+.orbit-2 {
+  animation: orbit2 35s infinite linear;
+}
+
+.orbit-3 {
+  animation: orbit3 40s infinite linear;
+}
+
+.orbit-4 {
+  animation: orbit4 45s infinite linear;
+}
+
+.orbit-5 {
+  animation: orbit5 50s infinite linear;
+}
+
+/* Animaciones orbitales centradas */
+@keyframes orbit1 {
+  0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+}
+
+@keyframes orbit2 {
+  0% { transform: rotate(72deg) translateX(230px) rotate(-72deg); }
+  100% { transform: rotate(432deg) translateX(230px) rotate(-432deg); }
+}
+
+@keyframes orbit3 {
+  0% { transform: rotate(144deg) translateX(260px) rotate(-144deg); }
+  100% { transform: rotate(504deg) translateX(260px) rotate(-504deg); }
+}
+
+@keyframes orbit4 {
+  0% { transform: rotate(216deg) translateX(290px) rotate(-216deg); }
+  100% { transform: rotate(576deg) translateX(290px) rotate(-576deg); }
+}
+
+@keyframes orbit5 {
+  0% { transform: rotate(288deg) translateX(320px) rotate(-288deg); }
+  100% { transform: rotate(648deg) translateX(320px) rotate(-648deg); }
+}
+
+
+
+
+
+
+
+/* Estilos para el contenedor del enlace */
+.social-link {
+    display: inline-flex; /* Alinea el icono y el texto horizontalmente */
+    align-items: center;
+    gap: 8px; /* Espacio entre el icono y el texto */
+    text-decoration: none; /* Quita el subrayado del enlace */
+    color: #333; /* Color del texto por defecto (gris oscuro) */
+    font-family: sans-serif;
+    font-size: 18px;
+    transition: color 0.3s ease; /* Transición suave para el color del texto */
+}
+
+/* Efecto cuando el mouse pasa sobre el enlace completo */
+.social-link:hover {
+    color: #1877f2; /* Cambia el color del texto a azul de Facebook */
+}
+
+/* --- ESTE ES EL EFECTO CLAVE PARA EL ICONO --- */
+/* Selecciona el icono (i) SOLO cuando el mouse está sobre el enlace (a) */
+.social-link:hover .fab.fa-facebook {
+    color: #1877f2; /* Cambia el color del icono a azul de Facebook */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Shield Container */
 .shield-container {
-    position: relative;
-    width: 320px;
-    height: 370px;
-    transform: translateX(15px);
-    order: 2;
+  position: relative;
+  width: 320px;
+  height: 370px;
+  margin-right: 40px; /* Margen derecho para separar del texto */
+  order: 1; /* El escudo aparece primero en móvil */
 }
+
 
 .shield {
-    filter: drop-shadow(0 0 30px rgba(0, 162, 255, 0.3));
+  width: 100%;
+  height: 100%;
+  position: relative;
+  filter: drop-shadow(0 0 30px rgba(0, 162, 255, 0.3));
+  transition: filter 0.3s ease;
 }
 
 .shield-bg {
-    fill: url(#shieldGradient);
-    stroke: #00a2ff;
-    stroke-width: 2;
-    opacity: 0.9;
-    transition: opacity 0.3s ease;
+  fill: url(#shieldGradient);
+  stroke: #00a2ff;
+  stroke-width: 2;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
 }
 
 .circuit-line {
-    fill: none;
-    stroke: #00ffcc;
-    stroke-width: 1.5;
-    opacity: 0.8;
+  fill: none;
+  stroke: #00ffcc;
+  stroke-width: 1.5;
+  opacity: 0.8;
 }
 
 .circuit-node {
-    fill: #00ffcc;
-    opacity: 0.9;
+  fill: #00ffcc;
+  opacity: 0.9;
 }
 
 .core-circle {
-    fill: none;
-    stroke: #00ffcc;
-    stroke-width: 2;
-    opacity: 0.7;
+  fill: none;
+  stroke: #00ffcc;
+  stroke-width: 2;
+  opacity: 0.7;
 }
 
 .core-dot {
-    fill: #00ffcc;
+  fill: #00ffcc;
 }
 
+/* NTS Initials */
 .nts-initials {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: 900;
-    font-size: 42px;
-    fill: #ffffff;
-    text-anchor: middle;
-    opacity: 0.9;
-    letter-spacing: 3px;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 900;
+  font-size: 42px;
+  fill: #ffffff;
+  text-anchor: middle;
+  opacity: 0.9;
+  letter-spacing: 3px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
-/* Animaciones del Escudo */
+/* Glowing animation for circuits */
 @keyframes glowPulse {
-    0%, 100% { opacity: 0.4; filter: drop-shadow(0 0 3px #00ffcc); }
-    50% { opacity: 1; filter: drop-shadow(0 0 8px #00ffcc); }
+  0%, 100% {
+    opacity: 0.4;
+    filter: drop-shadow(0 0 3px #00ffcc);
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px #00ffcc);
+  }
 }
 
+/* Pulsing animation for core */
 @keyframes corePulse {
-    0%, 100% { transform: scale(1); opacity: 0.7; }
-    50% { transform: scale(1.1); opacity: 1; }
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
 }
 
+/* Sequential glow animation */
 @keyframes sequentialGlow {
-    0% { opacity: 0.3; filter: drop-shadow(0 0 2px #00ffcc); }
-    50% { opacity: 1; filter: drop-shadow(0 0 10px #00ffcc); }
-    100% { opacity: 0.3; filter: drop-shadow(0 0 2px #00ffcc); }
+  0% {
+    opacity: 0.3;
+    filter: drop-shadow(0 0 2px #00ffcc);
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px #00ffcc);
+  }
+  100% {
+    opacity: 0.3;
+    filter: drop-shadow(0 0 2px #00ffcc);
+  }
 }
 
+/* Orbital animations */
+@keyframes orbit1 {
+  0% { transform: rotate(0deg) translateX(250px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(250px) rotate(-360deg); }
+}
+
+@keyframes orbit2 {
+  0% { transform: rotate(72deg) translateX(280px) rotate(-72deg); }
+  100% { transform: rotate(432deg) translateX(280px) rotate(-432deg); }
+}
+
+@keyframes orbit3 {
+  0% { transform: rotate(144deg) translateX(310px) rotate(-144deg); }
+  100% { transform: rotate(504deg) translateX(310px) rotate(-504deg); }
+}
+
+@keyframes orbit4 {
+  0% { transform: rotate(216deg) translateX(340px) rotate(-216deg); }
+  100% { transform: rotate(576deg) translateX(340px) rotate(-576deg); }
+}
+
+@keyframes orbit5 {
+  0% { transform: rotate(288deg) translateX(370px) rotate(-288deg); }
+  100% { transform: rotate(648deg) translateX(370px) rotate(-648deg); }
+}
+
+/* Apply animations to circuit elements */
 .circuit-line:nth-child(2) { animation: sequentialGlow 3s ease-in-out infinite; }
 .circuit-line:nth-child(3) { animation: sequentialGlow 3s ease-in-out 0.5s infinite; }
 .circuit-line:nth-child(4) { animation: sequentialGlow 3s ease-in-out 1s infinite; }
@@ -257,573 +519,777 @@ footer p a:hover {
 .circuit-line:nth-child(6) { animation: sequentialGlow 3s ease-in-out 2s infinite; }
 .circuit-line:nth-child(7) { animation: sequentialGlow 3s ease-in-out 2.5s infinite; }
 
+.circuit-node {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
 .core-circle {
-    animation: corePulse 2.5s ease-in-out infinite;
-    transform-origin: center;
+  animation: corePulse 2.5s ease-in-out infinite;
+  transform-origin: center;
 }
 
-/* Cometas y Órbitas */
-.comets-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.core-dot {
+  animation: glowPulse 1.5s ease-in-out infinite;
 }
 
-.comet {
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    pointer-events: auto;
-    transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease;
+
+
+
+
+/* --- SECCIÓN CLIENTES (MEJORADA) --- */
+
+.clients {
+  padding: 60px 20px;
+  background-color: #f7f9fc;
+  text-align: center;
+  overflow: hidden; /* ¡MUY IMPORTANTE! Esto oculta todo lo que se sale del área visible. */
+  position: relative;
 }
 
-.comet:hover {
-    transform: scale(1.2);
-    width: 140px;
-    height: 140px;
+.clients h2 {
+  margin-bottom: 40px;
+  font-size: 2rem;
+  color: #191e32;
 }
 
-.comet-body {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background: radial-gradient(circle, #ffffff 0%, #00a2ff 50%, #005599 100%);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px #00a2ff, 0 0 20px #005599;
+/* El contenedor que se moverá */
+.client-logos {
+  display: flex;
+  /* No necesitamos width ni left. El ancho será el natural de todos los logos juntos. */
+  animation: scroll 40s linear infinite; /* Animación suave y continua */
 }
 
-.comet-tail {
-    position: absolute;
-    width: 80px;
-    height: 6px;
-    background: linear-gradient(to left, rgba(0, 162, 255, 0) 0%, rgba(0, 162, 255, 0.7) 100%);
-    top: 50%;
-    right: 50%;
-    transform: translateY(-50%);
-    border-radius: 50% 0 0 50%;
-    filter: blur(2px);
+/* Estilo para cada logo */
+.client-logo {
+  height: 60px; /* Altura fija para que todos los logos queden alineados */
+  width: auto; /* El ancho se ajusta para mantener la proporción */
+  margin: 0 40px; /* Espacio entre logos */
+  flex-shrink: 0; /* Evita que los logos se encojan si el contenedor es pequeño */
+  filter: grayscale(100%); /* Toque profesional: logos en blanco y negro */
+  opacity: 0.7;
+  transition: all 0.3s ease; /* Transición suave para el efecto hover */
 }
 
-.comet-label {
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
+/* Efecto cuando el usuario pasa el ratón sobre un logo */
+.client-logo:hover {
+  filter: grayscale(0%); /* El logo vuelve a tener color */
+  opacity: 1;
+  transform: scale(1.1); /* El logo crece un poco */
+}
+
+/* La animación clave: mueve el contenedor de 0 a -50% de su ancho total */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
     transform: translateX(-50%);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: #ffffff;
-    text-align: center;
-    white-space: nowrap;
-    text-shadow: 0 0 5px rgba(0, 162, 255, 0.8);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.comet.show-label .comet-label {
-    opacity: 0.8;
-}
-
-.comet:hover .comet-label {
-    opacity: 1;
-}
-
-/* Animaciones orbitales (Asegúrate de que el centro de rotación esté centrado) */
-@keyframes orbit1 { 0% { transform: rotate(0deg) translateX(200px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); } }
-@keyframes orbit2 { 0% { transform: rotate(72deg) translateX(230px) rotate(-72deg); } 100% { transform: rotate(432deg) translateX(230px) rotate(-432deg); } }
-@keyframes orbit3 { 0% { transform: rotate(144deg) translateX(260px) rotate(-144deg); } 100% { transform: rotate(504deg) translateX(260px) rotate(-504deg); } }
-@keyframes orbit4 { 0% { transform: rotate(216deg) translateX(290px) rotate(-216deg); } 100% { transform: rotate(576deg) translateX(290px) rotate(-576deg); } }
-@keyframes orbit5 { 0% { transform: rotate(288deg) translateX(320px) rotate(-288deg); } 100% { transform: rotate(648deg) translateX(320px) rotate(-648deg); } }
-
-
-/* =======================================
-   4. ESTILOS DE SECCIÓN DE SERVICIOS (Custom)
-   ======================================= */
-/* Glassmorphism, Gradientes de Iconos, etc. (se mantienen igual) */
-.glass-card {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.gradient-border {
-    position: relative;
-    background: linear-gradient(white, white) padding-box,
-                linear-gradient(135deg, var(--neural-blue), var(--neural-purple), var(--neural-cyan)) border-box;
-    border: 2px solid transparent;
-}
-
-.gradient-text {
-    background: linear-gradient(135deg, var(--neural-blue), var(--neural-purple));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.gradient-bg {
-    background: linear-gradient(135deg, var(--neural-blue), var(--neural-purple), var(--neural-cyan));
-    background-size: 200% 200%;
-    animation: gradientShift 8s ease infinite;
-}
-
-.icon-gradient-1 { background: linear-gradient(135deg, var(--neural-blue), var(--neural-purple)); }
-.icon-gradient-2 { background: linear-gradient(135deg, var(--neural-cyan), #0891b2); }
-.icon-gradient-3 { background: linear-gradient(135deg, var(--neural-mint), #059669); }
-.icon-gradient-4 { background: linear-gradient(135deg, var(--neural-pink), #db2777); }
-.icon-gradient-5 { background: linear-gradient(135deg, var(--neural-orange), #ea580c); }
-.icon-gradient-6 { background: linear-gradient(135deg, #8b5cf6, var(--neural-purple)); }
-
-.hover-lift {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.hover-lift:hover {
-    transform: translateY(-8px);
-}
-
-.shimmer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    transition: left 0.5s ease;
-}
-
-.shimmer:hover::before {
-    left: 100%;
-}
-
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
+  }
 }
 
 
-/* =======================================
-   5. ESTILOS DE TESTIMONIOS (Swiper)
-   ======================================= */
-.testimonials-section {
-    position: relative;
-    padding: 5rem 1.5rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    overflow: hidden;
+
+
+
+
+/* Efecto de brillo sutil para el logo central */
+.client-logo:nth-child(2),
+.client-logo:nth-child(3),
+.client-logo:nth-child(4) {
+  filter: brightness(1.05);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+/* Estilo específico para el Airways Logo */
+.client-logo:nth-child(6) {
+  animation: moveTrain 12s infinite linear;
+  animation-delay: 0.2s;
 }
 
-.section-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 2.5rem; 
-    font-weight: 700;
-    color: var(--neutral-800);
-    margin-bottom: 0.5rem;
-    position: relative;
-    display: inline-block;
+/* Si eso no funciona, prueba con un selector más específico */
+.client-logos:nth-of-type(6) {
+  animation: moveTrain 12s infinite linear;
 }
 
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--neural-primary), var(--neural-secondary));
-    border-radius: 9999px;
+/* Estilo para cada logo */
+.client-logo {
+  height: 60px;
+  width: auto;
+  margin: 0 40px;
+  flex-shrink: 0;
+  
+  /* --- FILTRO MEJORADO Y FORZADO --- */
+  filter: grayscale(100%) opacity(0.7) !important; /* El !important asegura que se aplique siempre */
+  transition: all 0.3s ease;
 }
 
-.section-subtitle {
-    font-size: 1.125rem; 
-    color: var(--neutral-500);
-    max-width: 700px;
-    margin: 1.5rem auto 0;
-    line-height: 1.7;
+/* Efecto cuando el usuario pasa el ratón sobre un logo */
+.client-logo:hover {
+  filter: grayscale(0%) opacity(1) !important; /* También forzamos el estado hover */
+  transform: scale(1.1);
 }
 
-.testimonial-swiper {
-    padding: 2rem 0 4rem;
-    position: relative;
-    z-index: 1;
+
+
+.careers {
+  background-color: #ffffff;
+  padding: 60px 20px;
 }
 
-.swiper {
-    width: 100%;
-    padding: 2rem 0;
+.careers h2, .careers h3, .careers h4 {
+  color: #191e32;
+  margin-bottom: 15px;
+}
+
+.job-posting {
+  background: #f7f9fc;
+  border-left: 4px solid #0077b6;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.job-posting ul {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.job-posting a.btn {
+  background: #0077b6;
+  color: white;
+  padding: 10px 20px;
+  display: inline-block;
+  margin-top: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.job-posting a.btn:hover {
+  background: #005f87;
+}
+
+.why-us, .open-cv {
+  margin-top: 40px;
+}
+
+.why-us ul {
+  margin-left: 20px;
+  list-style-type: disc;
+}
+
+
+
+
+
+
+/* Services */
+.services {
+  padding: 60px 20px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.services h2 {
+  margin-bottom: 30px;
+}
+
+.service-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.service-image {
+  width: 100%;
+  max-width: 250px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.service-item {
+  flex: 1 1 250px;
+  background: #f1f1f1;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 300px;
+  transition: box-shadow 0.3s ease;
+}
+
+.service-item:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* About */
+.about {
+  background: #e0f7fa;
+  padding: 60px 20px;
+}
+
+.about-content {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+}
+
+.about-image img {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.about-text {
+  flex: 1 1 400px;
+  text-align: justify; /* Justifica el texto */
+  line-height: 1.6;
+}
+
+.about-text h2 {
+  margin-bottom: 20px;
+}
+
+/* Certificaciones */
+.certifications {
+  background-color: #f1f1f1;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.certifications h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #191e32;
+}
+
+.certifications p {
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.certification-grid {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.certification-item {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  max-width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.certification-item:hover {
+  transform: scale(1.05);
+}
+
+.certification-item img {
+  max-width: 100px; /* Ajusta el tamaño de los logos */
+  margin-bottom: 15px;
+}
+
+.certification-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #191e32;
+}
+
+.certification-item p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* --- ESTILOS PARA LA SECCIÓN DE TESTIMONIALES (GOOGLE REVIEWS STYLE) --- */
+.testimonials {
+  background-color: #f8f9fa;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.testimonials h2 {
+  font-size: 2.5em;
+  color: #232b4e;
+  margin-bottom: 40px;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .testimonial-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-radius: 1.5rem;
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-    padding: 2rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .testimonial-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* shadow-xl */
-    border-color: rgba(79, 70, 229, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.card-gradient-border {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--neural-primary), var(--neural-secondary), var(--neural-accent));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s;
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
 
-.testimonial-card:hover .card-gradient-border {
-    transform: scaleX(1);
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
 }
 
-.quote-icon {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    font-size: 3rem;
-    color: rgba(79, 70, 229, 0.1);
-    font-family: 'Space Grotesk', sans-serif;
-    line-height: 1;
+.header-info {
+  flex-grow: 1;
 }
 
-.testimonial-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+.header-info h4 {
+  margin: 0;
+  font-size: 1.1em;
+  color: #333;
 }
 
-.testimonial-text {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: #475569; /* neutral-600 */
-    margin-bottom: 1.5rem;
-    flex-grow: 1;
-    font-style: italic;
+.review-date {
+  margin: 0;
+  font-size: 0.85em;
+  color: #777;
 }
 
-.testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: auto;
+.google-logo {
+  width: 70px;
+  height: auto;
+  opacity: 0.7;
 }
 
-.author-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #f8fafc; /* neutral-100 */
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s;
+.card-body {
+  margin-bottom: 20px;
+  flex-grow: 1;
 }
 
-.testimonial-card:hover .author-avatar {
-    transform: scale(1.05);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+.stars {
+  color: #fbbc04; /* Color de las estrellas de Google */
+  font-size: 1.2em;
+  margin-bottom: 10px;
 }
 
-.author-name {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--neutral-800);
-    margin-bottom: 0.25rem;
+.card-body blockquote {
+  margin: 0;
+  font-style: normal;
+  color: #555;
+  line-height: 1.6;
 }
 
-.author-position {
-    font-size: 0.875rem;
-    color: var(--neutral-500);
+.card-body blockquote p {
+  margin: 0;
 }
 
-.rating {
-    display: flex;
-    gap: 0.25rem;
-    margin-bottom: 1rem;
+.card-footer {
+  text-align: right;
 }
 
-.rating i {
-    color: #fbbf24;
-    font-size: 0.875rem;
+.review-button {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #dadce0;
+  color: #3c4043;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Swiper Navigation */
-.swiper-button-next,
-.swiper-button-prev {
-    width: 50px;
-    height: 50px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-radius: 50%;
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    color: var(--neural-primary);
-    transition: all 0.3s;
+.review-button:hover {
+  background-color: #f8f9fa;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
 }
 
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-    background: var(--neural-primary);
-    color: white;
-    transform: scale(1.1);
+.button-logo {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
 }
 
-.swiper-button-next::after,
-.swiper-button-prev::after {
-    font-size: 1.2rem;
-}
-
-/* Swiper Pagination */
-.swiper-pagination {
-    position: relative;
-    margin-top: 2rem;
-}
-
-.swiper-pagination-bullet {
-    width: 12px;
-    height: 12px;
-    background: #e2e8f0; /* neutral-300 */
-    opacity: 1;
-    transition: all 0.3s;
-}
-
-.swiper-pagination-bullet-active {
-    background: var(--neural-primary);
-    transform: scale(1.3);
-}
-
-/* Decorative Elements (para Testimonials y Contact) */
-.decorative-element {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.05;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.decorative-element-1 {
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(135deg, var(--neural-primary), var(--neural-secondary));
-    top: -150px;
-    right: -100px;
-    animation: float 20s infinite ease-in-out;
-}
-
-.decorative-element-2 {
-    width: 200px;
-    height: 200px;
-    background: linear-gradient(135deg, var(--neural-accent), #10b981);
-    bottom: -100px;
-    left: -50px;
-    animation: float 15s infinite ease-in-out reverse;
-}
-
-@keyframes float {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    33% { transform: translate(30px, -30px) rotate(120deg); }
-    66% { transform: translate(-20px, 20px) rotate(240deg); }
-}
-
-/* =======================================
-   6. ESTILOS DE CONTACTO (Custom)
-   ======================================= */
-.contact-section {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 60px 20px;
-    position: relative;
-}
-
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.contact-card {
-    background-color: #ffffff;
-    border-radius: 16px;
-    padding: 30px;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border-color);
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.contact-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border-color: rgba(67, 97, 238, 0.2);
-}
-
-.contact-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-}
-
-.contact-card:hover::before {
-    transform: scaleX(1);
-}
-
-.contact-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    font-size: 24px;
-    transition: all 0.3s;
-}
-
-.contact-card:hover .contact-icon {
-    transform: scale(1.1);
-    box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
-}
-
-.contact-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 15px;
-}
-
-.contact-info {
-    color: var(--text-light);
-    font-size: 1rem;
-    line-height: 1.6;
-    flex-grow: 1;
-}
-
-.contact-info a {
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.contact-info a:hover {
-    color: var(--secondary-color);
-    transform: translateX(5px);
-}
-
-.location-list {
-    list-style: none;
-}
-
-.location-list li {
-    padding: 8px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.location-list li::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    background-color: var(--accent-color);
-    border-radius: 50%;
-    display: inline-block;
-}
-
-/* Animación de entrada de las tarjetas */
-@keyframes fadeInUp {
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.contact-card {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.6s ease forwards;
-}
-
-.contact-card:nth-child(1) { animation-delay: 0.1s; }
-.contact-card:nth-child(2) { animation-delay: 0.2s; }
-.contact-card:nth-child(3) { animation-delay: 0.3s; }
-.contact-card:nth-child(4) { animation-delay: 0.4s; }
-
-
-/* =======================================
-   7. DISEÑO RESPONSIVO
-   ======================================= */
+/* Diseño Responsivo para Móviles */
 @media (max-width: 768px) {
-    .nav-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    .nav-links {
-        padding-top: 10px;
-        gap: 15px;
-    }
-    .hero-content {
-        flex-direction: column;
-        text-align: center;
-    }
-    .hero-text {
-        order: 2;
-        margin-top: 40px;
-        margin-right: 0;
-    }
-    .shield-container {
-        order: 1;
-        margin-right: 0;
-    }
-    .contact-grid {
-        grid-template-columns: 1fr;
-    }
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+  .testimonials h2 {
+    font-size: 2em;
+  }
 }
+
+
+
+
+/* --- ESTILOS PARA EL MAPA INTERACTIVO --- */
+#map-container {
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  border: 1px solid #ccc;
+  overflow: auto; /* <-- LA SOLUCIÓN */
+  cursor: grab;
+  margin: 20px auto;
+  background-color: #f0f8ff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+#map-container:active {
+  cursor: grabbing;
+}
+
+#map {
+  /*width: 100%;*/
+  height: 100%;
+  user-select: none;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease-out;
+}
+
+path.interactive {
+  fill: #2c3e50;
+  stroke: #ffde59;
+  stroke-width: 0.5;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+path.interactive:hover {
+  fill: #e74c3c;
+}
+
+path.inactive {
+  fill: #cccccc;
+  stroke: #888888;
+  stroke-width: 0.5;
+  pointer-events: none;
+}
+
+.pin {
+  fill: #8b0000;
+  stroke: white;
+  stroke-width: 0.6;
+}
+
+.pin-circle {
+  fill: white;
+}
+
+.info-panel {
+  position: absolute; /* Se posiciona respecto a su padre (map-container) */
+  top: 0;
+  right: -320px; /* Empieza oculto, fuera del map-container a la derecha */
+  width: 300px;
+  padding: 20px;
+  background: white;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  height: 100%; /* Ocupa el 100% de la altura del map-container */
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.4em;
+  z-index: 10; /* ¡IMPORTANTE! Asegura que esté por encima del SVG */
+}
+
+.info-panel.visible {
+  right: 0; /* Se desliza hacia adentro del map-container */
+}
+
+.info-panel h3 {
+  margin-top: 0;
+  color: #2c3e50;
+}
+
+/* --- ESTILOS PARA LAS ETIQUETAS DE LOS PAÍSES (TOOLTIP) --- */
+.country-label {
+  font-size: 10px;
+  fill: #333; /* Color del texto */
+  font-weight: bold;
+  pointer-events: none; /* Evita que la etiqueta interfiera con los eventos del ratón en el path */
+  opacity: 0; /* Oculto por defecto */
+  transition: opacity 0.2s ease; /* Transición suave para aparecer/desaparecer */
+}
+
+.country-label.visible {
+  opacity: 1; /* Se hace visible cuando el JS añade la clase .visible */
+}
+
+
+
+
+
+
+
+
+
+/* --- ESTILOS MEJORADOS PARA EL PANEL DE INFORMACIÓN --- */
+
+.info-panel {
+  background-color: #f8f9fa; /* Un gris muy claro para el fondo */
+  color: #333;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.office-card {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.office-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.office-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f1f3f5;
+  padding-bottom: 10px;
+}
+
+.office-header h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #003366; /* Azul corporativo */
+  font-weight: 600;
+}
+
+.office-tag {
+  font-size: 0.75em;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+  color: white;
+  text-transform: uppercase;
+}
+
+.office-tag.headquarters {
+  background-color: #0077cc; /* Azul brillante */
+}
+
+.office-tag.operations {
+  background-color: #28a745; /* Verde para operaciones */
+}
+
+.office-address {
+  font-style: normal;
+  margin-bottom: 15px;
+  color: #495057;
+  line-height: 1.5;
+}
+
+.office-contact {
+  margin-bottom: 15px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.contact-item .icon {
+  margin-right: 10px;
+  font-size: 1.1em;
+}
+
+.contact-item a {
+  color: #0077cc;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-item a:hover {
+  text-decoration: underline;
+}
+
+.office-description {
+  margin: 0;
+  font-size: 0.9em;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.office-divider {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  margin: 25px 0;
+}
+
+/* --- COLORES PARA LAS NUEVAS ETIQUETAS DE OFICINA --- */
+
+.office-tag.main {
+  background-color: #dc3545; /* Rojo para la oficina principal */
+}
+
+.office-tag.hub {
+  background-color: #6f42c1; /* Púrpura para un hub */
+}
+
+.office-tag.tech {
+  background-color: #fd7e14; /* Naranja para un tech hub */
+}
+
+.office-tag.regional {
+  background-color: #20c997; /* Turquesa para una oficina regional */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Contact */
+.contact {
+  background: #f1f1f1;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.contact h2 {
+  margin-bottom: 20px;
+}
+
+/* Footer */
+footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.9rem;
+  margin-top: 40px;
+}
+
+footer p a {
+  color: #a8dadc;
+  margin: 0 5px;
+  font-weight: 500;
+}
+
+footer p a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-content,
+  .about-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+.about-text {
+    text-align: center;
+  }
+
+
+
+  .service-grid,
+  .testimonial-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+.hero-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .hero-text {
+    order: 2; /* Texto después del escudo */
+    margin-top: 40px;
+  }
+  
+  .shield-container {
+    order: 1; /* Escudo primero */
+    margin-right: 0;
+  }
+  
+}
+
